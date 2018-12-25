@@ -2,14 +2,10 @@ import {Injectable, Input} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 
 @Injectable()
-export class PlayService {
+export class ShootService {
     scores: number[] = [0, 0, 0];
 
     constructor() {
-    }
-
-    getShootScore(index: number): number {
-        return this.scores[index];
     }
 
     scoreChanged(id: number, value: number): void {

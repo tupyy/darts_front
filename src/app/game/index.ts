@@ -1,28 +1,27 @@
 import {Player} from './player';
-import {Shoot} from './shoot';
+import {Move, Shoot} from './move';
 
 export {Player} from './player';
-export {Shoot} from './shoot';
+export {Move} from './move';
 
 export class Game {
     players: Player[];
     currentPlayer: Player;
-    currentShoot: Shoot;
-    shoots: Shoot[];
+    currentMove: Move;
+    moves: Move[];
 
     constructor(players: Player[]) {
         this.players = players;
+        this.currentMove = new Move(1, this.players[0], new Shoot());
     }
 
     next() {
-        this.currentShoot = new Shoot(this.getNextPlayer());
-        this.currentPlayer = this.currentShoot.player;
-        return this.currentShoot;
-    }
+        // save the current move
+        this.moves.push(this.currentMove);
 
-    addShoot(shoot: Shoot) {
-        this.shoots.push(shoot);
-        this.currentShoot = shoot;
+        this.currentMove = new Move(this.moves.length + 1, this.getNextPlayer(), new Shoot());
+        this.currentPlayer = this.currentMove.player;
+        return this.currentMove;
     }
 
     private getNextPlayer() {
