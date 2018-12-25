@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PlayFormContainerComponent } from './play-form-container.component';
+import { PlayFormComponent } from './play-form.component';
 
-describe('PlayFormContainerComponent', () => {
-  let component: PlayFormContainerComponent;
-  let fixture: ComponentFixture<PlayFormContainerComponent>;
+describe('PlayFormComponent', () => {
+  let component: PlayFormComponent;
+  let fixture: ComponentFixture<PlayFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PlayFormContainerComponent ]
+      declarations: [ PlayFormComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PlayFormContainerComponent);
+    fixture = TestBed.createComponent(PlayFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

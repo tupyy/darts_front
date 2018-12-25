@@ -2,12 +2,12 @@ import {Component, OnInit} from '@angular/core';
 import {ShootService} from '../../services/shoot.service';
 
 @Component({
-    selector: 'app-play-form-container',
-    templateUrl: './play-form-container.component.html',
-    styleUrls: ['./play-form-container.component.css'],
+    selector: 'app-play-form',
+    templateUrl: './play-form.component.html',
+    styleUrls: ['./play-form.component.css'],
     providers: [ShootService]
 })
-export class PlayFormContainerComponent implements OnInit {
+export class PlayFormComponent implements OnInit {
 
     constructor(private playService: ShootService) {
     }

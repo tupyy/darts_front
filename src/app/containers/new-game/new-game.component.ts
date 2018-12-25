@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {GameService} from '../../services/game.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-new-game',
@@ -17,7 +18,9 @@ export class NewGameComponent implements OnInit {
     canStart: boolean;
     selectedPlayers: [];
 
-    constructor(private gameService: GameService, private fb: FormBuilder) {
+    constructor(private gameService: GameService,
+                private fb: FormBuilder,
+                private router: Router) {
         this.canAddPlayer = false;
         this.canDeletePlayer = false;
         this.canStart = false;
@@ -66,6 +69,12 @@ export class NewGameComponent implements OnInit {
             }
         }
         this.canStart = this.players.length > 0;
+    }
+
+    start() {
+        this.gameService.startGame();
+        this.router.navigate(['/play']);
+
     }
 
 }

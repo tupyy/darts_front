@@ -6,7 +6,7 @@ import {AppRoutingModule} from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MaterialModule} from './material.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { PlayFormContainerComponent } from './containers/play-form-container/play-form-container.component';
+import { PlayFormComponent } from './containers/play-form/play-form.component';
 import {ShootComponent} from './components/shoot-component/shoot.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { PlaySummaryComponent } from './containers/play-summary/play-summary.component';
@@ -16,11 +16,13 @@ import { SidenavListComponent } from './containers/navigation/sidenav-list/siden
 import { LayoutComponent } from './layout/layout.component';
 import { HomeComponent } from './containers/home/home.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import { GameViewComponent } from './containers/game-view/game-view.component';
+import { GameClassamentComponent } from './containers/game-classament/game-classament.component';
 
 @NgModule({
     declarations: [
         AppComponent,
-        PlayFormContainerComponent,
+        PlayFormComponent,
         ShootComponent,
         PlaySummaryComponent,
         NewGameComponent,
@@ -28,6 +30,8 @@ import {FlexLayoutModule} from '@angular/flex-layout';
         SidenavListComponent,
         LayoutComponent,
         HomeComponent,
+        GameViewComponent,
+        GameClassamentComponent,
     ],
     imports: [
         BrowserAnimationsModule,
