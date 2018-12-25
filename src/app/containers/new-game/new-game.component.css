@@ -6,6 +6,8 @@
 @media screen and (max-width: 600px) {
     .new-game-container {
         display: block;
+        height: 100%;
+        max-height: 100%;
     }
 
     button {
