@@ -56,7 +56,6 @@ export class NewGameComponent implements OnInit {
         let playerName: string;
         playerName = this.newGameForm.get('playerInput').value;
         this.players.push(playerName);
-        this.gameService.addPlayer(playerName);
         this.newGameForm.get('playerInput').setValue('');
         this.canStart = true;
     }
@@ -72,7 +71,7 @@ export class NewGameComponent implements OnInit {
     }
 
     start() {
-        this.gameService.startGame();
+        this.gameService.startGame(this.players);
         this.router.navigate(['/play']);
 
     }

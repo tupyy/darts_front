@@ -5,7 +5,10 @@ import {FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from 
 export class ShootService {
     scores: number[] = [0, 0, 0];
 
-    constructor() {
+    constructor(_scores?: number[]) {
+        if (_scores !== undefined) {
+            this.scores = _scores;
+        }
     }
 
     scoreChanged(id: number, value: number): void {

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Game, Player} from '../game';
+import {Game, Move, Player} from '../game';
 
 @Injectable({
     providedIn: 'root'
@@ -7,26 +7,27 @@ import {Game, Player} from '../game';
 export class GameService {
 
     currentGame: Game;
-    player: Player;
     players: Player[] = [];
 
     constructor() {
     }
 
     addPlayer(name: string) {
-        this.player = new Player();
-        this.player.id = this.players.length + 1;
-        this.player.name = name;
-
-        this.players.push(this.player);
+        // this.player = new Player(1, );
+        // this.player.id = this.players.length + 1;
+        // this.player.name = name;
+        //
+        // this.players.push(this.player);
     }
 
-    startGame(): Game {
-        this.currentGame = new Game(this.players);
-        return this.currentGame;
+    startGame(playersNames: string[]): void {
+
     }
 
-    canStartGame(): boolean {
-        return this.players.length > 0;
+    getCurrentMove(): Move {
+        // mock it
+        const player = new Player(1, 'Bob');
+        const move = new Move(1, player);
+        return move;
     }
 }

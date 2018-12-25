@@ -2,3 +2,52 @@
     display: block;
     width: 100%;
 }
+
+@media (max-width: 600px) {
+    .player-info {
+        margin: 5px;
+        margin-top: 10px;
+    }
+
+    .player-info .player {
+        font-weight: bold;
+    }
+
+    .player-info .score {
+        margin-left: 5px;
+    }
+
+    .player-info .card-avatar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .player-info mat-card-header .title {
+        margin-left: 0;
+        padding-top: 10px;
+    }
+
+    .player-info mat-card-content {
+        display: flex;
+        align-items: center;
+    }
+
+    .player-info mat-card-content .current-score {
+        margin-left: 5px;
+        font-weight: bold;
+    }
+
+    .shoot-actions {
+        display: flex;
+        justify-content: center;
+    }
+
+    .shoot-actions button {
+        margin-left: 5px;
+        width: 100px;
+        height: 35px;
+    }
+
+
+}

@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ShootService} from '../../services/shoot.service';
+import {Move} from '../../game';
 
 @Component({
     selector: 'app-play-form',
@@ -9,21 +10,22 @@ import {ShootService} from '../../services/shoot.service';
 })
 export class PlayFormComponent implements OnInit {
 
-    constructor(private playService: ShootService) {
+    @Input() currentMove: Move;
+    constructor() {
     }
 
     ngOnInit() {
     }
 
     get currentPlayer(): string {
-        return 'Bob';
+        return this.currentMove.player.name;
     }
 
     get currentScore(): number {
-        return this.playService.getTotalScore();
+        return this.currentMove.shoot.getTotalScore();
     }
 
     onScoreChanged(event: number[]) {
-        this.playService.scoreChanged(event[0], event[1]);
+        this.currentMove.shoot.scores[event[0]] = event[1];
     }
 }

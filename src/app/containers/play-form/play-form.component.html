@@ -1,17 +1,25 @@
-<div class="root-container">
-    <div class="player-info">
-        <span>Player: {{currentPlayer}}</span>
-        <span>Score: {{currentScore}}</span>
-    </div>
+<div class="play-container">
+    <mat-card class="player-info">
+        <mat-card-header>
+            <div mat-card-avatar class="card-avatar">
+                <mat-icon>face</mat-icon>
+            </div>
+            <mat-card-title class="title">{{currentPlayer}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <span class="score-title">Score:</span>
+            <span class="current-score">{{currentScore}}</span>
+        </mat-card-content>
+    </mat-card>
     <div class="shoot-details">
         <div class="shoot-container">
-            <app-shoot [shootLabel]="'Move 1'" [id]="1" (scoreChanged)="onScoreChanged($event)"></app-shoot>
-            <app-shoot [shootLabel]="'Move 2'" [id]="2" (scoreChanged)="onScoreChanged($event)"></app-shoot>
-            <app-shoot [shootLabel]="'Move 3'" [id]="3" (scoreChanged)="onScoreChanged($event)"></app-shoot>
+            <app-shoot [shootLabel]="'Shoot 1'" [id]="1" (scoreChanged)="onScoreChanged($event)"></app-shoot>
+            <app-shoot [shootLabel]="'Shoot 2'" [id]="2" (scoreChanged)="onScoreChanged($event)"></app-shoot>
+            <app-shoot [shootLabel]="'Shoot 3'" [id]="3" (scoreChanged)="onScoreChanged($event)"></app-shoot>
         </div>
     </div>
-    <div class="shoot-controls">
-        <button mat-flat-button color="primary">Next</button>
+    <div class="shoot-actions">
         <button mat-flat-button color="warn">Clear</button>
+        <button mat-flat-button color="primary">Next</button>
     </div>
 </div>
