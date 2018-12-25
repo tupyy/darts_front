@@ -22,10 +22,10 @@ export class PlayFormComponent implements OnInit {
     }
 
     get currentScore(): number {
-        return this.currentMove.shoot.getTotalScore();
+        return this.currentMove.getTotalScore();
     }
 
     onScoreChanged(event: number[]) {
-        this.currentMove.shoot.scores[event[0]] = event[1];
+        this.currentMove.setShootScore(event[0], event[1]);
     }
 }

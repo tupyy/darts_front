@@ -1,25 +1,23 @@
 import {Player} from './player';
 
-export class Shoot {
-    scores: number[] = [];
-
-    public getTotalScore(): number {
-        return this.scores.reduce((a, b) => a + b, 0);
-    }
-}
-
 export class Move {
     id: number;
     player: Player;
-    shoot: Shoot;
+    shoots: number[] = [];
 
-    constructor(id: number, player: Player, shoot?: Shoot) {
+    constructor(id: number, player: Player, shoots?: number[]) {
         this.id = id;
         this.player = player;
-        if (shoot !== undefined) {
-            this.shoot = shoot;
-        } else {
-            this.shoot = new Shoot();
+        if (shoots !== undefined) {
+            this.shoots = shoots;
         }
+    }
+
+    setShootScore(index: number, value: number) {
+        this.shoots[index - 1] = value;
+    }
+
+    public getTotalScore(): number {
+        return this.shoots.reduce((a, b) => a + b, 0);
     }
 }
