@@ -1,0 +1,69 @@
+.new-game-container {
+    display: flex;
+    flex-direction: row;
+}
+
+@media screen and (max-width: 600px) {
+    .new-game-container {
+        display: block;
+    }
+
+    button {
+        width: 100px;
+        height: 35px;
+    }
+
+    .input-player {
+        display: flex;
+        align-items: center;
+        height: 50px;
+        justify-content: center;
+        margin: 10px 5px 10px 5px;
+    }
+
+    .input-player .input-player-field {
+        width: 100%;
+    }
+
+    .input-player button {
+        margin-left: 5px;
+        width: 130px;
+    }
+
+    .players-list {
+        margin-left: 5px;
+        margin-right: 5px;
+        background-color: #fbfafa;
+    }
+
+    .players-list .mat-card-title {
+        font-size: large;
+        font-weight: bold;
+    }
+
+    .players-list .card-footer {
+        display: flex;
+        justify-content: center;
+        margin: -2px;
+    }
+
+    .players-list button {
+        width: 150px;
+    }
+
+    .actions {
+        margin: 10px 5px 0 5px;
+        display: flex;
+        align-content: center;
+        justify-content: center;
+    }
+
+    .actions button {
+        width: 150px;
+    }
+
+}
+
+@media screen and (min-width: 600px) {
+
+}

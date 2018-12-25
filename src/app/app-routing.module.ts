@@ -7,7 +7,6 @@ import {NewGameComponent} from './containers/new-game/new-game.component';
 const appRoute: Routes = [
     {path: 'game', component: PlayFormContainerComponent},
     {path: 'new', component: NewGameComponent},
-    {path: '', redirectTo: '/new', pathMatch: 'full'}
 ];
 
 @NgModule({

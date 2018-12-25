@@ -1,0 +1,30 @@
+<div class="root-container new-game-container" [formGroup]="newGameForm">
+    <div class="input-player">
+        <mat-form-field class="input-player-field">
+            <input matInput placeholder="Enter player name" formControlName="playerInput">
+        </mat-form-field>
+        <button mat-flat-button color="primary" (click)="addPlayer()" [disabled]="!canAddPlayer"
+                (keydown)="onKeyDown($event)">Add player
+        </button>
+    </div>
+
+    <mat-card class="players-list">
+        <mat-card-title>Players</mat-card-title>
+        <mat-card-content class="card-content">
+            <mat-selection-list (selectionChange)="onSelectionChanged($event)"
+                                formControlName="playersSelectionList"
+            >
+                <mat-list-option *ngFor="let player of players; let i = index" [value]="player">{{i + 1}}
+                    - {{player|titlecase}}</mat-list-option>
+            </mat-selection-list>
+        </mat-card-content>
+        <mat-card-footer class="card-footer">
+            <button mat-raised-button color="warn" [disabled]="!canDeletePlayer" (click)="removeSelectedPlayers()">
+                Remove players
+            </button>
+        </mat-card-footer>
+    </mat-card>
+    <div class="actions">
+        <button mat-raised-button color="primary" [disabled]="!canStart">Start</button>
+    </div>
+</div>
