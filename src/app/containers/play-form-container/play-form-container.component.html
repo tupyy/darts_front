@@ -1,0 +1,13 @@
+<div class="root-container">
+    <div class="player-info">
+        <span>Player: {{currentPlayer}}</span>
+        <span>Score: {{currentScore}}</span>
+    </div>
+    <div class="shoot-details">
+        <div class="shoot-container">
+            <app-shoot [shootLabel]="'Shoot 1'" [id]="1" (scoreChanged)="onScoreChanged($event)"></app-shoot>
+            <app-shoot [shootLabel]="'Shoot 2'" [id]="2" (scoreChanged)="onScoreChanged($event)"></app-shoot>
+            <app-shoot [shootLabel]="'Shoot 3'" [id]="3" (scoreChanged)="onScoreChanged($event)"></app-shoot>
+        </div>
+    </div>
+</div>

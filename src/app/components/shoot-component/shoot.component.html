@@ -1,0 +1,11 @@
+<div class="ShootDetails" [formGroup]="form">
+    <mat-form-field>
+        <input type="number" matInput placeholder="{{shootLabel}}"
+               formControlName="shootControl" [errorStateMatcher]="matcher" [readonly]="inputDone">
+        <mat-error *ngIf="form.controls.shootControl.hasError('score') && ! form.controls.shootControl.hasError('required')">
+            {{form.controls.shootControl.errors.score.message}}
+        </mat-error>
+    </mat-form-field>
+    <button mat-flat-button color="primary" [disabled]="buttonsDisabled" (click)="onButtonClick(2)">x2</button>
+    <button mat-flat-button color="accent" [disabled]="buttonsDisabled" (click)="onButtonClick(3)">x3</button>
+</div>
