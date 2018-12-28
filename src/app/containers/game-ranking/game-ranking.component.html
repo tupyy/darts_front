@@ -1,6 +1,6 @@
 <div class="game-ranking-container">
     <mat-card *ngFor="let player of rankings; let i = index">
-        <span class="rank">{{ i+1 }}</span> - <span class="player-name">{{player.name}}</span> :
+        <span class="rank">{{ i+1 }}</span> - <span class="player-name">{{player.name|titlecase}}</span> :
         <span class="score">{{player.getScore()}} points</span>
     </mat-card>
 </div>
