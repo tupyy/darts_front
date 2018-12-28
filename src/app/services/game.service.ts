@@ -39,4 +39,22 @@ export class GameService {
         this.logger.logMove(this.currentGame.getCurrentMove());
         this.currentGame.next();
     }
+
+    getRankingList(): Player[] {
+        if (this.currentGame !== undefined) {
+            return this.currentGame.getPlayers().sort((player1, player2) => {
+                if (player1.getScore() > player2.getScore()) {
+                    return 1;
+                }
+
+                if (player1.getScore() < player2.getScore()) {
+                    return -1;
+                }
+
+                return 0;
+            });
+        }
+
+        return null;
+    }
 }

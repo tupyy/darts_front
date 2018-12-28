@@ -36,6 +36,10 @@ export class Game {
         this.finishAnnouncedSource.next(true);
     }
 
+    getPlayers() {
+        return this.players;
+    }
+
     private getNextPlayer() {
         const id = this.currentMove.player.id; // base 0 array
         if (id + 1 === this.players.length) {

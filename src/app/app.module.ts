@@ -9,7 +9,6 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { PlayFormComponent } from './components/play-form/play-form.component';
 import {ShootComponent} from './components/shoot-component/shoot.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { GameRankingComponent } from './components/game-ranking/game-ranking.component';
 import { NewGameComponent } from './containers/new-game/new-game.component';
 import { HeaderComponent } from './containers/navigation/header/header.component';
 import { SidenavListComponent } from './containers/navigation/sidenav-list/sidenav-list.component';
@@ -17,7 +16,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { HomeComponent } from './containers/home/home.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { GameViewComponent } from './containers/game-view/game-view.component';
-import { GameClassamentComponent } from './containers/game-classament/game-classament.component';
+import { GameRankingComponent } from './containers/game-ranking/game-ranking.component';
 import { GameFinishAnnounceComponent } from './components/game-finish-announce/game-finish-announce.component';
 
 @NgModule({
@@ -32,7 +31,7 @@ import { GameFinishAnnounceComponent } from './components/game-finish-announce/g
         LayoutComponent,
         HomeComponent,
         GameViewComponent,
-        GameClassamentComponent,
+        GameRankingComponent,
         GameFinishAnnounceComponent,
     ],
     imports: [
