@@ -37,7 +37,7 @@ export class Game {
     }
 
     private getNextPlayer() {
-        const id = this.currentMove.player.id - 1; // base 0 array
+        const id = this.currentMove.player.id; // base 0 array
         if (id + 1 === this.players.length) {
             return this.players[0];
         } else {

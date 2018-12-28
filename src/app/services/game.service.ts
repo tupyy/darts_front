@@ -9,7 +9,6 @@ import {Subject} from 'rxjs';
 export class GameService {
 
     currentGame: Game;
-    players: Player[] = [];
 
     private finishAnnounceSource = new Subject<boolean>();
     finishAnnounce$ = this.finishAnnounceSource.asObservable();
@@ -17,16 +16,12 @@ export class GameService {
     constructor(private logger: LoggerService) {
     }
 
-    addPlayer(name: string) {
-        const player = new Player(this.players.length + 1, name);
-        this.players.push(player);
-    }
-
     startGame(playersNames: string[]): void {
-        for (const playerName of playersNames) {
-            this.addPlayer(playerName);
-        }
-        this.currentGame = new Game(this.players);
+        const players: Player[] = [];
+        playersNames.forEach((name, index) => {
+            players.push(new Player(index, name));
+        });
+        this.currentGame = new Game(players);
         this.currentGame.finishAnnouced$.subscribe(val => {
             this.finishAnnounceSource.next(true);
         });
