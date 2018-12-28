@@ -21,19 +21,17 @@ export class ShootComponent implements OnInit {
     @Input() id: number;
     @Output() scoreChanged = new EventEmitter<number[]>();
 
-    private buttonsDisabled: boolean;
-    private inputDone: boolean;
     matcher = new MyErrorStateMatcher();
 
     constructor(private fb: FormBuilder) {
-        this.buttonsDisabled = false;
-        this.inputDone = false;
         this.form = this.fb.group({
             shootControl: [null, [Validators.required, this.scoreValidator]]
         });
 
-
         this.form.get('shootControl').valueChanges.subscribe((val) => {
+            if (val == null) {
+                val = 0;
+            }
             this.scoreChanged.emit([this.id, val]);
         });
     }
@@ -41,13 +39,15 @@ export class ShootComponent implements OnInit {
     ngOnInit() {
     }
 
+    reset() {
+        this.form.get('shootControl').setValue('');
+    }
+
     onButtonClick(i: number): void {
         if (this.form.get('shootControl').value == null || this.form.get('shootControl').value === 0) {
             return;
         }
-        this.inputDone = true;
         this.form.get('shootControl').setValue(i * this.form.get('shootControl').value);
-        this.buttonsDisabled = true;
     }
 
     scoreValidator(c: FormControl) {

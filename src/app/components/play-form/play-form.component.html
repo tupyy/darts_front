@@ -13,13 +13,13 @@
     </mat-card>
     <div class="shoot-details">
         <div class="shoot-container">
-            <app-shoot [shootLabel]="'Shoot 1'" [id]="1" (scoreChanged)="onScoreChanged($event)"></app-shoot>
-            <app-shoot [shootLabel]="'Shoot 2'" [id]="2" (scoreChanged)="onScoreChanged($event)"></app-shoot>
-            <app-shoot [shootLabel]="'Shoot 3'" [id]="3" (scoreChanged)="onScoreChanged($event)"></app-shoot>
+            <app-shoot #shoot [shootLabel]="'Shoot 1'" [id]="1" (scoreChanged)="onScoreChanged($event)"></app-shoot>
+            <app-shoot #shoot [shootLabel]="'Shoot 2'" [id]="2" (scoreChanged)="onScoreChanged($event)"></app-shoot>
+            <app-shoot #shoot [shootLabel]="'Shoot 3'" [id]="3" (scoreChanged)="onScoreChanged($event)"></app-shoot>
         </div>
     </div>
     <div class="shoot-actions">
         <button mat-flat-button color="warn">Clear</button>
-        <button mat-flat-button color="primary">Next</button>
+        <button mat-flat-button color="primary" (click)="onNext()">Next</button>
     </div>
 </div>

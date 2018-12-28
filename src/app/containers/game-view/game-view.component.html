@@ -1,6 +1,6 @@
 <div class="game-view-container">
     <mat-tab-group>
-        <mat-tab label="Move"><app-play-form [currentMove]="currentMove"></app-play-form></mat-tab>
+        <mat-tab label="Move"><app-play-form [currentMove]="currentMove" (next)="onNext($event)"></app-play-form></mat-tab>
         <mat-tab label="Ranking"></mat-tab>
     </mat-tab-group>
 </div>

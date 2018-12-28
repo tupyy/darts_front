@@ -6,10 +6,10 @@ import {AppRoutingModule} from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MaterialModule} from './material.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { PlayFormComponent } from './containers/play-form/play-form.component';
+import { PlayFormComponent } from './components/play-form/play-form.component';
 import {ShootComponent} from './components/shoot-component/shoot.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { PlaySummaryComponent } from './containers/play-summary/play-summary.component';
+import { GameRankingComponent } from './components/game-ranking/game-ranking.component';
 import { NewGameComponent } from './containers/new-game/new-game.component';
 import { HeaderComponent } from './containers/navigation/header/header.component';
 import { SidenavListComponent } from './containers/navigation/sidenav-list/sidenav-list.component';
@@ -18,13 +18,14 @@ import { HomeComponent } from './containers/home/home.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { GameViewComponent } from './containers/game-view/game-view.component';
 import { GameClassamentComponent } from './containers/game-classament/game-classament.component';
+import { GameFinishAnnounceComponent } from './components/game-finish-announce/game-finish-announce.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         PlayFormComponent,
         ShootComponent,
-        PlaySummaryComponent,
+        GameRankingComponent,
         NewGameComponent,
         HeaderComponent,
         SidenavListComponent,
@@ -32,6 +33,7 @@ import { GameClassamentComponent } from './containers/game-classament/game-class
         HomeComponent,
         GameViewComponent,
         GameClassamentComponent,
+        GameFinishAnnounceComponent,
     ],
     imports: [
         BrowserAnimationsModule,
@@ -42,6 +44,9 @@ import { GameClassamentComponent } from './containers/game-classament/game-class
         ReactiveFormsModule,
         MaterialModule,
         NgbModule
+    ],
+    entryComponents: [
+        GameFinishAnnounceComponent
     ],
     providers: [],
     bootstrap: [AppComponent]

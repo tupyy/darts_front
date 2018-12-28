@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ShootService } from './shoot.service';
+import { LoggerService } from './logger.service';
 
-describe('ShootService', () => {
+describe('LoggerService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: ShootService = TestBed.get(ShootService);
+    const service: LoggerService = TestBed.get(LoggerService);
     expect(service).toBeTruthy();
   });
 });
