@@ -22,7 +22,7 @@ export class GameService {
             players.push(new Player(index, name));
         });
         this.currentGame = new Game(players);
-        this.currentGame.finishAnnouced$.subscribe(val => {
+        this.currentGame.finishAnnounced$.subscribe(val => {
             this.finishAnnounceSource.next(true);
         });
     }
@@ -48,6 +48,24 @@ export class GameService {
                 }
 
                 if (player1.getScore() < player2.getScore()) {
+                    return -1;
+                }
+
+                return 0;
+            });
+        }
+
+        return null;
+    }
+
+    getMoves(): Move[] {
+        if (this.currentGame !== undefined) {
+            return this.currentGame.getMoves().sort( (move1, move2) => {
+                if (move1.id > move2.id) {
+                    return 1;
+                }
+
+                if (move1.id < move2.id) {
                     return -1;
                 }
 

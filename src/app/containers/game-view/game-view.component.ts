@@ -60,6 +60,10 @@ export class GameViewComponent implements OnInit, OnDestroy {
         return this.gameService.getRankingList();
     }
 
+    getMoves() {
+        return this.gameService.getMoves();
+    }
+
     onNext() {
         this.gameService.next();
     }

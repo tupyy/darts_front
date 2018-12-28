@@ -18,6 +18,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import { GameViewComponent } from './containers/game-view/game-view.component';
 import { GameRankingComponent } from './containers/game-ranking/game-ranking.component';
 import { GameFinishAnnounceComponent } from './components/game-finish-announce/game-finish-announce.component';
+import { GameMovesComponent } from './containers/game-moves/game-moves.component';
 
 @NgModule({
     declarations: [
@@ -33,6 +34,7 @@ import { GameFinishAnnounceComponent } from './components/game-finish-announce/g
         GameViewComponent,
         GameRankingComponent,
         GameFinishAnnounceComponent,
+        GameMovesComponent,
     ],
     imports: [
         BrowserAnimationsModule,

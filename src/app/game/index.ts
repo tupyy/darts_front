@@ -11,18 +11,22 @@ export class Game {
     private moves: Move[] = [];
 
     private finishAnnouncedSource = new Subject<boolean>();
-    finishAnnouced$ = this.finishAnnouncedSource.asObservable();
+    finishAnnounced$ = this.finishAnnouncedSource.asObservable();
 
     constructor(players: Player[]) {
         this.players = players;
-        this.currentMove = new Move(this, 1, this.players[0]);
+        this.currentMove = new Move(1, this.players[0]);
     }
 
     next() {
         // save the current move
-        this.moves.push(this.currentMove);
+        this.moves.push(this.currentMove.clone());
         this.currentMove.updatePlayerScore();
-        this.currentMove = new Move(this, this.moves.length + 1, this.getNextPlayer());
+        if (this.currentMove.player.getScore() === 0) {
+            this.finishAnnouncedSource.next(true);
+        }
+
+        this.currentMove = new Move(this.moves.length + 1, this.getNextPlayer());
     }
 
     getCurrentMove(): Move {
@@ -32,12 +36,12 @@ export class Game {
         return this.currentMove;
     }
 
-    gameFinished() {
-        this.finishAnnouncedSource.next(true);
-    }
-
     getPlayers() {
         return this.players;
+    }
+
+    getMoves() {
+        return this.moves;
     }
 
     private getNextPlayer() {

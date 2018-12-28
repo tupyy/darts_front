@@ -32,6 +32,7 @@ export class ShootComponent implements OnInit {
             if (val == null) {
                 val = 0;
             }
+            console.log(val);
             this.scoreChanged.emit([this.id, val]);
         });
     }
