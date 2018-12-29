@@ -60,6 +60,10 @@ export class ShootComponent implements OnInit {
         return !this.form.invalid;
     }
 
+    getValue() {
+        return this.form.get('shootControl').value;
+    }
+
     hasValue() {
         return !(this.getValue() == null);
     }
@@ -70,10 +74,6 @@ export class ShootComponent implements OnInit {
             return;
         }
         this.form.get('shootControl').setValue(i * this.form.get('shootControl').value);
-    }
-
-    getValue() {
-        return this.form.get('shootControl').value;
     }
 
     scoreValidator(c: FormControl) {
