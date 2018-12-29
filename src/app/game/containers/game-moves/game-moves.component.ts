@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Move} from '../../game';
+import {Move} from '../../services';
 
 @Component({
     selector: 'app-game-moves',

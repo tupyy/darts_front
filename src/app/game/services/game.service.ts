@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {Game, Move, Player} from '../game';
-import {LoggerService} from '../services/logger.service';
+import {Game, Move, Player} from './index';
+import {LoggerService} from './logger.service';
 import {Subject} from 'rxjs';
 
 @Injectable({

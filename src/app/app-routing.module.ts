@@ -1,9 +1,9 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
-import {NewGameComponent} from './containers/new-game/new-game.component';
+import {NewGameComponent} from './game/containers/new-game/new-game.component';
 import {HomeComponent} from './containers/home/home.component';
-import {GameViewComponent} from './containers/game-view/game-view.component';
+import {GameViewComponent} from './game/containers/game-view/game-view.component';
 
 const appRoute: Routes = [
     {path: 'new', component: NewGameComponent},

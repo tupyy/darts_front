@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren} from '@angular/core';
-import {Move} from '../../game';
 import {ShootComponent} from '../shoot-component/shoot.component';
+import {Move} from '../../services';
 
 @Component({
     selector: 'app-play-form',
