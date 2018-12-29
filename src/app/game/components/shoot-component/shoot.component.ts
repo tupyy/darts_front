@@ -28,7 +28,7 @@ export class ShootComponent implements OnInit {
 
     constructor(private fb: FormBuilder) {
         this.form = this.fb.group({
-            shootControl: [null, [Validators.required, this.scoreValidator]]
+            shootControl: [null, [this.scoreValidator]]
         });
 
         this.form.get('shootControl').valueChanges.subscribe((val) => {
@@ -51,14 +51,19 @@ export class ShootComponent implements OnInit {
     }
 
     doneInput() {
-        if (this.hasValue()) {
+        if (this.hasValue() && !this.form.invalid) {
             this.inputDone.emit(this.id);
         }
+    }
+
+    isValid() {
+        return !this.form.invalid;
     }
 
     hasValue() {
         return !(this.getValue() == null);
     }
+
 
     onButtonClick(i: number): void {
         if (!this.hasValue()) {
@@ -67,7 +72,7 @@ export class ShootComponent implements OnInit {
         this.form.get('shootControl').setValue(i * this.form.get('shootControl').value);
     }
 
-    private getValue() {
+    getValue() {
         return this.form.get('shootControl').value;
     }
 

@@ -58,6 +58,13 @@ export class PlayFormComponent implements OnInit {
     }
 
     onNext() {
+        for (const shoot of this.shoots.toArray()) {
+            if (!shoot.isValid()) {
+                shoot.receivedFocus();
+                return;
+            }
+        }
+
         this.next.emit();
         for (const shoot of this.shoots.toArray()) {
             shoot.reset();
