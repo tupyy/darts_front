@@ -1,10 +1,9 @@
 <div class="root-container new-game-container" [formGroup]="newGameForm">
     <div class="input-player">
         <mat-form-field class="input-player-field">
-            <input matInput placeholder="Enter player name" formControlName="playerInput">
+            <input matInput placeholder="Enter player name" formControlName="playerInput" (keyup.enter)="addPlayer()">
         </mat-form-field>
-        <button mat-flat-button color="primary" (click)="addPlayer()" [disabled]="!canAddPlayer"
-                (keydown)="onKeyDown($event)">Add player
+        <button mat-flat-button color="primary" (click)="addPlayer()" [disabled]="!canAddPlayer">Add player
         </button>
     </div>
 

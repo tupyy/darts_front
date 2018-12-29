@@ -42,12 +42,6 @@ export class NewGameComponent implements OnInit {
     ngOnInit() {
     }
 
-    onKeyDown(event) {
-        if (event.key === 'Enter') {
-            this.addPlayer();
-        }
-    }
-
     onSelectionChanged(event, selectedPlayers) {
         this.selectedPlayers = selectedPlayers;
     }
