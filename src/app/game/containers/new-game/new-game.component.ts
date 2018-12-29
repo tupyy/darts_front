@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {GameService} from '../../services/game.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
     selector: 'app-new-game',
@@ -19,7 +19,8 @@ export class NewGameComponent implements OnInit {
 
     constructor(private gameService: GameService,
                 private fb: FormBuilder,
-                private router: Router) {
+                private router: Router,
+                private activatedRoute: ActivatedRoute) {
         this.canAddPlayer = false;
         this.canDeletePlayer = false;
         this.canStart = false;
@@ -71,7 +72,7 @@ export class NewGameComponent implements OnInit {
 
     start() {
         this.gameService.startGame(this.players);
-        this.router.navigate(['/play']);
+        this.router.navigate(['../play'], {relativeTo: this.activatedRoute});
 
     }
 

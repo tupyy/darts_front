@@ -12,7 +12,6 @@ import {SidenavListComponent} from './containers/navigation/sidenav-list/sidenav
 import {LayoutComponent} from './layout/layout.component';
 import {HomeComponent} from './containers/home/home.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
-import {GameFinishAnnounceComponent} from './game/components/game-finish-announce/game-finish-announce.component';
 import {GameModule} from './game/game.module';
 
 @NgModule({
@@ -27,15 +26,12 @@ import {GameModule} from './game/game.module';
         BrowserAnimationsModule,
         BrowserModule,
         FlexLayoutModule,
-        AppRoutingModule,
         FormsModule,
         ReactiveFormsModule,
         MaterialModule,
         NgbModule,
-        GameModule
-    ],
-    entryComponents: [
-        GameFinishAnnounceComponent
+        GameModule,
+        AppRoutingModule,
     ],
     providers: [],
     bootstrap: [AppComponent]

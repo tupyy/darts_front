@@ -23,7 +23,7 @@ export class GameService {
         });
         this.currentGame = new Game(players);
         this.currentGame.finishAnnounced$.subscribe(val => {
-            this.finishAnnounceSource.next(true);
+            this.finishAnnounceSource.next(val);
         });
     }
 

@@ -4,7 +4,7 @@ import {Move} from '../../services';
 import {Subscription} from 'rxjs';
 import {GameFinishAnnounceComponent} from '../../components/game-finish-announce/game-finish-announce.component';
 import {MatDialog, MatDialogRef} from '@angular/material';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
     selector: 'app-play-view',
@@ -17,10 +17,12 @@ export class GameViewComponent implements OnInit, OnDestroy {
     gameFinishSubscription: Subscription;
     private dialogRef: MatDialogRef<GameFinishAnnounceComponent>;
 
-    constructor(private gameService: GameService, public dialog: MatDialog, private router: Router) {
+    constructor(private gameService: GameService,
+                public dialog: MatDialog,
+                private router: Router,
+                private activatedRoute: ActivatedRoute) {
         this.gameFinishSubscription = gameService.finishAnnounce$.subscribe(val => {
             if (val) {
-                console.log('open');
                 this.openDialog();
             }
         });
@@ -40,7 +42,7 @@ export class GameViewComponent implements OnInit, OnDestroy {
                 if (result === 'home') {
                     this.router.navigate(['/']);
                 } else if (result === 'new_game') {
-                    this.router.navigate(['/new']);
+                    this.router.navigate(['../new'], { relativeTo: this.activatedRoute});
                 }
             });
         }
