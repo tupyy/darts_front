@@ -32,7 +32,7 @@ export class GameViewComponent implements OnInit, OnDestroy {
     openDialog(): void {
         if (this.dialogRef === undefined) {
             this.dialogRef = this.dialog.open(GameFinishAnnounceComponent, {
-                width: '250px',
+                width: '300px',
                 data: {winner: this.gameService.getCurrentMove().player.name}
             });
 
