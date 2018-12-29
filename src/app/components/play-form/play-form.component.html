@@ -19,7 +19,7 @@
         </div>
     </div>
     <div class="shoot-actions">
-        <button mat-flat-button color="warn">Clear</button>
-        <button mat-flat-button color="primary" (click)="onNext()">Next</button>
+        <button mat-flat-button color="warn" (click)="reset()" [disabled]="!canNext">Clear</button>
+        <button mat-flat-button color="primary" (click)="onNext()" [disabled]="!canNext">Next</button>
     </div>
 </div>

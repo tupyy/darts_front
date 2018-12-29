@@ -44,6 +44,14 @@ export class ShootComponent implements OnInit {
         this.form.get('shootControl').setValue('');
     }
 
+    hasValue() {
+        if (this.form.get('shootControl').value == null || this.form.get('shootControl').value === 0) {
+            return false;
+        }
+
+        return true;
+    }
+
     onButtonClick(i: number): void {
         if (this.form.get('shootControl').value == null || this.form.get('shootControl').value === 0) {
             return;

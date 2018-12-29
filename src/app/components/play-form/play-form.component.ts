@@ -11,6 +11,7 @@ export class PlayFormComponent implements OnInit {
 
     @Input() currentMove: Move;
     @Output() next = new EventEmitter();
+    private canNext = false;
 
     /** Get handle on cmp tags in the template */
     @ViewChildren('shoot') shoots: QueryList<ShootComponent>;
@@ -35,6 +36,15 @@ export class PlayFormComponent implements OnInit {
 
     onScoreChanged(event: number[]) {
         this.currentMove.setShootScore(event[0], event[1]);
+
+        let _canNext = false;
+        for (const shoot of this.shoots.toArray()) {
+            if (shoot.hasValue() ) {
+                _canNext = true;
+                break;
+            }
+        }
+        this.canNext = _canNext;
     }
 
     onNext() {
@@ -43,6 +53,14 @@ export class PlayFormComponent implements OnInit {
             shoot.reset();
         }
     }
+
+    reset() {
+        for (const shoot of this.shoots.toArray()) {
+            shoot.reset();
+        }
+        this.canNext = false;
+    }
+
 
 
 }

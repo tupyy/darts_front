@@ -32,7 +32,10 @@ export class GameService {
     }
 
     getCurrentMove(): Move {
-        return this.currentGame.getCurrentMove();
+        if (this.currentGame !== undefined) {
+            return this.currentGame.getCurrentMove();
+        }
+        return null;
     }
 
     next() {
