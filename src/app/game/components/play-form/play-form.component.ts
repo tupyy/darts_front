@@ -39,12 +39,22 @@ export class PlayFormComponent implements OnInit {
 
         let _canNext = false;
         for (const shoot of this.shoots.toArray()) {
-            if (shoot.hasValue() ) {
+            if (shoot.hasValue()) {
                 _canNext = true;
                 break;
             }
         }
         this.canNext = _canNext;
+    }
+
+    onInputDone(event: number) {
+        console.log(event);
+        if (event === 3) {
+            this.onNext();
+            this.shoots.toArray()[0].receivedFocus();
+        } else {
+            this.shoots.toArray()[event].receivedFocus();
+        }
     }
 
     onNext() {
@@ -60,7 +70,6 @@ export class PlayFormComponent implements OnInit {
         }
         this.canNext = false;
     }
-
 
 
 }

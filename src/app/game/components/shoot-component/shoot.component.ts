@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 
@@ -20,6 +20,9 @@ export class ShootComponent implements OnInit {
     @Input() shootLabel: string;
     @Input() id: number;
     @Output() scoreChanged = new EventEmitter<number[]>();
+    @Output() inputDone = new EventEmitter<number>();
+
+    @ViewChild('inputShoot') inputShoot: ElementRef;
 
     matcher = new MyErrorStateMatcher();
 
@@ -32,7 +35,6 @@ export class ShootComponent implements OnInit {
             if (val == null) {
                 val = 0;
             }
-            console.log(val);
             this.scoreChanged.emit([this.id, val]);
         });
     }
@@ -44,19 +46,29 @@ export class ShootComponent implements OnInit {
         this.form.get('shootControl').setValue('');
     }
 
-    hasValue() {
-        if (this.form.get('shootControl').value == null || this.form.get('shootControl').value === 0) {
-            return false;
-        }
+    receivedFocus() {
+        this.inputShoot.nativeElement.focus();
+    }
 
-        return true;
+    doneInput() {
+        if (this.hasValue()) {
+            this.inputDone.emit(this.id);
+        }
+    }
+
+    hasValue() {
+        return !(this.getValue() == null);
     }
 
     onButtonClick(i: number): void {
-        if (this.form.get('shootControl').value == null || this.form.get('shootControl').value === 0) {
+        if (!this.hasValue()) {
             return;
         }
         this.form.get('shootControl').setValue(i * this.form.get('shootControl').value);
+    }
+
+    private getValue() {
+        return this.form.get('shootControl').value;
     }
 
     scoreValidator(c: FormControl) {
@@ -64,10 +76,11 @@ export class ShootComponent implements OnInit {
 
         if (c.value > 60) {
             errors.score = {message: 'Score cannot be greater than 60.'};
+        } else if (c.value < 0) {
+            errors.score = {message: 'Score cannot be smaller than 0.'};
         }
 
         return Object.keys(errors).length ? errors : null;
-
     }
 }
 

@@ -13,9 +13,9 @@
     </mat-card>
     <div class="shoot-details">
         <div class="shoot-container">
-            <app-shoot #shoot [shootLabel]="'Shoot 1'" [id]="1" (scoreChanged)="onScoreChanged($event)"></app-shoot>
-            <app-shoot #shoot [shootLabel]="'Shoot 2'" [id]="2" (scoreChanged)="onScoreChanged($event)"></app-shoot>
-            <app-shoot #shoot [shootLabel]="'Shoot 3'" [id]="3" (scoreChanged)="onScoreChanged($event)"></app-shoot>
+            <app-shoot #shoot [shootLabel]="'Shoot 1'" [id]="1" (scoreChanged)="onScoreChanged($event)" (inputDone)="onInputDone($event)"></app-shoot>
+            <app-shoot #shoot [shootLabel]="'Shoot 2'" [id]="2" (scoreChanged)="onScoreChanged($event)" (inputDone)="onInputDone($event)"></app-shoot>
+            <app-shoot #shoot [shootLabel]="'Shoot 3'" [id]="3" (scoreChanged)="onScoreChanged($event)" (inputDone)="onInputDone($event)"></app-shoot>
         </div>
     </div>
     <div class="shoot-actions">
