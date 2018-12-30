@@ -6,7 +6,7 @@ export class Player {
     constructor(_id: number, _name: string) {
         this.id = _id;
         this.name = _name;
-        this.score = 40;
+        this.score = 301;
     }
 
     updateScore(moveScore: number) {

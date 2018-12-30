@@ -11,7 +11,7 @@ export class PlayFormComponent implements OnInit {
 
     @Input() currentMove: Move;
     @Output() next = new EventEmitter();
-    private canNext = false;
+    public canNext = false;
 
     /** Get handle on cmp tags in the template */
     @ViewChildren('shoot') shoots: QueryList<ShootComponent>;

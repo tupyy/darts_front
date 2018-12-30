@@ -42,7 +42,7 @@ export class NewGameComponent implements OnInit {
     ngOnInit() {
     }
 
-    onSelectionChanged(event, selectedPlayers) {
+    onSelectionChanged(selectedPlayers) {
         this.selectedPlayers = selectedPlayers;
     }
 
