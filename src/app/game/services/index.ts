@@ -45,11 +45,19 @@ export class Game {
     }
 
     private getNextPlayer() {
-        const id = this.currentMove.player.id; // base 0 array
-        if (id + 1 === this.players.length) {
-            return this.players[0];
+        const id = this.currentMove.player.id + 1;
+        if (id === this.players.length) {
+            return this.getPlayer(0);
         } else {
-            return this.players[id + 1];
+            return this.getPlayer(id);
+        }
+    }
+
+    private getPlayer(id: number): Player {
+        for (let i = 0; i <= this.players.length; i++) {
+            if (this.players[i].id === id) {
+                return this.players[i];
+            }
         }
     }
 
