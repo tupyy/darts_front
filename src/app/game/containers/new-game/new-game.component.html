@@ -1,13 +1,12 @@
 <div class="root-container new-game-container" [formGroup]="newGameForm">
-    <div class="input-player">
+    <div class="new-game-component input-player">
         <mat-form-field class="input-player-field">
             <input matInput placeholder="Enter player name" formControlName="playerInput" (keyup.enter)="addPlayer()">
         </mat-form-field>
-        <button mat-flat-button color="primary" (click)="addPlayer()" [disabled]="!canAddPlayer">Add player
-        </button>
+        <button mat-flat-button color="primary" (click)="addPlayer()" [disabled]="!canAddPlayer">Add player</button>
     </div>
 
-    <mat-card class="players-list">
+    <mat-card class="new-game-component players-list">
         <mat-card-title>Players</mat-card-title>
         <mat-card-content class="card-content">
             <mat-selection-list (selectionChange)="onSelectionChanged($event)"
@@ -17,7 +16,7 @@
                     - {{player|titlecase}}</mat-list-option>
             </mat-selection-list>
         </mat-card-content>
-        <mat-card-footer class="card-footer">
+        <mat-card-footer class="new-game-component card-footer actions">
             <button mat-raised-button color="warn" [disabled]="!canDeletePlayer" (click)="removeSelectedPlayers()">
                 Remove players
             </button>

@@ -1,6 +1,39 @@
 .new-game-container {
+    display: block;
+    width: 500px;
+    margin: auto;
+}
+
+.new-game-component {
+    margin-bottom: 10px;
+}
+
+.input-player {
     display: flex;
-    flex-direction: row;
+    align-items: center;
+}
+
+.input-player .mat-form-field {
+    width: 80%;
+}
+
+.input-player button {
+    margin-left: 10px;
+    width: 100px;
+    height: 35px;
+}
+.players-list button {
+    width: 150px !important;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+}
+
+.actions button {
+    width: 100px;
+    height: 35px;
 }
 
 @media screen and (max-width: 600px) {
