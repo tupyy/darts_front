@@ -7,6 +7,11 @@ a:hover, a:active {
     color: lightgray;
 }
 
+.login-item {
+    display: flex;
+    align-items: center;
+}
+
 .navigation-items {
     list-style-type: none;
     padding: 0;
