@@ -1,15 +1,14 @@
-@media (max-width: 600px) {
-    .shootDetails {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .shootDetails .mat-form-field {
-        width: 100%;
-    }
-
-    .shootDetails button {
-        margin-left: 5px;
-        height: 35px;
-    }
+.shootDetails {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+.shootDetails .mat-form-field {
+    width: 100%;
+}
+
+.shootDetails button {
+    margin-left: 5px;
+    height: 35px;
+}
+

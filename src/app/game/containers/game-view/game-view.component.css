@@ -2,3 +2,10 @@ mat-tab {
     height: 100%;
     background-color: #f5f5f5;
 }
+
+@media screen and (min-width: 600px){
+    .game-view-container {
+        width: 600px;
+        margin: auto;
+    }
+}

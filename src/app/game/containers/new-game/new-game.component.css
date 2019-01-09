@@ -1,6 +1,5 @@
 .new-game-container {
     display: block;
-    width: 500px;
     margin: auto;
 }
 
@@ -96,9 +95,10 @@
     .actions button {
         width: 150px;
     }
-
 }
 
 @media screen and (min-width: 600px) {
-
+    .new-game-container {
+        width: 500px;
+    }
 }
