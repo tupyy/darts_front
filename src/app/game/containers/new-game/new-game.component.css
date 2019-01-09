@@ -7,6 +7,10 @@
     margin-bottom: 10px;
 }
 
+.players-list {
+    background-color: #eef7ff;
+}
+
 .input-player {
     display: flex;
     align-items: center;
@@ -67,7 +71,7 @@
     .players-list {
         margin-left: 5px;
         margin-right: 5px;
-        background-color: #fbfafa;
+        background-color: #eef7ff;
     }
 
     .players-list .mat-card-title {
