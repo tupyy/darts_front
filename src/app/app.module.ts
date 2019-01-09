@@ -13,6 +13,7 @@ import {LayoutComponent} from './layout/layout.component';
 import {HomeComponent} from './containers/home/home.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {GameModule} from './game/game.module';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
     declarations: [
@@ -21,6 +22,7 @@ import {GameModule} from './game/game.module';
         SidenavListComponent,
         LayoutComponent,
         HomeComponent,
+        LoginComponent,
     ],
     imports: [
         BrowserAnimationsModule,
