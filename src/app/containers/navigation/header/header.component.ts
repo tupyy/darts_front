@@ -1,4 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {AuthService} from '../../../services/auth.service';
+import {Subscription} from 'rxjs';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-header',
@@ -8,15 +11,24 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 export class HeaderComponent implements OnInit {
 
     @Output() public sidenavToggle = new EventEmitter();
+    userAuthenticated: boolean;
 
-    constructor() {
+    constructor(private authService: AuthService,
+                private router: Router) {
+        authService.isAuthenticated.subscribe(val => {
+            this.userAuthenticated = val;
+        });
     }
 
     ngOnInit() {
     }
 
-    public onToggleSidenav = () => {
+    public onToggleSidenav() {
         this.sidenavToggle.emit();
     }
 
+    public onLogout() {
+        this.authService.logout();
+        this.router.navigate(['/']);
+    }
 }

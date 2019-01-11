@@ -18,6 +18,14 @@ a:hover, a:active {
     margin: 0;
 }
 
+.navbar-item {
+    cursor: pointer;
+}
+
+.navbar-left {
+    margin-left: 15px;
+}
+
 mat-toolbar {
     border-radius: 3px;
 }
@@ -25,5 +33,9 @@ mat-toolbar {
 @media (max-width: 959px) {
     mat-toolbar {
         border-radius: 0px;
+    }
+
+    .navbar-right {
+        display: none;
     }
 }

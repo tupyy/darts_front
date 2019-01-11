@@ -1,15 +1,27 @@
 <mat-nav-list>
     <a mat-list-item routerLink="/" (click)="onSidenavClose()">
-        <mat-icon>home</mat-icon>
+        <mat-icon fontSet="fas" fontIcon="fa-home"></mat-icon>
         <span class="nav-caption">Home</span>
     </a>
     <a mat-list-item routerLink="/game/new" (click)="onSidenavClose()">
-        <mat-icon>assignment_ind</mat-icon>
+        <mat-icon fontSet="fas" fontIcon="fa-plus"></mat-icon>
         <span class="nav-caption">New game</span>
     </a>
-    <a mat-list-item routerLink="/login" (click)="onSidenavClose()">
-        <mat-icon>perm_identity</mat-icon>
+    <a mat-list-item routerLink="/login" (click)="onSidenavClose()" *ngIf="!userAuthenticated">
+        <mat-icon fontSet="fas" fontIcon="fa-user"></mat-icon>
         <span class="nav-caption">Login</span>
+    </a>
+    <a mat-list-item *ngIf="userAuthenticated">
+        <mat-icon fontSet="fas" fontIcon="fa-list-ul"></mat-icon>
+        <span class="nav-caption">History</span>
+    </a>
+    <a mat-list-item *ngIf="userAuthenticated">
+        <mat-icon fontSet="far" fontIcon="fa-chart-bar"></mat-icon>
+        <span class="nav-caption">Statistics</span>
+    </a>
+    <a mat-list-item (click)="onLogout()" *ngIf="userAuthenticated">
+        <mat-icon fontSet="fas" fontIcon="fa-sign-out-alt"></mat-icon>
+        <span class="nav-caption">Logout</span>
     </a>
     <!--<mat-list-item [matMenuTriggerFor]="menu">-->
         <!--<mat-icon>unfold_more</mat-icon>-->

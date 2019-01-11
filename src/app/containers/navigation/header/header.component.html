@@ -7,13 +7,26 @@
     <div>
         <a routerLink="/">Darts</a>
     </div>
-    <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+    <div fxFlex fxLayout fxLayoutAlign="start" fxHide.xs class="navbar-left">
         <ul fxLayout fxLayoutGap="15px" class="navigation-items">
             <li class="navbar-item">
                 <a class="active" routerLink="/game/new">New game</a>
             </li>
-            <li class="navbar-item">
+            <li class="navbar-item" *ngIf="userAuthenticated">
+                <a>History</a>
+            </li>
+            <li class="navbar-item" *ngIf="userAuthenticated">
+                <a>Statistics</a>
+            </li>
+        </ul>
+    </div>
+    <div class="navbar-right">
+        <ul class="navigation-items">
+            <li class="navbar-item" *ngIf="!userAuthenticated">
                 <a class="login-item" routerLink="/login"> <i class="material-icons">perm_identity</i>Log in</a>
+            </li>
+            <li class="navbar-item" *ngIf="userAuthenticated">
+                <a (click)="onLogout()">Logout</a>
             </li>
         </ul>
     </div>

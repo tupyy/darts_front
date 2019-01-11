@@ -1,4 +1,6 @@
 import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {AuthService} from '../../../services/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-sidenav-list',
@@ -8,13 +10,24 @@ import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 export class SidenavListComponent implements OnInit {
     @Output() sidenavClose = new EventEmitter();
 
-    constructor() {
+    userAuthenticated: boolean;
+    constructor(private authService: AuthService,
+                private router: Router) {
+        authService.isAuthenticated.subscribe(val => {
+            this.userAuthenticated = val;
+        });
     }
 
     ngOnInit() {
     }
 
-    public onSidenavClose = () => {
+    public onSidenavClose() {
+        this.sidenavClose.emit();
+    }
+
+    public onLogout() {
+        this.authService.logout();
+        this.router.navigate(['/']);
         this.sidenavClose.emit();
     }
 
