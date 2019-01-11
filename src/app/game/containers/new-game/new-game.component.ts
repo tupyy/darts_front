@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {GameService} from '../../services/game.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
     selector: 'app-new-game',
@@ -20,6 +21,7 @@ export class NewGameComponent implements OnInit {
     constructor(private gameService: GameService,
                 private fb: FormBuilder,
                 private router: Router,
+                private authService: AuthService,
                 private activatedRoute: ActivatedRoute) {
         this.canAddPlayer = false;
         this.canDeletePlayer = false;
@@ -36,6 +38,15 @@ export class NewGameComponent implements OnInit {
 
         this.newGameForm.get('playersSelectionList').valueChanges.subscribe(val => {
             this.canDeletePlayer = val.length > 0;
+        });
+
+        /*
+         If a user is authenticated, add him to the list of players
+         */
+        authService.isAuthenticated.subscribe(val => {
+            if (val) {
+                this.players.push(authService.getCurrentUser().username);
+            }
         });
     }
 
