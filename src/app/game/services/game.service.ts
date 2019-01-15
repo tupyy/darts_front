@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
-import {Game, Move, Player} from './index';
+import {Game, Move, Player, StandardGame} from './index';
 import {LoggerService} from './logger.service';
-import {Subject} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
+import {StandardPlayer} from './player';
 
 @Injectable({
     providedIn: 'root'
@@ -13,16 +14,18 @@ export class GameService {
     private finishAnnounceSource = new Subject<boolean>();
     finishAnnounce$ = this.finishAnnounceSource.asObservable();
 
-    constructor(private logger: LoggerService) {
+    private currentMove$ = new Subject<Move>();
+
+    constructor() {
     }
 
     startGame(playersNames: string[]): void {
-        const players: Player[] = [];
+        const players: StandardPlayer[] = [];
         playersNames.forEach((name, index) => {
-            players.push(new Player(index, name));
+            players.push(new StandardPlayer(index, name));
         });
-        this.currentGame = new Game(players);
-        this.currentGame.finishAnnounced$.subscribe(val => {
+        this.currentGame = new StandardGame(players);
+        this.currentGame.isFinished().subscribe(val => {
             this.finishAnnounceSource.next(val);
         });
     }
@@ -31,21 +34,17 @@ export class GameService {
         return this.currentGame;
     }
 
-    getCurrentMove(): Move {
-        if (this.currentGame !== undefined) {
-            return this.currentGame.getCurrentMove();
-        }
-        return null;
+    getCurrentMove(): Observable<Move> {
+        return this.currentMove$;
     }
 
     next() {
-        this.logger.logMove(this.currentGame.getCurrentMove());
-        this.currentGame.next();
+        this.currentMove$.next(this.currentGame.next());
     }
 
     getRankingList(): Player[] {
         if (this.currentGame !== undefined) {
-            return this.currentGame.getPlayers().sort((player1, player2) => {
+            return this.currentGame.players.sort((player1, player2) => {
                 if (player1.getScore() > player2.getScore()) {
                     return 1;
                 }
@@ -63,7 +62,7 @@ export class GameService {
 
     getMoves(): Move[] {
         if (this.currentGame !== undefined) {
-            return this.currentGame.getMoves().sort( (move1, move2) => {
+            return this.currentGame.getMoves().sort((move1, move2) => {
                 if (move1.id > move2.id) {
                     return 1;
                 }
