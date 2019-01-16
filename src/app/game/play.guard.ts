@@ -17,6 +17,6 @@ export class PlayGuard implements CanActivate {
         if (this.gameService.hasGame() !== undefined) {
             return true;
         }
-        this.router.navigate(['/game/new']);
+        this.router.navigate(['/main-component/new']);
     }
 }

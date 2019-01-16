@@ -15,7 +15,7 @@ export interface Game {
     // go the the prev move
     prev(): Move;
 
-    // announce when the game is finished
+    // announce when the main-component is finished
     isFinished(): Observable<boolean>;
 
     // get the current move

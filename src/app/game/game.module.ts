@@ -11,7 +11,8 @@ import {GameFinishAnnounceComponent} from './components/game-finish-announce/gam
 import {StandardGameMovesComponent} from './containers/standard-game-moves/standard-game-moves.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MaterialModule} from '../material.module';
-import { GameComponent } from './game/game.component';
+import { MainGameComponent } from './main-component/main-game.component';
+import {PlayComponentDirective} from './directives/play-component.directive';
 
 @NgModule({
     declarations: [
@@ -23,7 +24,8 @@ import { GameComponent } from './game/game.component';
         GameRankingComponent,
         GameFinishAnnounceComponent,
         StandardGameMovesComponent,
-        GameComponent
+        MainGameComponent,
+        PlayComponentDirective
     ],
     imports: [
         CommonModule,
