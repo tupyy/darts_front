@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Move} from './move';
+import {Move, StandardMove} from './move';
 
 @Injectable({
     providedIn: 'root'
@@ -14,11 +14,15 @@ export class LoggerService {
     }
 
     logMove(move: Move): void {
-        let message: string;
-        message = 'Move id: ' + move.id + '\n';
-        message += 'Current player: ' + move.player.name + '\n';
-        message += 'Score: ' + move.getTotalScore() + '\n';
-        message += 'Shoots: ' + move.getShootScore(0) + '/' + move.getShootScore(1) + '/' + move.getShootScore(2);
-        console.log(message);
+        if (move instanceof StandardMove) {
+            const standardMove = <StandardMove>move;
+            let message: string;
+            message = 'Move id: ' + standardMove.id + '\n';
+            message += 'Current player: ' + standardMove.playerId + '\n';
+            message += 'Score: ' + standardMove.getTotalScore() + '\n';
+            message += 'Shoots: ' + standardMove.getScore(0) + '/' + standardMove.getScore(1) + '/' + standardMove.getScore(2);
+            console.log(message);
+        }
+
     }
 }
