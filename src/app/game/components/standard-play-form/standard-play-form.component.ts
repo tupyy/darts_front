@@ -4,7 +4,7 @@ import {StandardMove} from '../../services/move';
 import {StandardPlayer} from '../../services/player';
 
 @Component({
-    selector: 'app-play-form',
+    selector: 'app-standard-play-form',
     templateUrl: './standard-play-form.component.html',
     styleUrls: ['./standard-play-form.component.css'],
 })

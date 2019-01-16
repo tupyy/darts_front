@@ -35,8 +35,8 @@ export class GameService {
 
     }
 
-    getCurrentGame() {
-        return this.currentGame;
+    hasGame(): boolean {
+        return this.currentGame !== undefined;
     }
 
     getCurrentMove(): Move {

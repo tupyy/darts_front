@@ -1,6 +1,6 @@
 <div class="game-view-container">
     <mat-tab-group>
-        <mat-tab label="Move"><app-play-form [currentMove]="currentMove" [currentPlayer]="currentPlayer" (next)="onNext()"></app-play-form></mat-tab>
+        <mat-tab label="Move"><app-standard-play-form [currentMove]="currentMove" [currentPlayer]="currentPlayer" (next)="onNext()"></app-standard-play-form></mat-tab>
         <mat-tab label="Moves"><app-game-moves [moves]="getMoves()"></app-game-moves></mat-tab>
         <mat-tab label="Ranking"><app-game-rankings [rankings]=getRankingList()></app-game-rankings></mat-tab>
     </mat-tab-group>

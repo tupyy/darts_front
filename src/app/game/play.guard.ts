@@ -14,7 +14,7 @@ export class PlayGuard implements CanActivate {
     canActivate(
         next: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-        if (this.gameService.getCurrentGame() !== undefined) {
+        if (this.gameService.hasGame() !== undefined) {
             return true;
         }
         this.router.navigate(['/game/new']);
