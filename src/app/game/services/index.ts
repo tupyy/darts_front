@@ -87,7 +87,7 @@ export class StandardGame implements Game {
      * Sort the moves by id before return
      */
     public getMoves() {
-        return this.getMoves().sort((move1, move2) => {
+        return this.moves.sort((move1, move2) => {
             if (move1.id > move2.id) {
                 return 1;
             }
