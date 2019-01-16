@@ -18,7 +18,7 @@ export class GameService {
     constructor() {
     }
 
-    startGame(playersNames: string[]): void {
+    startGame(gameType: string, playersNames: string[]): void {
         const players: StandardPlayer[] = [];
         playersNames.forEach((name, index) => {
             players.push(new StandardPlayer(index, name));
@@ -43,7 +43,7 @@ export class GameService {
 
     getRankingList(): Player[] {
         if (this.currentGame !== undefined) {
-           return this.currentGame.getRankings();
+            return this.currentGame.getRankings();
         }
         return null;
     }
