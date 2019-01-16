@@ -26,6 +26,7 @@ export class GameService {
                 players.push(new StandardPlayer(i, playersNames[i]));
             }
             this.currentGame = new StandardGame(players);
+            this.currentMove$.next(this.currentGame.getCurrentMove());
 
             this.currentGame.isFinished().subscribe(val => {
                 this.finishAnnounceSource.next(val);
@@ -38,12 +39,16 @@ export class GameService {
         return this.currentGame;
     }
 
-    getCurrentMove(): Observable<Move> {
-        return this.currentMove$;
+    getCurrentMove(): Move {
+        return this.currentGame.getCurrentMove();
+    }
+
+    getCurrentPlayer(): Player {
+        return this.currentGame.getCurrentPlayer();
     }
 
     next() {
-        this.currentMove$.next(this.currentGame.next());
+        this.currentGame.next();
     }
 
     getRankingList(): Player[] {

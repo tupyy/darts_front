@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {GameService} from '../../services/game.service';
-import {Move} from '../../services';
+import {Move, Player} from '../../services';
 import {Subscription} from 'rxjs';
 import {GameFinishAnnounceComponent} from '../../components/game-finish-announce/game-finish-announce.component';
 import {MatDialog, MatDialogRef} from '@angular/material';
@@ -14,7 +14,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 
 export class GameViewComponent implements OnInit, OnDestroy {
 
-    currentMove: Move;
     gameFinishSubscription: Subscription;
     private dialogRef: MatDialogRef<GameFinishAnnounceComponent>;
 
@@ -25,12 +24,6 @@ export class GameViewComponent implements OnInit, OnDestroy {
         this.gameFinishSubscription = gameService.finishAnnounce$.subscribe(val => {
             if (val) {
                 this.openDialog();
-            }
-        });
-
-        gameService.getCurrentMove().subscribe((move) => {
-            if (move) {
-                this.currentMove = move;
             }
         });
     }
@@ -56,10 +49,18 @@ export class GameViewComponent implements OnInit, OnDestroy {
 
     }
 
+
     ngOnDestroy() {
         this.gameFinishSubscription.unsubscribe();
     }
 
+    get currentMove(): Move {
+        return this.gameService.getCurrentMove();
+    }
+
+    get currentPlayer(): Player {
+        return this.gameService.getCurrentPlayer();
+    }
     getRankingList() {
         return this.gameService.getRankingList();
     }

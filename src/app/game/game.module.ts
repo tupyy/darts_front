@@ -8,7 +8,7 @@ import {GameRankingComponent} from './containers/game-ranking/game-ranking.compo
 import {NewGameComponent} from './containers/new-game/new-game.component';
 import {GameViewComponent} from './containers/game-view/game-view.component';
 import {GameFinishAnnounceComponent} from './components/game-finish-announce/game-finish-announce.component';
-import {GameMovesComponent} from './containers/game-moves/game-moves.component';
+import {StandardGameMovesComponent} from './containers/standard-game-moves/standard-game-moves.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MaterialModule} from '../material.module';
 import { GameComponent } from './game/game.component';
@@ -22,7 +22,7 @@ import { GameComponent } from './game/game.component';
         GameViewComponent,
         GameRankingComponent,
         GameFinishAnnounceComponent,
-        GameMovesComponent,
+        StandardGameMovesComponent,
         GameComponent
     ],
     imports: [
