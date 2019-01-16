@@ -1,4 +1,4 @@
-export enum GameTypeEnum {
+export enum GameType {
     Standard,
     Killer,
     Team

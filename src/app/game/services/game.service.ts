@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
-import {Game, Move, Player, StandardGame} from './index';
+import {Game, Move, Player} from '../engine/game';
 import {Observable, Subject} from 'rxjs';
-import {StandardPlayer} from './player';
-import {GameTypeEnum} from './GameTypeEnum';
+import {StandardPlayer} from '../engine/standard-player';
+import {GameType} from '../engine/game-type';
+import {StandardGame} from '../engine/standard-game';
 
 @Injectable({
     providedIn: 'root'
@@ -20,7 +21,7 @@ export class GameService {
     }
 
     startGame(gameType: number, playersNames: string[]): void {
-        if (gameType === GameTypeEnum.Standard) {
+        if (gameType === GameType.Standard) {
             const players = [];
             for (let i = 0; i < playersNames.length; i++) {
                 players.push(new StandardPlayer(i, playersNames[i]));

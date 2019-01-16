@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {GameService} from '../../services/game.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {GameTypeEnum} from '../../services/GameTypeEnum';
+import {GameType} from '../../engine/game-type';
 
 @Component({
     selector: 'app-new-game',
@@ -17,7 +17,7 @@ export class NewGameComponent implements OnInit {
     canDeletePlayer: boolean;
     canStart: boolean;
     selectedPlayers: [];
-    gameTypes = GameTypeEnum;
+    gameTypes = GameType;
     gameTypeKeys = [];
 
     constructor(private gameService: GameService,

@@ -1,9 +1,4 @@
-export interface Move {
-    id: number;
-    playerId: number;
-
-    clone(): Move;
-}
+import {Move} from './move';
 
 export class StandardMove implements Move {
     id: number;

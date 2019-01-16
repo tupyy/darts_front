@@ -1,14 +1,14 @@
 import {Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren} from '@angular/core';
 import {ShootComponent} from '../shoot-component/shoot.component';
-import {StandardMove} from '../../services/move';
-import {StandardPlayer} from '../../services/player';
+import {StandardMove} from '../../engine/standard-move';
+import {StandardPlayer} from '../../engine/standard-player';
 
 @Component({
-    selector: 'app-standard-play-form',
-    templateUrl: './standard-play-form.component.html',
-    styleUrls: ['./standard-play-form.component.css'],
+    selector: 'app-standard-play-component',
+    templateUrl: './standard-play.component.html',
+    styleUrls: ['./standard-play.component.css'],
 })
-export class StandardPlayFormComponent implements OnInit {
+export class StandardPlayComponent implements OnInit {
 
     @Input() currentMove: StandardMove;
     @Input() currentPlayer: StandardPlayer;

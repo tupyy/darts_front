@@ -1,7 +1,4 @@
-export interface Player {
-    id: number;
-    name: string;
-}
+import {Player} from './player';
 
 export class StandardPlayer implements Player {
     id: number;
@@ -26,5 +23,3 @@ export class StandardPlayer implements Player {
         return this.score;
     }
 }
-
-
