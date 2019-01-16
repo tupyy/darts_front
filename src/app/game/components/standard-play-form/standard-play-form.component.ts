@@ -1,15 +1,17 @@
 import {Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren} from '@angular/core';
 import {ShootComponent} from '../shoot-component/shoot.component';
-import {Move} from '../../services';
+import {StandardMove} from '../../services/move';
+import {StandardPlayer} from '../../services/player';
 
 @Component({
     selector: 'app-play-form',
-    templateUrl: './play-form.component.html',
-    styleUrls: ['./play-form.component.css'],
+    templateUrl: './standard-play-form.component.html',
+    styleUrls: ['./standard-play-form.component.css'],
 })
-export class PlayFormComponent implements OnInit {
+export class StandardPlayFormComponent implements OnInit {
 
-    @Input() currentMove: Move;
+    @Input() currentMove: StandardMove;
+    @Input() currentPlayer: StandardPlayer;
     @Output() next = new EventEmitter();
     public canNext = false;
 
@@ -22,20 +24,20 @@ export class PlayFormComponent implements OnInit {
     ngOnInit() {
     }
 
-    get currentPlayer(): string {
-        return this.currentMove.player.name;
+    get playerName(): string {
+        return this.currentPlayer.name;
     }
 
-    get currentScore(): number {
+    get playerScore(): number {
         if (!isNaN(this.currentMove.getTotalScore())) {
-            return this.currentMove.player.getScore() - this.currentMove.getTotalScore();
+            return this.currentPlayer.getScore() - this.currentMove.getTotalScore();
         } else {
-            return this.currentMove.player.getScore();
+            return this.currentPlayer.getScore();
         }
     }
 
     onScoreChanged(event: number[]) {
-        this.currentMove.setShootScore(event[0], event[1]);
+        this.currentMove.setScore(event[0], event[1]);
 
         let _canNext = false;
         for (const shoot of this.shoots.toArray()) {
