@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 import {GameRoutingModule} from './game-routing.module';
-import {PlayFormComponent} from './components/play-form/play-form.component';
+import {StandardPlayFormComponent} from './components/standard-play-form/standard-play-form.component';
 import {ShootComponent} from './components/shoot-component/shoot.component';
 import {GameRankingComponent} from './containers/game-ranking/game-ranking.component';
 import {NewGameComponent} from './containers/new-game/new-game.component';
@@ -15,7 +15,7 @@ import { GameComponent } from './game/game.component';
 
 @NgModule({
     declarations: [
-        PlayFormComponent,
+        StandardPlayFormComponent,
         ShootComponent,
         GameRankingComponent,
         NewGameComponent,

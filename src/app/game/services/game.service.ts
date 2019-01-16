@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Game, Move, Player, StandardGame} from './index';
 import {Observable, Subject} from 'rxjs';
 import {StandardPlayer} from './player';
+import {GameTypeEnum} from './GameTypeEnum';
 
 @Injectable({
     providedIn: 'root'
@@ -18,15 +19,19 @@ export class GameService {
     constructor() {
     }
 
-    startGame(gameType: string, playersNames: string[]): void {
-        const players: StandardPlayer[] = [];
-        playersNames.forEach((name, index) => {
-            players.push(new StandardPlayer(index, name));
-        });
-        this.currentGame = new StandardGame(players);
-        this.currentGame.isFinished().subscribe(val => {
-            this.finishAnnounceSource.next(val);
-        });
+    startGame(gameType: number, playersNames: string[]): void {
+        if (gameType === GameTypeEnum.Standard) {
+            const players = [];
+            for (let i = 0; i < playersNames.length; i++) {
+                players.push(new StandardPlayer(i, playersNames[i]));
+            }
+            this.currentGame = new StandardGame(players);
+
+            this.currentGame.isFinished().subscribe(val => {
+                this.finishAnnounceSource.next(val);
+            });
+        }
+
     }
 
     getCurrentGame() {
