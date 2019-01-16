@@ -14,6 +14,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 
 export class GameViewComponent implements OnInit, OnDestroy {
 
+    currentMove: Move;
     gameFinishSubscription: Subscription;
     private dialogRef: MatDialogRef<GameFinishAnnounceComponent>;
 
@@ -26,6 +27,12 @@ export class GameViewComponent implements OnInit, OnDestroy {
                 this.openDialog();
             }
         });
+
+        gameService.getCurrentMove().subscribe((move) => {
+            if (move) {
+                this.currentMove = move;
+            }
+        });
     }
 
     ngOnInit() {
@@ -35,27 +42,22 @@ export class GameViewComponent implements OnInit, OnDestroy {
         if (this.dialogRef === undefined) {
             this.dialogRef = this.dialog.open(GameFinishAnnounceComponent, {
                 width: '300px',
-                data: {winner: this.gameService.getCurrentMove().player.name}
+                data: {winner: this.gameService.getCurrentGame().getCurrentPlayer().name}
             });
 
             this.dialogRef.afterClosed().subscribe(result => {
                 if (result === 'home') {
                     this.router.navigate(['/']);
                 } else if (result === 'new_game') {
-                    this.router.navigate(['../new'], { relativeTo: this.activatedRoute});
+                    this.router.navigate(['../new'], {relativeTo: this.activatedRoute});
                 }
             });
         }
 
     }
 
-
     ngOnDestroy() {
         this.gameFinishSubscription.unsubscribe();
-    }
-
-    get currentMove(): Move {
-        return this.gameService.getCurrentMove();
     }
 
     getRankingList() {
