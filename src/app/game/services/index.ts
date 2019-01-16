@@ -26,8 +26,13 @@ export interface Game {
     // get move
     getMove(id: number): Move;
 
+    getMoves(): Move[];
+
     // get player by id
     getPlayer(id: number): Player;
+
+    // get ranking list
+    getRankings(): Player[];
 
 }
 
@@ -78,10 +83,27 @@ export class StandardGame implements Game {
         return this.players;
     }
 
+    /**
+     * Sort the moves by id before return
+     */
     public getMoves() {
-        return this.moves;
+        return this.getMoves().sort((move1, move2) => {
+            if (move1.id > move2.id) {
+                return 1;
+            }
+
+            if (move1.id < move2.id) {
+                return -1;
+            }
+
+            return 0;
+        });
     }
 
+    /**
+     * Get move by id
+     * @param id of the move
+     */
     public getMove(id: number): Move {
         for (const m of this.moves) {
             if (m.id === id) {
@@ -97,6 +119,23 @@ export class StandardGame implements Game {
                 return this.players[i];
             }
         }
+    }
+
+    /**
+     * Get the rankings list. Return the list of player sorted in a decreasing order
+     */
+    public getRankings(): Player[] {
+        return this.players.sort((player1, player2) => {
+            if (player1.getScore() > player2.getScore()) {
+                return 1;
+            }
+
+            if (player1.getScore() < player2.getScore()) {
+                return -1;
+            }
+
+            return 0;
+        });
     }
 
     private getNextPlayer() {

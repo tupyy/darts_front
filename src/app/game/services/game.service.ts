@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {Game, Move, Player, StandardGame} from './index';
-import {LoggerService} from './logger.service';
 import {Observable, Subject} from 'rxjs';
 import {StandardPlayer} from './player';
 
@@ -44,37 +43,15 @@ export class GameService {
 
     getRankingList(): Player[] {
         if (this.currentGame !== undefined) {
-            return this.currentGame.players.sort((player1, player2) => {
-                if (player1.getScore() > player2.getScore()) {
-                    return 1;
-                }
-
-                if (player1.getScore() < player2.getScore()) {
-                    return -1;
-                }
-
-                return 0;
-            });
+           return this.currentGame.getRankings();
         }
-
         return null;
     }
 
     getMoves(): Move[] {
         if (this.currentGame !== undefined) {
-            return this.currentGame.getMoves().sort((move1, move2) => {
-                if (move1.id > move2.id) {
-                    return 1;
-                }
-
-                if (move1.id < move2.id) {
-                    return -1;
-                }
-
-                return 0;
-            });
+            return this.currentGame.getMoves();
         }
-
         return null;
     }
 }
