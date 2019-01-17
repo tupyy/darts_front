@@ -1,4 +1,6 @@
-export class Player {
+import {Player} from './player';
+
+export class StandardPlayer implements Player {
     id: number;
     name: string;
     private score: number;
@@ -17,13 +19,7 @@ export class Player {
         }
     }
 
-    temporaryUpdateScore(moveScore: number) {
-        return this.score - moveScore;
-    }
-
     getScore() {
         return this.score;
     }
 }
-
-

@@ -1,4 +1,11 @@
 <div class="root-container new-game-container" [formGroup]="newGameForm">
+    <div class="new-game-component">
+        <mat-form-field class="input-player-field">
+            <mat-select placeholder="Game type" formControlName="gameTypeControl">
+                <mat-option *ngFor="let key of gameTypeKeys" [value]="key">{{gameTypes[key]}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
     <div class="new-game-component input-player">
         <mat-form-field class="input-player-field">
             <input matInput placeholder="Enter player name" formControlName="playerInput" (keyup.enter)="addPlayer()">

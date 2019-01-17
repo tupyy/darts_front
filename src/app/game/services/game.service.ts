@@ -1,7 +1,9 @@
 import {Injectable} from '@angular/core';
-import {Game, Move, Player} from './index';
-import {LoggerService} from './logger.service';
-import {Subject} from 'rxjs';
+import {Game, Move, Player} from '../engine/game';
+import {Observable, Subject} from 'rxjs';
+import {StandardPlayer} from '../engine/standard-player';
+import {GameType} from '../engine/game-type';
+import {StandardGame} from '../engine/standard-game';
 
 @Injectable({
     providedIn: 'root'
@@ -13,69 +15,54 @@ export class GameService {
     private finishAnnounceSource = new Subject<boolean>();
     finishAnnounce$ = this.finishAnnounceSource.asObservable();
 
-    constructor(private logger: LoggerService) {
+    private currentMove$ = new Subject<Move>();
+
+    constructor() {
     }
 
-    startGame(playersNames: string[]): void {
-        const players: Player[] = [];
-        playersNames.forEach((name, index) => {
-            players.push(new Player(index, name));
-        });
-        this.currentGame = new Game(players);
-        this.currentGame.finishAnnounced$.subscribe(val => {
-            this.finishAnnounceSource.next(val);
-        });
+    startGame(gameType: number, playersNames: string[]): void {
+        if (gameType === GameType.Standard) {
+            const players = [];
+            for (let i = 0; i < playersNames.length; i++) {
+                players.push(new StandardPlayer(i, playersNames[i]));
+            }
+            this.currentGame = new StandardGame(players);
+            this.currentMove$.next(this.currentGame.getCurrentMove());
+
+            this.currentGame.isFinished().subscribe(val => {
+                this.finishAnnounceSource.next(val);
+            });
+        }
+
     }
 
-    getCurrentGame() {
-        return this.currentGame;
+    hasGame(): boolean {
+        return this.currentGame !== undefined;
     }
 
     getCurrentMove(): Move {
-        if (this.currentGame !== undefined) {
-            return this.currentGame.getCurrentMove();
-        }
-        return null;
+        return this.currentGame.getCurrentMove();
+    }
+
+    getCurrentPlayer(): Player {
+        return this.currentGame.getCurrentPlayer();
     }
 
     next() {
-        this.logger.logMove(this.currentGame.getCurrentMove());
         this.currentGame.next();
     }
 
     getRankingList(): Player[] {
         if (this.currentGame !== undefined) {
-            return this.currentGame.getPlayers().sort((player1, player2) => {
-                if (player1.getScore() > player2.getScore()) {
-                    return 1;
-                }
-
-                if (player1.getScore() < player2.getScore()) {
-                    return -1;
-                }
-
-                return 0;
-            });
+            return this.currentGame.getRankings();
         }
-
         return null;
     }
 
     getMoves(): Move[] {
         if (this.currentGame !== undefined) {
-            return this.currentGame.getMoves().sort( (move1, move2) => {
-                if (move1.id > move2.id) {
-                    return 1;
-                }
-
-                if (move1.id < move2.id) {
-                    return -1;
-                }
-
-                return 0;
-            });
+            return this.currentGame.getMoves();
         }
-
         return null;
     }
 }

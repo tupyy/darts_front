@@ -1,29 +1,31 @@
-import {Player} from './player';
+import {Move} from './move';
 
-export class Move {
+export class StandardMove implements Move {
     id: number;
-    player: Player;
+    playerId: number;
     shoots: number[];
 
-    constructor(id: number, player: Player, shoots?: number[]) {
+    constructor(id: number, playerId: number, shoots?: number[]) {
         this.id = id;
-        this.player = player;
-        this.shoots = new Array(3);
+        this.playerId = playerId;
+
         if (shoots !== undefined) {
             this.shoots = shoots;
+        } else {
+            this.shoots = new Array(3);
         }
     }
 
-    getShootScore(index: number) {
+    getScore(shootId: number) {
         try {
-            return this.shoots[index];
+            return this.shoots[shootId];
         } catch (e) {
             return 0;
         }
     }
 
-    setShootScore(index: number, value: number) {
-        this.shoots[index - 1] = value;
+    setScore(shootId: number, value: number) {
+        this.shoots[shootId - 1] = value;
     }
 
     public getTotalScore(): number {
@@ -34,12 +36,8 @@ export class Move {
         return sum;
     }
 
-    public updatePlayerScore() {
-        this.player.updateScore(this.getTotalScore());
-    }
-
     public clone() {
-        const clone = new Move(this.id, this.player);
+        const clone = new StandardMove(this.id, this.playerId);
         this.shoots.forEach((val, index) => {
             clone.shoots[index] = val;
         });

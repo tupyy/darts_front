@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {GameService} from '../../services/game.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AuthService} from '../../../services/auth.service';
+import {GameType} from '../../engine/game-type';
 
 @Component({
     selector: 'app-new-game',
@@ -17,17 +17,23 @@ export class NewGameComponent implements OnInit {
     canDeletePlayer: boolean;
     canStart: boolean;
     selectedPlayers: [];
+    gameTypes = GameType;
+    gameTypeKeys = [];
 
     constructor(private gameService: GameService,
                 private fb: FormBuilder,
                 private router: Router,
-                private authService: AuthService,
                 private activatedRoute: ActivatedRoute) {
         this.canAddPlayer = false;
         this.canDeletePlayer = false;
         this.canStart = false;
 
+        this.gameTypeKeys = Object.keys(this.gameTypes)
+            .filter(f => !isNaN(Number(f)))
+            .map(k => parseInt(k, 10));
+
         this.newGameForm = this.fb.group({
+            gameTypeControl: [null, Validators.required],
             playerInput: [null, [Validators.required]],
             playersSelectionList: [{value: '', disabled: false}, [Validators.required]]
         });
@@ -38,15 +44,6 @@ export class NewGameComponent implements OnInit {
 
         this.newGameForm.get('playersSelectionList').valueChanges.subscribe(val => {
             this.canDeletePlayer = val.length > 0;
-        });
-
-        /*
-         If a user is authenticated, add him to the list of players
-         */
-        authService.isAuthenticated.subscribe(val => {
-            if (val) {
-                this.players.push(authService.getCurrentUser().username);
-            }
         });
     }
 
@@ -76,7 +73,7 @@ export class NewGameComponent implements OnInit {
     }
 
     start() {
-        this.gameService.startGame(this.players);
+        this.gameService.startGame(this.newGameForm.get('gameTypeControl').value, this.players);
         this.router.navigate(['../play'], {relativeTo: this.activatedRoute});
 
     }

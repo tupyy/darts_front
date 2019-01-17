@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {GameService} from '../../services/game.service';
-import {Move} from '../../services';
+import {Move, Player} from '../../engine/game';
 import {Subscription} from 'rxjs';
 import {GameFinishAnnounceComponent} from '../../components/game-finish-announce/game-finish-announce.component';
 import {MatDialog, MatDialogRef} from '@angular/material';
@@ -35,14 +35,14 @@ export class GameViewComponent implements OnInit, OnDestroy {
         if (this.dialogRef === undefined) {
             this.dialogRef = this.dialog.open(GameFinishAnnounceComponent, {
                 width: '300px',
-                data: {winner: this.gameService.getCurrentMove().player.name}
+                data: {winner: this.gameService.getCurrentPlayer().name}
             });
 
             this.dialogRef.afterClosed().subscribe(result => {
                 if (result === 'home') {
                     this.router.navigate(['/']);
                 } else if (result === 'new_game') {
-                    this.router.navigate(['../new'], { relativeTo: this.activatedRoute});
+                    this.router.navigate(['../new'], {relativeTo: this.activatedRoute});
                 }
             });
         }
@@ -58,6 +58,9 @@ export class GameViewComponent implements OnInit, OnDestroy {
         return this.gameService.getCurrentMove();
     }
 
+    get currentPlayer(): Player {
+        return this.gameService.getCurrentPlayer();
+    }
     getRankingList() {
         return this.gameService.getRankingList();
     }
