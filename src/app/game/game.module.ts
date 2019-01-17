@@ -35,7 +35,8 @@ import {PlayComponentDirective} from './directives/play-component.directive';
         GameRoutingModule
     ],
     entryComponents: [
-        GameFinishAnnounceComponent
+        GameFinishAnnounceComponent,
+        StandardPlayComponent
     ],
 })
 export class GameModule {

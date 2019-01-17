@@ -1,10 +1,15 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, ComponentFactoryResolver, EventEmitter, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {GameService} from '../../services/game.service';
 import {Move, Player} from '../../engine/game';
 import {Subscription} from 'rxjs';
 import {GameFinishAnnounceComponent} from '../../components/game-finish-announce/game-finish-announce.component';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {ActivatedRoute, Router} from '@angular/router';
+import {StandardGame} from '../../engine/standard-game';
+import {PlayComponentDirective} from '../../directives/play-component.directive';
+import {StandardPlayComponent} from '../../components/standard-play-component/standard-play.component';
+import {StandardMove} from '../../engine/standard-move';
+import {StandardPlayer} from '../../engine/standard-player';
 
 @Component({
     selector: 'app-play-view',
@@ -16,11 +21,13 @@ export class GameViewComponent implements OnInit, OnDestroy {
 
     gameFinishSubscription: Subscription;
     private dialogRef: MatDialogRef<GameFinishAnnounceComponent>;
+    @ViewChild(PlayComponentDirective) playComponent: PlayComponentDirective;
 
     constructor(private gameService: GameService,
                 public dialog: MatDialog,
                 private router: Router,
-                private activatedRoute: ActivatedRoute) {
+                private activatedRoute: ActivatedRoute,
+                private componentFactoryResolver: ComponentFactoryResolver) {
         this.gameFinishSubscription = gameService.finishAnnounce$.subscribe(val => {
             if (val) {
                 this.openDialog();
@@ -29,6 +36,9 @@ export class GameViewComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        if (this.gameService.currentGame instanceof StandardGame) {
+            this.loadGameComponent();
+        }
     }
 
     openDialog(): void {
@@ -61,6 +71,7 @@ export class GameViewComponent implements OnInit, OnDestroy {
     get currentPlayer(): Player {
         return this.gameService.getCurrentPlayer();
     }
+
     getRankingList() {
         return this.gameService.getRankingList();
     }
@@ -71,5 +82,17 @@ export class GameViewComponent implements OnInit, OnDestroy {
 
     onNext() {
         this.gameService.next();
+    }
+
+    private loadGameComponent() {
+        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(StandardPlayComponent);
+        const viewContainerRef = this.playComponent.viewContainerRef;
+        viewContainerRef.clear();
+        const componentRef = viewContainerRef.createComponent(componentFactory);
+        (<StandardPlayComponent>componentRef.instance).currentMove = <StandardMove>this.gameService.getCurrentMove();
+        (<StandardPlayComponent>componentRef.instance).currentPlayer = <StandardPlayer>this.gameService.getCurrentPlayer();
+        (<StandardPlayComponent>componentRef.instance).next.subscribe(() => {
+            this.gameService.next();
+        });
     }
 }
