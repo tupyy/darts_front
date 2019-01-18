@@ -16,6 +16,8 @@ export interface Game {
     // go the the prev move
     prev(): void;
 
+    resume(moveID: number): void;
+
     // announce when the main-component is finished
     isFinished(): Observable<boolean>;
 
@@ -36,6 +38,9 @@ export interface Game {
     getRankings(): Player[];
 
     toJSON(): Game;
+}
 
+export interface GameJSON extends Game {
+    currentPlayerID: number;
 }
 

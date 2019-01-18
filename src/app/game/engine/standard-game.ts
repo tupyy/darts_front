@@ -1,7 +1,7 @@
 import {Player} from './player';
 import {Move} from './move';
-import {BehaviorSubject, Observable, Subject} from 'rxjs';
-import {Game} from './game';
+import {ArgumentOutOfRangeError, BehaviorSubject, Observable, Subject} from 'rxjs';
+import {Game, GameJSON} from './game';
 import {StandardMove} from './standard-move';
 import {StandardPlayer} from './standard-player';
 import {GameType} from './game-type';
@@ -24,36 +24,62 @@ export class StandardGame implements Game {
 
     constructor(players: StandardPlayer[]) {
         this.players = players;
-        this.currentMove = new StandardMove(1, this.players[0].id);
-        this.currentMoveSource.next(this.currentMove);
-        this.currentPlayerSource.next(<StandardPlayer>this.getPlayer(this.currentMove.playerId));
+        this.next(true);
+
+        // this.currentMoveSource.next(this.currentMove);
+        // this.currentPlayerSource.next(<StandardPlayer>this.getPlayer(this.currentMove.playerId));
     }
 
     /**
      * Create an object StandardGame from json
      * @param gameJSON json describing the game
      */
-    static fromJSON(gameJSON: Game): StandardGame {
-        return undefined;
-    }
-
-    public next(): void {
-        // save the current move
-        this.moves.push(this.currentMove.clone());
-        const currentPlayer = <StandardPlayer>this.getPlayer(this.currentMove.playerId);
-        currentPlayer.updateScore(this.currentMove.getTotalScore());
-
-        if (currentPlayer.getScore() === 0) {
-            this.finishAnnouncedSource.next(true);
+    static fromJSON(gameJSON: GameJSON): StandardGame {
+        const players = [];
+        for (const playerJSON of gameJSON.players) {
+            players.push(StandardPlayer.fromJSON(playerJSON));
         }
 
-        this.currentMove = new StandardMove(this.moves.length + 1, this.getNextPlayer().id);
-        this.currentMoveSource.next(this.currentMove);
-        this.currentPlayerSource.next(<StandardPlayer>this.getPlayer(this.currentMove.playerId));
+        const newGame = new StandardGame(players);
+        for (const moveJSON of gameJSON.moves) {
+            newGame.moves.push(StandardMove.fromJSON(moveJSON));
+        }
+        const currentPlayer = <StandardPlayer>newGame.getPlayer(gameJSON.currentPlayerID);
+        newGame.currentPlayerSource.next(currentPlayer);
+        newGame.next(true);
+        return newGame;
+    }
+
+    public next(firstTime?: boolean): void {
+        if (!firstTime) {
+            // save the current move
+            this.moves.push(this.currentMove.clone());
+            const currentPlayer = <StandardPlayer>this.getPlayer(this.currentMove.playerId);
+            currentPlayer.updateScore(this.currentMove.getTotalScore());
+
+            if (currentPlayer.getScore() === 0) {
+                this.finishAnnouncedSource.next(true);
+            }
+        }
+
+        const currentMove = new StandardMove(this.moves.length + 1, this.getNextPlayer().id);
+        this.setCurrentMove(currentMove);
     }
 
     public prev(): Move {
         return null;
+    }
+
+    resume(moveID: number): void {
+        if (moveID >= this.moves.length) {
+            throw new ArgumentOutOfRangeError();
+        }
+        for (const move of this.moves) {
+            if (moveID === moveID) {
+                this.setCurrentMove(<StandardMove>move);
+                return;
+            }
+        }
     }
 
     public isFinished(): Observable<boolean> {
@@ -132,10 +158,20 @@ export class StandardGame implements Game {
         targetObj['players'] = this.players;
         targetObj['moves'] = this.moves;
         targetObj['gameType'] = this.gameType;
+        targetObj['currentPlayer'] = this.getNextPlayer().id;
         return <Game>targetObj;
     }
 
+    private setCurrentMove(move: StandardMove) {
+        this.currentMove = move;
+        this.currentMoveSource.next(move);
+        this.currentPlayerSource.next(<StandardPlayer>this.getPlayer(move.playerId));
+    }
+
     private getNextPlayer() {
+        if (this.currentMove === undefined) {
+            return this.getPlayer(0);
+        }
         const id = this.currentMove.playerId + 1;
         if (id === this.players.length) {
             return this.getPlayer(0);

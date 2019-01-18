@@ -5,6 +5,11 @@ export class StandardPlayer implements Player {
     name: string;
     private score: number;
 
+    static fromJSON(playerJSON): StandardPlayer {
+        const player = Object.create(StandardPlayer.prototype);
+        return Object.assign(player, playerJSON);
+    }
+
     constructor(_id: number, _name: string) {
         this.id = _id;
         this.name = _name;

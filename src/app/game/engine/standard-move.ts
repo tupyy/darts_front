@@ -5,6 +5,10 @@ export class StandardMove implements Move {
     playerId: number;
     shoots: number[];
 
+    static fromJSON(moveJSON): StandardMove {
+        const move = Object.create(StandardMove.prototype);
+        return Object.assign(move, moveJSON);
+    }
     constructor(id: number, playerId: number, shoots?: number[]) {
         this.id = id;
         this.playerId = playerId;
