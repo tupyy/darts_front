@@ -46,7 +46,6 @@ export class StandardGame implements Game {
         }
         const currentPlayer = <StandardPlayer>newGame.getPlayer(gameJSON.currentPlayerID);
         newGame.currentPlayerSource.next(currentPlayer);
-        newGame.next(true);
         return newGame;
     }
 
@@ -158,7 +157,7 @@ export class StandardGame implements Game {
         targetObj['players'] = this.players;
         targetObj['moves'] = this.moves;
         targetObj['gameType'] = this.gameType;
-        targetObj['currentPlayer'] = this.getNextPlayer().id;
+        targetObj['currentPlayerID'] = this.getNextPlayer().id;
         return <Game>targetObj;
     }
 

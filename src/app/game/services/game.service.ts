@@ -1,6 +1,6 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import {Game, Move, Player} from '../engine/game';
-import {Subject} from 'rxjs';
+import {Subject, Subscription} from 'rxjs';
 import {StandardPlayer} from '../engine/standard-player';
 import {GameType} from '../engine/game-type';
 import {StandardGame} from '../engine/standard-game';
@@ -14,6 +14,7 @@ export class GameService implements OnDestroy {
 
     private currentGame: Game;
     private currentMove: Move;
+    private currentMove$: Subscription;
     private currentPlayer: Player;
 
     private finishAnnounceSource = new Subject<boolean>();
@@ -35,19 +36,12 @@ export class GameService implements OnDestroy {
             this.currentGame = new StandardGame(players);
 
             this.currentGame.isFinished().subscribe(val => {
-
                 // game is finished, delete it from storage
                 this.localStorage.deleteGame();
                 this.finishAnnounceSource.next(val);
             });
-
+            this.subscribe();
             this.localStorage.saveGame(this.currentGame);
-
-            this.currentGame.getCurrentMove().subscribe(move => {
-                this.currentMove = <StandardMove>move;
-                this.currentPlayer = this.currentGame.getPlayer(this.currentMove.playerId);
-                this.localStorage.saveGame(this.currentGame);
-            });
         }
 
     }
@@ -84,9 +78,25 @@ export class GameService implements OnDestroy {
 
     // restore the game from local storage
     restore() {
+        this.unsubscribe();
         const gameJSON = JSON.parse(this.localStorage.loadGame());
         if (gameJSON.gameType === GameType.Standard) {
             this.currentGame = StandardGame.fromJSON(gameJSON);
+            this.subscribe();
+        }
+    }
+
+    private subscribe() {
+        this.currentMove$ = this.currentGame.getCurrentMove().subscribe(move => {
+            this.currentMove = <StandardMove>move;
+            this.currentPlayer = this.currentGame.getPlayer(this.currentMove.playerId);
+            this.localStorage.saveGame(this.currentGame);
+        });
+    }
+
+    private unsubscribe() {
+        if (this.currentMove$ !== undefined) {
+            this.currentMove$.unsubscribe();
         }
     }
 }

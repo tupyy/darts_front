@@ -38,7 +38,7 @@ export class HeaderComponent implements OnInit {
     }
 
     onRestore() {
-        this.router.navigate(['/game/play/action']);
+        this.router.navigate(['/game/play/restore']);
     }
 
     public onLogout() {
