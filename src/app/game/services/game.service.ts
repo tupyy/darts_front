@@ -53,7 +53,7 @@ export class GameService implements OnDestroy {
     }
 
     hasGame(): boolean {
-        return this.currentGame !== undefined;
+        return this.currentGame !== undefined || this.localStorage.hasGame();
     }
 
     getCurrentMove(): Move {
@@ -82,5 +82,11 @@ export class GameService implements OnDestroy {
         return null;
     }
 
-
+    // restore the game from local storage
+    restore() {
+        const gameJSON = JSON.parse(this.localStorage.loadGame());
+        if (gameJSON.gameType === GameType.Standard) {
+            this.currentGame = StandardGame.fromJSON(gameJSON);
+        }
+    }
 }

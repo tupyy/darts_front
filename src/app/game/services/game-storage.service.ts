@@ -18,6 +18,9 @@ export class GameStorageService {
         console.log(JSON.stringify(game));
     }
 
+    public loadGame(): string {
+        return this.localStorage.get(STORAGE_KEY);
+    }
     public hasGame(): boolean {
         return this.localStorage.get(STORAGE_KEY) !== null;
     }
