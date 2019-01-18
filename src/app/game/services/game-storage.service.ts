@@ -18,6 +18,10 @@ export class GameStorageService {
         console.log(JSON.stringify(game));
     }
 
+    public hasGame(): boolean {
+        return this.localStorage.get(STORAGE_KEY) !== null;
+    }
+
     public deleteGame() {
         this.localStorage.remove(STORAGE_KEY);
     }
