@@ -7,6 +7,14 @@
     margin-bottom: 10px;
 }
 
+.new-game-component.select-game {
+    display: flex;
+    align-items: center;
+}
+.new-game-component.select-game .mat-form-field {
+    width: 100%;
+}
+
 .players-list {
     background-color: #eef7ff;
 }
