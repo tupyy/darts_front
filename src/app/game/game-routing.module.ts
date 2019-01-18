@@ -11,7 +11,8 @@ const routes: Routes = [
         component: MainGameComponent,
         children: [
             {path: 'new', component: NewGameComponent},
-            {path: 'play', component: GameViewComponent, canActivate: [PlayGuard]}
+            {path: 'play', component: GameViewComponent, canActivate: [PlayGuard]},
+            {path: 'play/:action', component: GameViewComponent, canActivate: [PlayGuard]}
         ]
     }
 ];
