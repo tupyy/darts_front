@@ -10,6 +10,8 @@ export interface Game {
     moves: Move[];
     gameType: number;
 
+    start();
+
     // go to next move
     next(): void;
 

@@ -24,10 +24,7 @@ export class StandardGame implements Game {
 
     constructor(players: StandardPlayer[]) {
         this.players = players;
-        this.next(true);
-
-        // this.currentMoveSource.next(this.currentMove);
-        // this.currentPlayerSource.next(<StandardPlayer>this.getPlayer(this.currentMove.playerId));
+        this.start();
     }
 
     /**
@@ -49,16 +46,19 @@ export class StandardGame implements Game {
         return newGame;
     }
 
-    public next(firstTime?: boolean): void {
-        if (!firstTime) {
-            // save the current move
-            this.moves.push(this.currentMove.clone());
-            const currentPlayer = <StandardPlayer>this.getPlayer(this.currentMove.playerId);
-            currentPlayer.updateScore(this.currentMove.getTotalScore());
+    public start() {
+        const currentMove = new StandardMove(this.moves.length + 1, this.getNextPlayer().id);
+        this.setCurrentMove(currentMove);
+    }
 
-            if (currentPlayer.getScore() === 0) {
-                this.finishAnnouncedSource.next(true);
-            }
+    public next(): void {
+        // save the current move
+        this.moves.push(this.currentMove.clone());
+        const currentPlayer = <StandardPlayer>this.getPlayer(this.currentMove.playerId);
+        currentPlayer.updateScore(this.currentMove.getTotalScore());
+
+        if (currentPlayer.getScore() === 0) {
+            this.finishAnnouncedSource.next(true);
         }
 
         const currentMove = new StandardMove(this.moves.length + 1, this.getNextPlayer().id);
