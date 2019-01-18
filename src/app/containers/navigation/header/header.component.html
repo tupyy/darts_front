@@ -10,7 +10,11 @@
     <div fxFlex fxLayout fxLayoutAlign="start" fxHide.xs class="navbar-left">
         <ul fxLayout fxLayoutGap="15px" class="navigation-items">
             <li class="navbar-item">
-                <a class="active" routerLink="/game/new">New game</a>
+                <button mat-button [matMenuTriggerFor]="gameMenu">Game</button>
+                <mat-menu #gameMenu="matMenu">
+                    <button mat-menu-item (click)="onNewGame()">New</button>
+                    <button [disabled]="!canRestoreGame()" mat-menu-item (click)="onRestore()">Resume</button>
+                </mat-menu>
             </li>
             <li class="navbar-item" *ngIf="userAuthenticated">
                 <a>History</a>
