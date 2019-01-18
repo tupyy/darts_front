@@ -19,6 +19,9 @@ import {StandardPlayer} from '../../engine/standard-player';
 
 export class GameViewComponent implements OnInit, OnDestroy {
 
+    private currentMove: Move;
+    private currentPlayer: Player;
+
     gameFinishSubscription: Subscription;
     private dialogRef: MatDialogRef<GameFinishAnnounceComponent>;
     @ViewChild(PlayComponentDirective) playComponent: PlayComponentDirective;
@@ -37,7 +40,16 @@ export class GameViewComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         if (this.gameService.currentGame instanceof StandardGame) {
-            this.loadGameComponent();
+            this.gameService.currentGame.start();
+            this.gameService.getCurrentMove().subscribe((move) => {
+                this.currentMove = move;
+            });
+
+            this.gameService.getCurrentPlayer().subscribe(player => {
+                this.currentPlayer = player;
+            });
+            // this.loadGameComponent();
+
         }
     }
 
@@ -45,7 +57,7 @@ export class GameViewComponent implements OnInit, OnDestroy {
         if (this.dialogRef === undefined) {
             this.dialogRef = this.dialog.open(GameFinishAnnounceComponent, {
                 width: '300px',
-                data: {winner: this.gameService.getCurrentPlayer().name}
+                data: {winner: this.currentPlayer.name}
             });
 
             this.dialogRef.afterClosed().subscribe(result => {
@@ -62,14 +74,6 @@ export class GameViewComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.gameFinishSubscription.unsubscribe();
-    }
-
-    get currentMove(): Move {
-        return this.gameService.getCurrentMove();
-    }
-
-    get currentPlayer(): Player {
-        return this.gameService.getCurrentPlayer();
     }
 
     getRankingList() {
@@ -89,10 +93,10 @@ export class GameViewComponent implements OnInit, OnDestroy {
         const viewContainerRef = this.playComponent.viewContainerRef;
         viewContainerRef.clear();
         const componentRef = viewContainerRef.createComponent(componentFactory);
-        (<StandardPlayComponent>componentRef.instance).currentMove = <StandardMove>this.gameService.getCurrentMove();
-        (<StandardPlayComponent>componentRef.instance).currentPlayer = <StandardPlayer>this.gameService.getCurrentPlayer();
+        (<StandardPlayComponent>componentRef.instance).currentMove = <StandardMove>this.currentMove;
+        (<StandardPlayComponent>componentRef.instance).currentPlayer = <StandardPlayer>this.currentPlayer;
         (<StandardPlayComponent>componentRef.instance).next.subscribe(() => {
-            this.gameService.next();
+            console.log(this.gameService.next());
         });
     }
 }

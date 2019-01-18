@@ -1,6 +1,6 @@
 import {Player} from './player';
 import {Move} from './move';
-import {Observable, Subject} from 'rxjs';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {Game} from './game';
 import {StandardMove} from './standard-move';
 import {StandardPlayer} from './standard-player';
@@ -10,6 +10,10 @@ export class StandardGame implements Game {
     public moves: Move[] = [];
 
     private currentMove: StandardMove;
+
+    private currentMoveSource = new BehaviorSubject<StandardMove>(null);
+    private currentPlayerSource = new BehaviorSubject<StandardPlayer>(null);
+
     private finishAnnouncedSource = new Subject<boolean>();
     private finishAnnounced$ = this.finishAnnouncedSource.asObservable();
 
@@ -18,7 +22,12 @@ export class StandardGame implements Game {
         this.currentMove = new StandardMove(1, this.players[0].id);
     }
 
-    public next(): Move {
+    public start(): void {
+        this.currentMoveSource.next(this.currentMove);
+        this.currentPlayerSource.next(<StandardPlayer>this.getPlayer(this.currentMove.playerId));
+    }
+
+    public next(): void {
         // save the current move
         this.moves.push(this.currentMove.clone());
         const currentPlayer = <StandardPlayer>this.getPlayer(this.currentMove.playerId);
@@ -29,7 +38,8 @@ export class StandardGame implements Game {
         }
 
         this.currentMove = new StandardMove(this.moves.length + 1, this.getNextPlayer().id);
-        return this.currentMove;
+        this.currentMoveSource.next(this.currentMove);
+        this.currentPlayerSource.next(<StandardPlayer>this.getPlayer(this.currentMove.playerId));
     }
 
     public prev(): Move {
@@ -40,12 +50,12 @@ export class StandardGame implements Game {
         return this.finishAnnounced$;
     }
 
-    public getCurrentMove(): Move {
-        return this.currentMove;
+    public getCurrentMove(): Observable<StandardMove> {
+        return this.currentMoveSource.asObservable();
     }
 
-    public getCurrentPlayer(): Player {
-        return this.getPlayer(this.currentMove.playerId);
+    public getCurrentPlayer(): Observable<StandardPlayer> {
+        return this.currentPlayerSource.asObservable();
     }
 
     public getPlayers() {

@@ -1,8 +1,8 @@
 <div class="game-view-container">
     <mat-tab-group>
         <mat-tab label="Move">
-            <ng-template appPlayComponent></ng-template>
-            <!--<app-standard-play-component [currentMove]="currentMove" [currentPlayer]="currentPlayer" (next)="onNext()"></app-standard-play-component>-->
+            <!--<ng-template appPlayComponent></ng-template>-->
+            <app-standard-play-component [currentMove]="currentMove" [currentPlayer]="currentPlayer" (next)="onNext()"></app-standard-play-component>
         </mat-tab>
         <mat-tab label="Moves"><app-game-moves [moves]="getMoves()"></app-game-moves></mat-tab>
         <mat-tab label="Ranking"><app-game-rankings [rankings]=getRankingList()></app-game-rankings></mat-tab>

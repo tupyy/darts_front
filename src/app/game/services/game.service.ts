@@ -15,8 +15,6 @@ export class GameService {
     private finishAnnounceSource = new Subject<boolean>();
     finishAnnounce$ = this.finishAnnounceSource.asObservable();
 
-    private currentMove$ = new Subject<Move>();
-
     constructor() {
     }
 
@@ -27,7 +25,6 @@ export class GameService {
                 players.push(new StandardPlayer(i, playersNames[i]));
             }
             this.currentGame = new StandardGame(players);
-            this.currentMove$.next(this.currentGame.getCurrentMove());
 
             this.currentGame.isFinished().subscribe(val => {
                 this.finishAnnounceSource.next(val);
@@ -40,11 +37,11 @@ export class GameService {
         return this.currentGame !== undefined;
     }
 
-    getCurrentMove(): Move {
+    getCurrentMove(): Observable<Move> {
         return this.currentGame.getCurrentMove();
     }
 
-    getCurrentPlayer(): Player {
+    getCurrentPlayer(): Observable<Player> {
         return this.currentGame.getCurrentPlayer();
     }
 

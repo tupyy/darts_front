@@ -9,19 +9,21 @@ export interface Game {
     players: Player[];
     moves: Move[];
 
+    start(): void;
+
     // go to next move
-    next(): Move;
+    next(): void;
 
     // go the the prev move
-    prev(): Move;
+    prev(): void;
 
     // announce when the main-component is finished
     isFinished(): Observable<boolean>;
 
     // get the current move
-    getCurrentMove(): Move;
+    getCurrentMove(): Observable<Move>;
 
-    getCurrentPlayer(): Player;
+    getCurrentPlayer(): Observable<Player>;
 
     // get move
     getMove(id: number): Move;
