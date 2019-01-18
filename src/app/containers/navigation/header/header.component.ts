@@ -38,7 +38,7 @@ export class HeaderComponent implements OnInit {
     }
 
     onRestore() {
-        this.router.navigate(['/game/play', {queryParams: {'action': 'restore'}}]);
+        this.router.navigate(['/game/play/action']);
     }
 
     public onLogout() {
