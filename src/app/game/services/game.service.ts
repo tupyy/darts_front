@@ -1,21 +1,29 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnDestroy} from '@angular/core';
 import {Game, Move, Player} from '../engine/game';
-import {Observable, Subject} from 'rxjs';
+import {Subject} from 'rxjs';
 import {StandardPlayer} from '../engine/standard-player';
 import {GameType} from '../engine/game-type';
 import {StandardGame} from '../engine/standard-game';
+import {GameStorageService} from './game-storage.service';
+import {StandardMove} from '../engine/standard-move';
 
 @Injectable({
     providedIn: 'root'
 })
-export class GameService {
+export class GameService implements OnDestroy {
 
-    currentGame: Game;
+    private currentGame: Game;
+    private currentMove: Move;
+    private currentPlayer: Player;
 
     private finishAnnounceSource = new Subject<boolean>();
     finishAnnounce$ = this.finishAnnounceSource.asObservable();
 
-    constructor() {
+    constructor(private localStorage: GameStorageService) {
+    }
+
+    ngOnDestroy(): void {
+        this.localStorage.deleteGame();
     }
 
     startGame(gameType: number, playersNames: string[]): void {
@@ -27,7 +35,18 @@ export class GameService {
             this.currentGame = new StandardGame(players);
 
             this.currentGame.isFinished().subscribe(val => {
+
+                // game is finished, delete it from storage
+                this.localStorage.deleteGame();
                 this.finishAnnounceSource.next(val);
+            });
+
+            this.localStorage.saveGame(this.currentGame);
+
+            this.currentGame.getCurrentMove().subscribe(move => {
+                this.currentMove = <StandardMove>move;
+                this.currentPlayer = this.currentGame.getPlayer(this.currentMove.playerId);
+                this.localStorage.saveGame(this.currentGame);
             });
         }
 
@@ -37,12 +56,12 @@ export class GameService {
         return this.currentGame !== undefined;
     }
 
-    getCurrentMove(): Observable<Move> {
-        return this.currentGame.getCurrentMove();
+    getCurrentMove(): Move {
+        return this.currentMove;
     }
 
-    getCurrentPlayer(): Observable<Player> {
-        return this.currentGame.getCurrentPlayer();
+    getCurrentPlayer(): Player {
+        return this.currentPlayer;
     }
 
     next() {
@@ -62,4 +81,6 @@ export class GameService {
         }
         return null;
     }
+
+
 }

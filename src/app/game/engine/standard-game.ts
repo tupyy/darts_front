@@ -4,10 +4,15 @@ import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {Game} from './game';
 import {StandardMove} from './standard-move';
 import {StandardPlayer} from './standard-player';
+import {GameType} from './game-type';
 
 export class StandardGame implements Game {
+
     public players: StandardPlayer[];
     public moves: Move[] = [];
+
+    //  used when stringify to json
+    public gameType: number = GameType.Standard;
 
     private currentMove: StandardMove;
 
@@ -20,11 +25,16 @@ export class StandardGame implements Game {
     constructor(players: StandardPlayer[]) {
         this.players = players;
         this.currentMove = new StandardMove(1, this.players[0].id);
-    }
-
-    public start(): void {
         this.currentMoveSource.next(this.currentMove);
         this.currentPlayerSource.next(<StandardPlayer>this.getPlayer(this.currentMove.playerId));
+    }
+
+    /**
+     * Create an object StandardGame from json
+     * @param gameJSON json describing the game
+     */
+    static fromJSON(gameJSON: Game): StandardGame {
+        return undefined;
     }
 
     public next(): void {
@@ -115,6 +125,14 @@ export class StandardGame implements Game {
 
             return 0;
         });
+    }
+
+    toJSON(): Game {
+        const targetObj = {};
+        targetObj['players'] = this.players;
+        targetObj['moves'] = this.moves;
+        targetObj['gameType'] = this.gameType;
+        return <Game>targetObj;
     }
 
     private getNextPlayer() {

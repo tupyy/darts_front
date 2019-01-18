@@ -19,9 +19,6 @@ import {StandardPlayer} from '../../engine/standard-player';
 
 export class GameViewComponent implements OnInit, OnDestroy {
 
-    private currentMove: Move;
-    private currentPlayer: Player;
-
     gameFinishSubscription: Subscription;
     private dialogRef: MatDialogRef<GameFinishAnnounceComponent>;
     @ViewChild(PlayComponentDirective) playComponent: PlayComponentDirective;
@@ -39,18 +36,6 @@ export class GameViewComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        if (this.gameService.currentGame instanceof StandardGame) {
-            this.gameService.currentGame.start();
-            this.gameService.getCurrentMove().subscribe((move) => {
-                this.currentMove = move;
-            });
-
-            this.gameService.getCurrentPlayer().subscribe(player => {
-                this.currentPlayer = player;
-            });
-            // this.loadGameComponent();
-
-        }
     }
 
     openDialog(): void {
@@ -71,6 +56,13 @@ export class GameViewComponent implements OnInit, OnDestroy {
 
     }
 
+    get currentMove(): Move {
+        return this.gameService.getCurrentMove();
+    }
+
+    get currentPlayer(): Player {
+        return this.gameService.getCurrentPlayer();
+    }
 
     ngOnDestroy() {
         this.gameFinishSubscription.unsubscribe();

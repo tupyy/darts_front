@@ -1,6 +1,6 @@
 <div class="game-moves">
     <mat-card *ngFor="let move of moves; let i=index">
-        <span class="move-index">{{i+1}}</span> - <span class="player-name">{{playerName(move.playerId)|titlecase}}</span>
+        <span class="move-index">{{i+1}}</span> - <span class="player-name">{{playerName()|titlecase}}</span>
         : {{move.getScore(0)}} / {{move.getScore(1)}} / {{move.getScore(2)}}
     </mat-card>
 </div>

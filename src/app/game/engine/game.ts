@@ -8,8 +8,7 @@ export {Move} from './move';
 export interface Game {
     players: Player[];
     moves: Move[];
-
-    start(): void;
+    gameType: number;
 
     // go to next move
     next(): void;
@@ -35,6 +34,8 @@ export interface Game {
 
     // get ranking list
     getRankings(): Player[];
+
+    toJSON(): Game;
 
 }
 

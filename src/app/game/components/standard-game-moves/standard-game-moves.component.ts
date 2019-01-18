@@ -14,8 +14,8 @@ export class StandardGameMovesComponent implements OnInit {
     constructor(private gameService: GameService) {
     }
 
-    playerName(id: number): string {
-        return this.gameService.currentGame.getPlayer(id).name;
+    playerName(): string {
+        return this.gameService.getCurrentPlayer().name;
     }
 
     ngOnInit() {
