@@ -1,5 +1,5 @@
 import {Inject, Injectable} from '@angular/core';
-import {LOCAL_STORAGE, StorageService} from 'angular-webstorage-service';
+import {LOCAL_STORAGE, StorageService} from 'ngx-webstorage-service';
 import {Game} from '../engine/game';
 
 const STORAGE_KEY = 'my-awesome-game';
@@ -20,10 +20,10 @@ export class GameStorageService {
         return this.localStorage.get(STORAGE_KEY);
     }
     public hasGame(): boolean {
-        return this.localStorage.get(STORAGE_KEY) !== null;
+        return this.localStorage.has(STORAGE_KEY);
     }
 
     public deleteGame() {
-        this.localStorage.remove(STORAGE_KEY);
+        this.localStorage.clear();
     }
 }

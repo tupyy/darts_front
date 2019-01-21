@@ -42,7 +42,6 @@ export class GameService implements OnDestroy {
                 this.finishAnnounceSource.next(val);
             });
             this.subscribe(this.currentGame);
-            this.localStorage.saveGame(this.currentGame);
         }
 
     }
@@ -93,6 +92,7 @@ export class GameService implements OnDestroy {
                 this.currentMove = <StandardMove>move;
             }
             this.currentPlayer = game.getPlayer(this.currentMove.playerId);
+            this.localStorage.saveGame(this.currentGame);
         });
     }
 

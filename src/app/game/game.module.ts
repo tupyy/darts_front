@@ -13,7 +13,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MaterialModule} from '../material.module';
 import { MainGameComponent } from './main-component/main-game.component';
 import {PlayComponentDirective} from './directives/play-component.directive';
-import {StorageServiceModule} from 'angular-webstorage-service';
+import {StorageServiceModule} from 'ngx-webstorage-service';
 
 @NgModule({
     declarations: [
