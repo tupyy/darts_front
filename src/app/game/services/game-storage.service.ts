@@ -1,7 +1,6 @@
 import {Inject, Injectable} from '@angular/core';
 import {LOCAL_STORAGE, StorageService} from 'angular-webstorage-service';
 import {Game} from '../engine/game';
-import {StandardGame} from '../engine/standard-game';
 
 const STORAGE_KEY = 'my-awesome-game';
 
