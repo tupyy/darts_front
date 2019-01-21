@@ -15,7 +15,6 @@ export class GameStorageService {
 
     public saveGame(game: Game) {
         this.localStorage.set(STORAGE_KEY, JSON.stringify(game));
-        console.log(JSON.stringify(game));
     }
 
     public loadGame(): string {

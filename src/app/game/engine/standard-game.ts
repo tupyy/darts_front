@@ -47,8 +47,8 @@ export class StandardGame implements Game {
     }
 
     public start() {
-        const currentMove = new StandardMove(this.moves.length + 1, this.getNextPlayer().id);
-        this.setCurrentMove(currentMove);
+        const newMove = new StandardMove(this.moves.length + 1, this.getNextPlayer().id);
+        this.setCurrentMove(newMove);
     }
 
     public next(): void {
@@ -61,14 +61,19 @@ export class StandardGame implements Game {
             this.finishAnnouncedSource.next(true);
         }
 
-        const currentMove = new StandardMove(this.moves.length + 1, this.getNextPlayer().id);
-        this.setCurrentMove(currentMove);
+        const newMove = new StandardMove(this.moves.length + 1, this.getNextPlayer().id);
+        this.setCurrentMove(newMove);
     }
 
     public prev(): Move {
         return null;
     }
 
+    /**
+     * Resume the game from a move at rank moveID.
+     * TODO delete all the moves after the moveID
+     * @param moveID the rank of the move from where the game is resumed
+     */
     resume(moveID: number): void {
         if (moveID >= this.moves.length) {
             throw new ArgumentOutOfRangeError();
@@ -85,10 +90,16 @@ export class StandardGame implements Game {
         return this.finishAnnounced$;
     }
 
+    /**
+     * Return an observable which gives the current move
+     */
     public getCurrentMove(): Observable<StandardMove> {
         return this.currentMoveSource.asObservable();
     }
 
+    /**
+     * Return an observable which gives the current player
+     */
     public getCurrentPlayer(): Observable<StandardPlayer> {
         return this.currentPlayerSource.asObservable();
     }

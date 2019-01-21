@@ -24,6 +24,7 @@ export class GameService implements OnDestroy {
     }
 
     ngOnDestroy(): void {
+        this.unsubscribe();
         this.localStorage.deleteGame();
     }
 
@@ -40,7 +41,7 @@ export class GameService implements OnDestroy {
                 this.localStorage.deleteGame();
                 this.finishAnnounceSource.next(val);
             });
-            this.subscribe();
+            this.subscribe(this.currentGame);
             this.localStorage.saveGame(this.currentGame);
         }
 
@@ -82,15 +83,16 @@ export class GameService implements OnDestroy {
         const gameJSON = JSON.parse(this.localStorage.loadGame());
         if (gameJSON.gameType === GameType.Standard) {
             this.currentGame = StandardGame.fromJSON(gameJSON);
-            this.subscribe();
+            this.subscribe(this.currentGame);
         }
     }
 
-    private subscribe() {
-        this.currentMove$ = this.currentGame.getCurrentMove().subscribe(move => {
-            this.currentMove = <StandardMove>move;
-            this.currentPlayer = this.currentGame.getPlayer(this.currentMove.playerId);
-            this.localStorage.saveGame(this.currentGame);
+    private subscribe(game: Game) {
+        this.currentMove$ = game.getCurrentMove().subscribe(move => {
+            if (game instanceof StandardGame) {
+                this.currentMove = <StandardMove>move;
+            }
+            this.currentPlayer = game.getPlayer(this.currentMove.playerId);
         });
     }
 
