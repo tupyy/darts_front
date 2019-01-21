@@ -37,7 +37,7 @@ export class GameService implements OnDestroy {
                 players.push(new StandardPlayer(i, playersNames[i]));
             }
             this.currentGame = new StandardGame(players);
-            this.subscribe(this.currentGame);
+            this.subscribeTo(this.currentGame);
         }
 
     }
@@ -78,11 +78,11 @@ export class GameService implements OnDestroy {
         const gameJSON = JSON.parse(this.localStorage.loadGame());
         if (gameJSON.gameType === GameType.Standard) {
             this.currentGame = StandardGame.fromJSON(gameJSON);
-            this.subscribe(this.currentGame);
+            this.subscribeTo(this.currentGame);
         }
     }
 
-    private subscribe(game: Game) {
+    private subscribeTo(game: Game) {
         this.currentMove$ = game.getCurrentMove().subscribe(move => {
             if (game instanceof StandardGame) {
                 this.currentMove = <StandardMove>move;
