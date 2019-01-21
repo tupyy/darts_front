@@ -59,10 +59,10 @@ export class StandardGame implements Game {
 
         if (currentPlayer.getScore() === 0) {
             this.finishAnnouncedSource.next(true);
+        } else {
+            const newMove = new StandardMove(this.moves.length + 1, this.getNextPlayer().id);
+            this.setCurrentMove(newMove);
         }
-
-        const newMove = new StandardMove(this.moves.length + 1, this.getNextPlayer().id);
-        this.setCurrentMove(newMove);
     }
 
     public prev(): Move {

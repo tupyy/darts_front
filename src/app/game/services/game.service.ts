@@ -27,6 +27,7 @@ export class GameService implements OnDestroy {
     ngOnDestroy(): void {
         this.unsubscribe();
         this.localStorage.deleteGame();
+        this.currentGame = null;
     }
 
     startGame(gameType: number, playersNames: string[]): void {
@@ -42,7 +43,7 @@ export class GameService implements OnDestroy {
     }
 
     hasGame(): boolean {
-        return this.currentGame !== undefined || this.localStorage.hasGame();
+        return this.localStorage.hasGame();
     }
 
     getCurrentMove(): Move {
@@ -100,6 +101,8 @@ export class GameService implements OnDestroy {
         if (this.currentMove$ !== undefined) {
             this.currentMove$.unsubscribe();
         }
-        this.finishSubscription.unsubscribe();
+        if (this.finishSubscription !== undefined) {
+            this.finishSubscription.unsubscribe();
+        }
     }
 }

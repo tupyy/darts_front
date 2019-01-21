@@ -24,6 +24,6 @@ export class GameStorageService {
     }
 
     public deleteGame() {
-        this.localStorage.clear();
+        this.localStorage.remove(STORAGE_KEY);
     }
 }
