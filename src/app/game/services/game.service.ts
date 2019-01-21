@@ -17,6 +17,7 @@ export class GameService implements OnDestroy {
     private currentMove$: Subscription;
     private currentPlayer: Player;
 
+    private finishSubscription: Subscription;
     private finishAnnounceSource = new Subject<boolean>();
     finishAnnounce$ = this.finishAnnounceSource.asObservable();
 
@@ -35,12 +36,6 @@ export class GameService implements OnDestroy {
                 players.push(new StandardPlayer(i, playersNames[i]));
             }
             this.currentGame = new StandardGame(players);
-
-            this.currentGame.isFinished().subscribe(val => {
-                // game is finished, delete it from storage
-                this.localStorage.deleteGame();
-                this.finishAnnounceSource.next(val);
-            });
             this.subscribe(this.currentGame);
         }
 
@@ -94,11 +89,17 @@ export class GameService implements OnDestroy {
             this.currentPlayer = game.getPlayer(this.currentMove.playerId);
             this.localStorage.saveGame(this.currentGame);
         });
+        this.finishSubscription = game.isFinished().subscribe(val => {
+            // game is finished, delete it from storage
+            this.localStorage.deleteGame();
+            this.finishAnnounceSource.next(val);
+        });
     }
 
     private unsubscribe() {
         if (this.currentMove$ !== undefined) {
             this.currentMove$.unsubscribe();
         }
+        this.finishSubscription.unsubscribe();
     }
 }
