@@ -1,11 +1,12 @@
 import {Injectable, OnDestroy} from '@angular/core';
-import {Game, Move, Player} from '../engine/game';
+import {Game, Move, Player} from '../../../model/engine/game';
 import {Subject, Subscription} from 'rxjs';
-import {StandardPlayer} from '../engine/standard-player';
-import {GameType} from '../engine/game-type';
-import {StandardGame} from '../engine/standard-game';
-import {GameStorageService} from './game-storage.service';
-import {StandardMove} from '../engine/standard-move';
+import {StandardPlayer} from '@app/engine/standard-player';
+import {GameType} from '@app/engine/game-type';
+import {StandardGame} from '@app/engine/standard-game';
+import {StandardMove} from '@app/engine/standard-move';
+import {LocalStorageService} from '@app/core/local-storage.service';
+
 
 @Injectable({
     providedIn: 'root'
@@ -21,7 +22,7 @@ export class GameService implements OnDestroy {
     private finishAnnounceSource = new Subject<boolean>();
     finishAnnounce$ = this.finishAnnounceSource.asObservable();
 
-    constructor(private localStorage: GameStorageService) {
+    constructor(private localStorage: LocalStorageService) {
     }
 
     ngOnDestroy(): void {

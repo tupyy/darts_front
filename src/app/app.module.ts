@@ -7,13 +7,14 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MaterialModule} from './material.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {HeaderComponent} from './containers/navigation/header/header.component';
-import {SidenavListComponent} from './containers/navigation/sidenav-list/sidenav-list.component';
-import {LayoutComponent} from './layout/layout.component';
-import {HomeComponent} from './containers/home/home.component';
+import {HeaderComponent} from './views/navigation/header/header.component';
+import {SidenavListComponent} from './views/navigation/sidenav-list/sidenav-list.component';
+import {LayoutComponent} from './views/layout/layout.component';
+import {HomeComponent} from './views/home/home.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
-import {GameModule} from './game/game.module';
-import { LoginComponent } from './login/login.component';
+import {GameModule} from './views/game/game.module';
+import { LoginComponent } from './views/login/login.component';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
     declarations: [
@@ -34,6 +35,7 @@ import { LoginComponent } from './login/login.component';
         NgbModule,
         GameModule,
         AppRoutingModule,
+        CoreModule,
     ],
     providers: [],
     bootstrap: [AppComponent]

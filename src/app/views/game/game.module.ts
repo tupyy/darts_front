@@ -10,7 +10,7 @@ import {GameViewComponent} from './containers/game-view/game-view.component';
 import {GameFinishAnnounceComponent} from './components/game-finish-announce/game-finish-announce.component';
 import {StandardGameMovesComponent} from './components/standard-game-moves/standard-game-moves.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MaterialModule} from '../material.module';
+import {MaterialModule} from '../../material.module';
 import { MainGameComponent } from './main-component/main-game.component';
 import {PlayComponentDirective} from './directives/play-component.directive';
 import {StorageServiceModule} from 'ngx-webstorage-service';

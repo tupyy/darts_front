@@ -1,13 +1,13 @@
 import {Inject, Injectable} from '@angular/core';
 import {LOCAL_STORAGE, StorageService} from 'ngx-webstorage-service';
-import {Game} from '../engine/game';
+import {Game} from '../model/engine/game';
 
 const STORAGE_KEY = 'my-awesome-game';
 
 @Injectable({
     providedIn: 'root'
 })
-export class GameStorageService {
+export class LocalStorageService {
 
     constructor(@Inject(LOCAL_STORAGE) private localStorage: StorageService) {
     }

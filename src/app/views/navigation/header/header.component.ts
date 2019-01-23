@@ -1,8 +1,8 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {AuthService} from '../../../services/auth.service';
+import {AuthService} from '../../../core/auth.service';
 import {Subscription} from 'rxjs';
 import {Router} from '@angular/router';
-import {GameService} from '../../../game/services/game.service';
+import {GameService} from '../../game/services/game.service';
 
 @Component({
     selector: 'app-header',

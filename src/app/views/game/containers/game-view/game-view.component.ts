@@ -1,15 +1,15 @@
 import {Component, ComponentFactoryResolver, EventEmitter, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {GameService} from '../../services/game.service';
-import {Move, Player} from '../../engine/game';
+import {Move, Player} from '../../../../model/engine/game';
 import {Observable, Subscription} from 'rxjs';
 import {GameFinishAnnounceComponent} from '../../components/game-finish-announce/game-finish-announce.component';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {ActivatedRoute, Router} from '@angular/router';
-import {StandardGame} from '../../engine/standard-game';
+import {StandardGame} from '../../../../model/engine/standard-game';
 import {PlayComponentDirective} from '../../directives/play-component.directive';
 import {StandardPlayComponent} from '../../components/standard-play-component/standard-play.component';
-import {StandardMove} from '../../engine/standard-move';
-import {StandardPlayer} from '../../engine/standard-player';
+import {StandardMove} from '../../../../model/engine/standard-move';
+import {StandardPlayer} from '../../../../model/engine/standard-player';
 import {switchMap} from 'rxjs/operators';
 
 @Component({

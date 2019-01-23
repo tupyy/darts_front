@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren} from '@angular/core';
 import {ShootComponent} from '../shoot-component/shoot.component';
-import {StandardMove} from '../../engine/standard-move';
-import {StandardPlayer} from '../../engine/standard-player';
+import {StandardMove} from '../../../../model/engine/standard-move';
+import {StandardPlayer} from '../../../../model/engine/standard-player';
 
 @Component({
     selector: 'app-standard-play-component',

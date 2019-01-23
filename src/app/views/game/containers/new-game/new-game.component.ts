@@ -2,8 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {GameService} from '../../services/game.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {GameType} from '../../engine/game-type';
-import {AuthService} from '../../../services/auth.service';
+import {AuthService} from 'app/core';
+// @ts-ignore
+import {GameType} from '@app/engine/game-type';
 
 @Component({
     selector: 'app-new-game',
