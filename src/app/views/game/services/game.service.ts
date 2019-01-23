@@ -1,9 +1,13 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import {Game, Move, Player} from '../../../model/engine/game';
 import {Subject, Subscription} from 'rxjs';
+// @ts-ignore
 import {StandardPlayer} from '@app/engine/standard-player';
+// @ts-ignore
 import {GameType} from '@app/engine/game-type';
+// @ts-ignore
 import {StandardGame} from '@app/engine/standard-game';
+// @ts-ignore
 import {StandardMove} from '@app/engine/standard-move';
 import {LocalStorageService} from '@app/core/local-storage.service';
 
