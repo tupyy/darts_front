@@ -15,6 +15,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {GameModule} from './views/game/game.module';
 import { LoginComponent } from './views/login/login.component';
 import { CoreModule } from './core/core.module';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
     declarations: [
@@ -28,6 +29,7 @@ import { CoreModule } from './core/core.module';
     imports: [
         BrowserAnimationsModule,
         BrowserModule,
+        HttpClientModule,
         FlexLayoutModule,
         FormsModule,
         ReactiveFormsModule,

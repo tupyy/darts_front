@@ -1,38 +1,46 @@
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {BehaviorSubject} from 'rxjs';
-import {User} from '@app/engine/user';
+import {User, UserToken} from '@app/engine/user';
+import {BackendService} from './backend.service';
+
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
     private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-    private currentUser: User;
+    private currentToken: UserToken;
 
     get isAuthenticated() {
         return this.loggedIn.asObservable();
     }
 
-    constructor(
-        private router: Router
-    ) {
+    constructor(private router: Router,
+                private backEnd: BackendService) {
     }
 
     login(user: User) {
         if (user.username !== '' && user.password !== '') {
-            this.currentUser = user;
-            this.loggedIn.next(true);
-            this.router.navigate(['/']);
+            this.backEnd.login(user).subscribe(userToken => {
+                this.currentToken = userToken;
+                this.loggedIn.next(true);
+                this.router.navigate(['/']);
+            });
         }
     }
 
     logout() {
-        this.currentUser = null;
-        this.loggedIn.next(false);
+        this.backEnd.logout().subscribe(res => {
+            this.currentToken = null;
+            this.loggedIn.next(false);
+        });
     }
 
-    public getCurrentUser() {
-        return this.currentUser;
+    public getAuthorizationToken() {
+        if (this.currentToken !== undefined) {
+            return this.currentToken.access_token;
+        }
+        return null;
     }
 }

@@ -2,9 +2,15 @@ import {NgModule, Optional, SkipSelf} from '@angular/core';
 import {AuthService} from './auth.service';
 import {BackendService} from './backend.service';
 import {LocalStorageService} from './local-storage.service';
+import {httpInterceptorProviders} from './http-interceptors';
 
 @NgModule({
-    providers: [AuthService, BackendService, LocalStorageService]
+    providers: [
+        AuthService,
+        BackendService,
+        LocalStorageService,
+        httpInterceptorProviders
+    ]
 })
 export class CoreModule {
     constructor(@Optional() @SkipSelf() core: CoreModule) {
