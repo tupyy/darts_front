@@ -13,6 +13,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler) {
         const re = /login/gi;
+
         if (req.url.search(re) === -1) {
             const authReq = req.clone({
                 setHeaders: {

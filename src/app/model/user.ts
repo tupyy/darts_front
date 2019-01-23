@@ -6,5 +6,4 @@ export interface User {
 export interface UserToken {
     username: string;
     access_token: string;
-    refresh_token: string;
 }

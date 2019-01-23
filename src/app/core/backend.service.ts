@@ -17,6 +17,10 @@ export class BackendService {
         return this.http.post<UserToken>(BASE_URL + '/login', user);
     }
 
+    public refreshToken(): Observable<UserToken> {
+        return this.http.post<UserToken>(BASE_URL + '/token/refresh', {});
+    }
+
     public logout(): Observable<any> {
         return this.http.post<any>(BASE_URL + '/logout/access', {});
     }

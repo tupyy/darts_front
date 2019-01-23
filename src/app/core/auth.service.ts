@@ -1,14 +1,15 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {BehaviorSubject} from 'rxjs';
 import {User, UserToken} from '@app/engine/user';
 import {BackendService} from './backend.service';
+import {LocalStorageService} from '@app/core/local-storage.service';
 
 
 @Injectable({
     providedIn: 'root'
 })
-export class AuthService {
+export class AuthService implements OnInit {
     private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private currentToken: UserToken;
 
@@ -17,13 +18,25 @@ export class AuthService {
     }
 
     constructor(private router: Router,
-                private backEnd: BackendService) {
+                private backEnd: BackendService,
+                private localstorage: LocalStorageService) {
+    }
+
+    ngOnInit(): void {
+        const userToken = this.localstorage.getToken();
+        if (userToken !== undefined) {
+            this.currentToken = userToken;
+            this.backEnd.refreshToken().subscribe(authToken => {
+                this.currentToken.access_token = authToken.access_token;
+            });
+        }
     }
 
     login(user: User) {
         if (user.username !== '' && user.password !== '') {
             this.backEnd.login(user).subscribe(userToken => {
                 this.currentToken = userToken;
+                this.localstorage.saveToken(userToken);
                 this.loggedIn.next(true);
                 this.router.navigate(['/']);
             });
@@ -33,6 +46,7 @@ export class AuthService {
     logout() {
         this.backEnd.logout().subscribe(res => {
             this.currentToken = null;
+            this.localstorage.removeToken();
             this.loggedIn.next(false);
         });
     }
