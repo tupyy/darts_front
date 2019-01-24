@@ -9,6 +9,7 @@ export interface Game {
     players: Player[];
     moves: Move[];
     gameType: number;
+    id: string;
 
     start();
 

@@ -10,6 +10,7 @@ export class StandardGame implements Game {
 
     public players: StandardPlayer[];
     public moves: Move[] = [];
+    public id: string;
 
     //  used when stringify to json
     public gameType: number = GameType.Standard;
@@ -24,7 +25,11 @@ export class StandardGame implements Game {
 
     constructor(players: StandardPlayer[]) {
         this.players = players;
-        this.start();
+
+        this.id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
     }
 
     /**
@@ -189,6 +194,8 @@ export class StandardGame implements Game {
             return this.getPlayer(id);
         }
     }
+
+
 
 
 }

@@ -1,21 +1,20 @@
-import {Component, ComponentFactoryResolver, EventEmitter, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, ComponentFactoryResolver, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {GameService} from '../../services/game.service';
-import {Move, Player} from '../../../../model/engine/game';
-import {Observable, Subscription} from 'rxjs';
+import {Move, Player} from '@app/engine/index';
+import {Subscription} from 'rxjs';
 import {GameFinishAnnounceComponent} from '../../components/game-finish-announce/game-finish-announce.component';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {ActivatedRoute, Router} from '@angular/router';
-import {StandardGame} from '../../../../model/engine/standard-game';
 import {PlayComponentDirective} from '../../directives/play-component.directive';
 import {StandardPlayComponent} from '../../components/standard-play-component/standard-play.component';
-import {StandardMove} from '../../../../model/engine/standard-move';
-import {StandardPlayer} from '../../../../model/engine/standard-player';
-import {switchMap} from 'rxjs/operators';
+import {StandardMove} from '@app/engine/standard-move';
+import {StandardPlayer} from '@app/engine/standard-player';
 
 @Component({
     selector: 'app-play-view',
     templateUrl: './game-view.component.html',
     styleUrls: ['./game-view.component.css'],
+    providers: [GameService]
 })
 
 export class GameViewComponent implements OnInit, OnDestroy {

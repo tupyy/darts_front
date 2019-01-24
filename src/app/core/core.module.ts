@@ -3,12 +3,14 @@ import {AuthService} from './auth.service';
 import {BackendService} from './backend.service';
 import {LocalStorageService} from './local-storage.service';
 import {httpInterceptorProviders} from './http-interceptors';
+import {CoreService} from '@app/core/core.service';
 
 @NgModule({
     providers: [
         AuthService,
         BackendService,
         LocalStorageService,
+        CoreService,
         httpInterceptorProviders
     ]
 })

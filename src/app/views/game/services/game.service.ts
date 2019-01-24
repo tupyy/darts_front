@@ -9,7 +9,7 @@ import {GameType} from '@app/engine/game-type';
 import {StandardGame} from '@app/engine/standard-game';
 // @ts-ignore
 import {StandardMove} from '@app/engine/standard-move';
-import {LocalStorageService} from '@app/core/local-storage.service';
+import {CoreService} from '@app/core/core.service';
 
 
 @Injectable({
@@ -26,29 +26,23 @@ export class GameService implements OnDestroy {
     private finishAnnounceSource = new Subject<boolean>();
     finishAnnounce$ = this.finishAnnounceSource.asObservable();
 
-    constructor(private localStorage: LocalStorageService) {
+    constructor(private coreService: CoreService) {
+        this.coreService.getCurrentGame().subscribe(game => {
+            if (game !== null) {
+                this.currentGame = game;
+                this.currentGame.start();
+                this.subscribeTo(this.currentGame);
+            }
+        });
     }
 
     ngOnDestroy(): void {
         this.unsubscribe();
-        this.localStorage.deleteGame();
         this.currentGame = null;
     }
 
-    startGame(gameType: number, playersNames: string[]): void {
-        if (gameType === GameType.Standard) {
-            const players = [];
-            for (let i = 0; i < playersNames.length; i++) {
-                players.push(new StandardPlayer(i, playersNames[i]));
-            }
-            this.currentGame = new StandardGame(players);
-            this.subscribeTo(this.currentGame);
-        }
-
-    }
-
     hasGame(): boolean {
-        return this.localStorage.hasGame();
+        return this.currentGame !== undefined;
     }
 
     getCurrentMove(): Move {
@@ -80,11 +74,11 @@ export class GameService implements OnDestroy {
     // restore the game from local storage
     restore() {
         this.unsubscribe();
-        const gameJSON = JSON.parse(this.localStorage.loadGame());
-        if (gameJSON.gameType === GameType.Standard) {
-            this.currentGame = StandardGame.fromJSON(gameJSON);
-            this.subscribeTo(this.currentGame);
-        }
+        // const gameJSON = JSON.parse(this.coreService.loadGame());
+        // if (gameJSON.gameType === GameType.Standard) {
+        //     this.currentGame = StandardGame.fromJSON(gameJSON);
+        //     this.subscribeTo(this.currentGame);
+        // }
     }
 
     private subscribeTo(game: Game) {
@@ -93,11 +87,11 @@ export class GameService implements OnDestroy {
                 this.currentMove = <StandardMove>move;
             }
             this.currentPlayer = game.getPlayer(this.currentMove.playerId);
-            this.localStorage.saveGame(this.currentGame);
+            this.coreService.saveGame(this.currentGame);
         });
         this.finishSubscription = game.isFinished().subscribe(val => {
             // game is finished, delete it from storage
-            this.localStorage.deleteGame();
+            // this.coreService.deleteGame();
             this.finishAnnounceSource.next(val);
         });
     }

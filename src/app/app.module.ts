@@ -16,6 +16,7 @@ import {GameModule} from './views/game/game.module';
 import { LoginComponent } from './views/login/login.component';
 import { CoreModule } from './core/core.module';
 import {HttpClientModule} from '@angular/common/http';
+import {coreServiceProvider} from '@app/core/core.service.provider';
 
 @NgModule({
     declarations: [
@@ -39,7 +40,7 @@ import {HttpClientModule} from '@angular/common/http';
         AppRoutingModule,
         CoreModule,
     ],
-    providers: [],
+    providers: [coreServiceProvider],
     bootstrap: [AppComponent]
 })
 export class AppModule {

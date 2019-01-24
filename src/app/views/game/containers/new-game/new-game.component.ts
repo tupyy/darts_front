@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {GameService} from '../../services/game.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from 'app/core';
 // @ts-ignore
 import {GameType} from '@app/engine/game-type';
+import {CoreService} from '@app/core/core.service';
 
 @Component({
     selector: 'app-new-game',
@@ -22,7 +22,7 @@ export class NewGameComponent implements OnInit {
     gameTypes = GameType;
     gameTypeKeys = [];
 
-    constructor(private gameService: GameService,
+    constructor(private coreService: CoreService,
                 private fb: FormBuilder,
                 private router: Router,
                 private authService: AuthService,
@@ -76,9 +76,8 @@ export class NewGameComponent implements OnInit {
     }
 
     start() {
-        this.gameService.startGame(this.newGameForm.get('gameTypeControl').value, this.players);
+        this.coreService.createGame(this.newGameForm.get('gameTypeControl').value, this.players);
         this.router.navigate(['../play'], {relativeTo: this.activatedRoute});
-
     }
 
 }
