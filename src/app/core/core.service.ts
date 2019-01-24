@@ -41,11 +41,18 @@ export class CoreService {
         return this.currentGame.asObservable();
     }
 
-    public saveGame(game: Game) {
-        this.localStorage.saveGame(game);
+    /**
+     * Save the current game. If the user is logged in the game will be saved on server and local storage.
+     * Otherwise it will stored only on the local storage
+     */
+    public saveCurrentGame() {
+        this.localStorage.saveGame(this.getGameById(this.currentGameID));
     }
 
-    public deleteGame(game: Game) {
+    /**
+     * Delete the current game from local storage only
+     */
+    public deleteCurrentGame() {
         this.localStorage.deleteGame();
     }
 

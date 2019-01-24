@@ -1,4 +1,4 @@
-import {AuthService, BackendService} from 'app/core';
+import {AuthService} from 'app/core';
 import {CoreService} from 'app/core/core.service';
 import {HttpGameStorageService, LocalGameStorage} from 'app/core/game-storage';
 
@@ -10,4 +10,4 @@ export let coreServiceProvider = {
     provide: CoreService,
     useFactory: coreServiceFactory,
     deps: [LocalGameStorage, HttpGameStorageService, AuthService]
-}
+};

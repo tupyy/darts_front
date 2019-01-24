@@ -80,11 +80,12 @@ export class GameService implements OnDestroy {
                 this.currentMove = <StandardMove>move;
             }
             this.currentPlayer = game.getPlayer(this.currentMove.playerId);
-            this.coreService.saveGame(this.currentGame);
+            this.coreService.saveCurrentGame();
         });
         this.finishSubscription = game.isFinished().subscribe(val => {
             // game is finished, delete it from storage
-            // this.coreService.deleteGame();
+            this.coreService.deleteCurrentGame();
+            this.unsubscribe();
             this.finishAnnounceSource.next(val);
         });
     }
