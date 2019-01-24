@@ -1,8 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {AuthService} from '../../../core/auth.service';
-import {Subscription} from 'rxjs';
+import {AuthService} from '@app/core/index';
 import {Router} from '@angular/router';
-import {GameService} from '../../game/services/game.service';
 
 @Component({
     selector: 'app-header',
@@ -15,8 +13,7 @@ export class HeaderComponent implements OnInit {
     userAuthenticated: boolean;
 
     constructor(private authService: AuthService,
-                private router: Router,
-                private gameService: GameService) {
+                private router: Router) {
         authService.isAuthenticated.subscribe(val => {
             this.userAuthenticated = val;
         });
@@ -34,7 +31,7 @@ export class HeaderComponent implements OnInit {
     }
 
     canRestoreGame(): boolean {
-        return this.gameService.hasGame();
+        return false;
     }
 
     onRestore() {

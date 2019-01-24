@@ -13,8 +13,7 @@ import {StandardPlayer} from '@app/engine/standard-player';
 @Component({
     selector: 'app-play-view',
     templateUrl: './game-view.component.html',
-    styleUrls: ['./game-view.component.css'],
-    providers: [GameService]
+    styleUrls: ['./game-view.component.css']
 })
 
 export class GameViewComponent implements OnInit, OnDestroy {
@@ -34,8 +33,6 @@ export class GameViewComponent implements OnInit, OnDestroy {
                 this.openDialog();
             }
         });
-
-
     }
 
     ngOnInit() {
