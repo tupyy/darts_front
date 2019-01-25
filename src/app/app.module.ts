@@ -13,11 +13,10 @@ import {LayoutComponent} from './views/layout/layout.component';
 import {HomeComponent} from './views/home/home.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {GameModule} from './views/game/game.module';
-import { LoginComponent } from './views/login/login.component';
-import { CoreModule } from './core/core.module';
+import {LoginComponent} from './views/login/login.component';
+import {CoreModule} from './core/core.module';
 import {HttpClientModule} from '@angular/common/http';
 import {coreServiceProvider} from '@app/core/core.service.provider';
-import {gameStorageServiceProvider} from '@app/core/game-storage/game-storage.service.provider';
 
 @NgModule({
     declarations: [
@@ -41,7 +40,7 @@ import {gameStorageServiceProvider} from '@app/core/game-storage/game-storage.se
         AppRoutingModule,
         CoreModule,
     ],
-    providers: [coreServiceProvider, gameStorageServiceProvider],
+    providers: [coreServiceProvider],
     bootstrap: [AppComponent]
 })
 export class AppModule {
