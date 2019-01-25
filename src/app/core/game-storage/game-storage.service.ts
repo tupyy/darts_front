@@ -12,12 +12,10 @@ export class GameStorageService {
     private currentGame: Game;
     private currentGameSubscription: Subscription;
     private moveSubscription: Subscription;
-    private privateRandomNumber: number;
 
     constructor(private localStorage: LocalGameStorage,
                 private httpStorage: HttpGameStorageService,
                 private authService: AuthService) {
-        this.privateRandomNumber = Math.random();
     }
 
     public setGame(game: Observable<Game>) {
@@ -54,7 +52,6 @@ export class GameStorageService {
             if (_game) {
                 this.currentGame = _game;
                 this.moveSubscription = _game.getCurrentMove().subscribe(move => {
-                    console.log(this.privateRandomNumber);
                     this.saveCurrentGame();
                     if (this.authService.isAuthenticated()) {
                         console.log('userauthenticated');
