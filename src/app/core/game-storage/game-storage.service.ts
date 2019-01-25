@@ -11,7 +11,7 @@ export class GameStorageService {
     private currentGame: Game;
 
     constructor(private localStorage: LocalGameStorage,
-                private httpStorate: HttpGameStorageService) {
+                private httpStorage: HttpGameStorageService) {
     }
 
     public setGame(game: Observable<Game>) {
