@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {User, UserToken} from '@app/engine/user';
 import {Observable} from 'rxjs';
 
-const BASE_URL = ' http://127.0.0.1:5000';
+const BASE_URL = ' http://127.0.0.1:5000/api/v1/';
 
 @Injectable({
     providedIn: 'root'
@@ -14,15 +14,15 @@ export class BackendService {
     }
 
     public login(user: User): Observable<UserToken> {
-        return this.http.post<UserToken>(BASE_URL + '/login', user);
+        return this.http.post<UserToken>(BASE_URL + 'auth/login', user);
     }
 
     public refreshToken(): Observable<UserToken> {
-        return this.http.post<UserToken>(BASE_URL + '/token/refresh', {});
+        return this.http.post<UserToken>(BASE_URL + 'auth/token/refresh', {});
     }
 
     public logout(): Observable<any> {
-        return this.http.post<any>(BASE_URL + '/logout/access', {});
+        return this.http.post<any>(BASE_URL + 'auth/logout/access', {});
     }
 
 }

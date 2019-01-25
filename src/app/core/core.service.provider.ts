@@ -3,7 +3,7 @@ import {CoreService} from 'app/core/core.service';
 import {GameStorageService} from '@app/core/game-storage/game-storage.service';
 
 const coreServiceFactory = (gameStorageService: GameStorageService, authService: AuthService) => {
-    return new CoreService(gameStorageService, authService.isAuthenticated);
+    return new CoreService(gameStorageService, authService.authenticationObservable);
 };
 
 export let coreServiceProvider = {

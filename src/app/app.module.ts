@@ -17,6 +17,7 @@ import { LoginComponent } from './views/login/login.component';
 import { CoreModule } from './core/core.module';
 import {HttpClientModule} from '@angular/common/http';
 import {coreServiceProvider} from '@app/core/core.service.provider';
+import {gameStorageServiceProvider} from '@app/core/game-storage/game-storage.service.provider';
 
 @NgModule({
     declarations: [
@@ -40,7 +41,7 @@ import {coreServiceProvider} from '@app/core/core.service.provider';
         AppRoutingModule,
         CoreModule,
     ],
-    providers: [coreServiceProvider],
+    providers: [coreServiceProvider, gameStorageServiceProvider],
     bootstrap: [AppComponent]
 })
 export class AppModule {

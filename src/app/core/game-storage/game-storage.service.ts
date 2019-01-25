@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpGameStorageService, LocalGameStorage} from '@app/core/game-storage';
 import {Game} from '@app/engine/game';
-import {Observable} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
+import {AuthService} from '@app/core/auth.service';
 
 @Injectable({
     providedIn: 'root'
@@ -9,20 +10,16 @@ import {Observable} from 'rxjs';
 export class GameStorageService {
 
     private currentGame: Game;
+    private currentGameSubscription: Subscription;
 
     constructor(private localStorage: LocalGameStorage,
-                private httpStorage: HttpGameStorageService) {
+                private httpStorage: HttpGameStorageService,
+                private authService: AuthService) {
     }
 
     public setGame(game: Observable<Game>) {
-        game.subscribe(_game => {
-            if (_game) {
-                this.currentGame = _game;
-                _game.getCurrentMove().subscribe(move => {
-                    this.saveCurrentGame();
-                });
-            }
-        });
+        this.unsubscribeFrom(this.currentGameSubscription);
+        this.currentGameSubscription = this.subscribeTo(game);
     }
 
     /**
@@ -38,5 +35,25 @@ export class GameStorageService {
      */
     private deleteCurrentGame() {
         this.localStorage.deleteGame();
+    }
+
+    private unsubscribeFrom(gameSubscription: Subscription) {
+        if (gameSubscription) {
+            gameSubscription.unsubscribe();
+        }
+    }
+
+    private subscribeTo(game: Observable<Game>) {
+        return game.subscribe(_game => {
+            if (_game) {
+                this.currentGame = _game;
+                _game.getCurrentMove().subscribe(move => {
+                    this.saveCurrentGame();
+                    if (this.authService.isAuthenticated()) {
+                        console.log('userauthenticated');
+                    }
+                });
+            }
+        });
     }
 }

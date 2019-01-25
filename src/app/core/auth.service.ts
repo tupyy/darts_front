@@ -13,10 +13,6 @@ export class AuthService implements OnInit {
     private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private currentToken: UserToken;
 
-    get isAuthenticated() {
-        return this.loggedIn.asObservable();
-    }
-
     constructor(private router: Router,
                 private backEnd: BackendService,
                 private localstorage: LocalStorageService) {
@@ -30,6 +26,14 @@ export class AuthService implements OnInit {
                 this.currentToken.access_token = authToken.access_token;
             });
         }
+    }
+
+    get authenticationObservable() {
+        return this.loggedIn.asObservable();
+    }
+
+    public isAuthenticated(): boolean {
+        return this.loggedIn.value;
     }
 
     login(user: User) {

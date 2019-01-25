@@ -14,7 +14,7 @@ export class HeaderComponent implements OnInit {
 
     constructor(private authService: AuthService,
                 private router: Router) {
-        authService.isAuthenticated.subscribe(val => {
+        authService.authenticationObservable.subscribe(val => {
             this.userAuthenticated = val;
         });
     }

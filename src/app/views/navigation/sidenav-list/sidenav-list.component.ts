@@ -13,7 +13,7 @@ export class SidenavListComponent implements OnInit {
     userAuthenticated: boolean;
     constructor(private authService: AuthService,
                 private router: Router) {
-        authService.isAuthenticated.subscribe(val => {
+        authService.authenticationObservable.subscribe(val => {
             this.userAuthenticated = val;
         });
     }
