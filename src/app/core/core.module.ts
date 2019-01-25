@@ -4,6 +4,7 @@ import {BackendService} from './backend.service';
 import {LocalStorageService} from './local-storage.service';
 import {httpInterceptorProviders} from './http-interceptors';
 import {CoreService} from '@app/core/core.service';
+import {GameStorageService} from '@app/core/game-storage/game-storage.service';
 
 @NgModule({
     providers: [
@@ -11,6 +12,7 @@ import {CoreService} from '@app/core/core.service';
         BackendService,
         LocalStorageService,
         CoreService,
+        GameStorageService,
         httpInterceptorProviders
     ]
 })

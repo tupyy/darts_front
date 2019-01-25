@@ -1,13 +1,13 @@
 import {AuthService} from 'app/core';
 import {CoreService} from 'app/core/core.service';
-import {HttpGameStorageService, LocalGameStorage} from 'app/core/game-storage';
+import {GameStorageService} from '@app/core/game-storage/game-storage.service';
 
-const coreServiceFactory = (localStorage: LocalGameStorage, httpStorage: HttpGameStorageService, authService: AuthService) => {
-    return new CoreService(localStorage, httpStorage, authService.isAuthenticated);
+const coreServiceFactory = (gameStorageService: GameStorageService, authService: AuthService) => {
+    return new CoreService(gameStorageService, authService.isAuthenticated);
 };
 
 export let coreServiceProvider = {
     provide: CoreService,
     useFactory: coreServiceFactory,
-    deps: [LocalGameStorage, HttpGameStorageService, AuthService]
+    deps: [GameStorageService, AuthService]
 };

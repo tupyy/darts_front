@@ -1,8 +1,7 @@
 import {Injectable, OnDestroy} from '@angular/core';
-import {Game, Move, Player} from '../../../model/engine/game';
+import {Game, Move, Player} from '@app/engine/index';
 import {Subject, Subscription} from 'rxjs';
 import {StandardGame} from '@app/engine/standard-game';
-// @ts-ignore
 import {StandardMove} from '@app/engine/standard-move';
 import {CoreService} from '@app/core/core.service';
 
@@ -80,11 +79,8 @@ export class GameService implements OnDestroy {
                 this.currentMove = <StandardMove>move;
             }
             this.currentPlayer = game.getPlayer(this.currentMove.playerId);
-            this.coreService.saveCurrentGame();
         });
         this.finishSubscription = game.isFinished().subscribe(val => {
-            // game is finished, delete it from storage
-            this.coreService.deleteCurrentGame();
             this.unsubscribe();
             this.finishAnnounceSource.next(val);
         });

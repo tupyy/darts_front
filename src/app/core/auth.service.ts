@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {BehaviorSubject} from 'rxjs';
 import {User, UserToken} from '@app/engine/user';
 import {BackendService} from './backend.service';
-import {LocalStorageService} from '@app/core/local-storage.service';
+import {LocalStorageService} from './local-storage.service';
 
 
 @Injectable({
