@@ -15,6 +15,8 @@ import { MainGameComponent } from './main-component/main-game.component';
 import {PlayComponentDirective} from './directives/play-component.directive';
 import {StorageServiceModule} from 'ngx-webstorage-service';
 import {GameService} from './services/game.service';
+import {BoardComponent} from './components/board/board.component';
+import {BoardSliceComponent} from './components/board/board-slice/board-slice.component';
 
 @NgModule({
     declarations: [
@@ -27,6 +29,8 @@ import {GameService} from './services/game.service';
         GameFinishAnnounceComponent,
         StandardGameMovesComponent,
         MainGameComponent,
+        BoardComponent,
+        BoardSliceComponent,
         PlayComponentDirective
     ],
     imports: [
