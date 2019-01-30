@@ -26,10 +26,7 @@ export class StandardGame implements Game {
     constructor(players: StandardPlayer[]) {
         this.players = players;
 
-        this.id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-            const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
-            return v.toString(16);
-        });
+        this.id = this.generateID();
     }
 
     /**
@@ -195,7 +192,9 @@ export class StandardGame implements Game {
         }
     }
 
-
+    private generateID() {
+        return (Math.random() + 1).toString(36).substring(2, 12);
+    }
 
 
 }
