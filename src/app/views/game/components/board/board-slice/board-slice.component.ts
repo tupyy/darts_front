@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Point} from '../point';
 
+const ANGLE_GAP = 1;
 const WIDTH_RATIO = 0.1;
 
 @Component({
@@ -51,7 +52,15 @@ export class BoardSliceComponent implements OnInit {
     }
 
     private describeArc(center: Point, radius, startAngle) {
-        const endAngle = startAngle + 360 / 20;
+        let direction_gap = 0;
+        if (startAngle % 2 === 0) {
+            direction_gap = -1;
+        } else {
+            direction_gap = 1;
+        }
+
+        startAngle += direction_gap * ANGLE_GAP;
+        const endAngle = startAngle + 360 / 20 - 2 * ANGLE_GAP * direction_gap;
         const start = this.polarToCartesian(center, radius, endAngle);
         const end = this.polarToCartesian(center, radius, startAngle);
 
