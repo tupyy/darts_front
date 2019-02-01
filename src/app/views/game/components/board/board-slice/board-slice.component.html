@@ -1,2 +1,5 @@
-<svg:path *ngFor="let value of values"
-    [attr.d]="createArc(value.radius)" fill="none" [attr.stroke]="value.color" [attr.stroke-width]="value.width" />
+<svg:path *ngFor="let value of values; let i = index"
+          [ngClass]="'board-slice'"
+          [attr.d]="createArc(value.radius)" fill="none" [attr.stroke]="value.color" [attr.stroke-width]="value.width"
+          (click)="onClick(i)"
+/>

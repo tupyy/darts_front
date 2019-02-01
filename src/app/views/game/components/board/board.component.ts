@@ -17,7 +17,6 @@ export class BoardComponent implements OnInit {
             this.inputData[j] = [oddSlice ? 1 : 0, i];
             oddSlice = !oddSlice;
             j++;
-            console.log(i);
         }
     }
 

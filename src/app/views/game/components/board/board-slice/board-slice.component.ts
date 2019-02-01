@@ -49,8 +49,12 @@ export class BoardSliceComponent implements OnInit {
         };
     }
 
+    public onClick(index: number) {
+        console.log(index);
+    }
+
     private getColorScheme() {
-        return this.colorScheme === 0 ? ['red', 'black'] : ['green', 'white'];
+        return this.colorScheme === 0 ? ['red', 'black'] : ['green', '#e4e4e3'];
     }
 
     private createArc(radius: number) {
@@ -58,15 +62,8 @@ export class BoardSliceComponent implements OnInit {
     }
 
     private describeArc(center: Point, radius, startAngle) {
-        let direction_gap = 0;
-        if (startAngle % 2 === 0) {
-            direction_gap = -1;
-        } else {
-            direction_gap = 1;
-        }
-
-        startAngle += direction_gap * ANGLE_GAP;
-        const endAngle = startAngle + 360 / 20 - 2 * ANGLE_GAP * direction_gap;
+        startAngle += ANGLE_GAP;
+        const endAngle = startAngle + 360 / 20 - 2 * ANGLE_GAP;
         const start = this.polarToCartesian(center, radius, endAngle);
         const end = this.polarToCartesian(center, radius, startAngle);
 
