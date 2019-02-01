@@ -8,13 +8,16 @@ import {Point} from './point';
 })
 export class BoardComponent implements OnInit {
     center = new Point(300, 300);
-    startAngles: number[] = [];
+    inputData: number[][] = [];
 
     constructor() {
         let j = 0;
+        let oddSlice = false;
         for (let i = -9; i <= 351; i = i + 18) {
-            this.startAngles[j] = i;
+            this.inputData[j] = [oddSlice ? 1 : 0, i];
+            oddSlice = !oddSlice;
             j++;
+            console.log(i);
         }
     }
 

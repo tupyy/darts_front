@@ -15,6 +15,7 @@ export class BoardSliceComponent implements OnInit {
     @Input() center: Point;
     @Input() radius: number[];
     @Input() startAngle: number;
+    @Input() colorScheme: number;
 
     values = [];
 
@@ -22,29 +23,34 @@ export class BoardSliceComponent implements OnInit {
     }
 
     ngOnInit() {
+
         this.values[0] = {
             'width': WIDTH_RATIO * this.radius[0],
             'radius': (1 - WIDTH_RATIO * 0.5) * this.radius[0],
-            'color': 'red'
+            'color': this.getColorScheme()[0]
         };
 
         this.values[1] = {
             'width': (0.5 - 1.5 * WIDTH_RATIO) * this.radius[0],
             'radius': (0.75 - 0.25 * WIDTH_RATIO) * this.radius[0],
-            'color': 'green'
+            'color': this.getColorScheme()[1]
         };
 
         this.values[2] = {
             'width': WIDTH_RATIO * this.radius[0],
             'radius': 0.5 * this.radius[0],
-            'color': 'blue'
+            'color': this.getColorScheme()[0]
         };
 
         this.values[3] = {
             'width': (0.5 - WIDTH_RATIO * 0.5) * this.radius[0] - this.radius[1],
             'radius': 0.5 * ((0.5 - WIDTH_RATIO * 0.5) * this.radius[0] - this.radius[1]) + this.radius[1],
-            'color': 'darkmagenta'
+            'color': this.getColorScheme()[1]
         };
+    }
+
+    private getColorScheme() {
+        return this.colorScheme === 0 ? ['red', 'black'] : ['green', 'white'];
     }
 
     private createArc(radius: number) {
