@@ -1,9 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Point} from '../point';
 
-const ANGLE_GAP = 1;
-const WIDTH_RATIO = 0.1;
-
 @Component({
     selector: '[app-board-slice]',
     templateUrl: './board-slice.component.html',
@@ -19,32 +16,35 @@ export class BoardSliceComponent implements OnInit {
 
     values = [];
 
+    private angle_gap = 1;
+    private width_ratio = 0.1;
+
     constructor() {
     }
 
     ngOnInit() {
 
         this.values[0] = {
-            'width': WIDTH_RATIO * this.radius[0],
-            'radius': (1 - WIDTH_RATIO * 0.5) * this.radius[0],
+            'width': this.width_ratio * this.radius[0],
+            'radius': (1 - this.width_ratio * 0.5) * this.radius[0],
             'color': this.getColorScheme()[0]
         };
 
         this.values[1] = {
-            'width': (0.5 - 1.5 * WIDTH_RATIO) * this.radius[0],
-            'radius': (0.75 - 0.25 * WIDTH_RATIO) * this.radius[0],
+            'width': (0.5 - 1.5 * this.width_ratio) * this.radius[0],
+            'radius': (0.75 - 0.25 * this.width_ratio) * this.radius[0],
             'color': this.getColorScheme()[1]
         };
 
         this.values[2] = {
-            'width': WIDTH_RATIO * this.radius[0],
+            'width': this.width_ratio * this.radius[0],
             'radius': 0.5 * this.radius[0],
             'color': this.getColorScheme()[0]
         };
 
         this.values[3] = {
-            'width': (0.5 - WIDTH_RATIO * 0.5) * this.radius[0] - this.radius[1],
-            'radius': 0.5 * ((0.5 - WIDTH_RATIO * 0.5) * this.radius[0] - this.radius[1]) + this.radius[1],
+            'width': (0.5 - this.width_ratio * 0.5) * this.radius[0] - this.radius[1],
+            'radius': 0.5 * ((0.5 - this.width_ratio * 0.5) * this.radius[0] - this.radius[1]) + this.radius[1],
             'color': this.getColorScheme()[1]
         };
     }
@@ -62,8 +62,8 @@ export class BoardSliceComponent implements OnInit {
     }
 
     private describeArc(center: Point, radius, startAngle) {
-        startAngle += ANGLE_GAP;
-        const endAngle = startAngle + 360 / 20 - 2 * ANGLE_GAP;
+        startAngle += this.angle_gap;
+        const endAngle = startAngle + 360 / 20 - 2 * this.angle_gap;
         const start = this.polarToCartesian(center, radius, endAngle);
         const end = this.polarToCartesian(center, radius, startAngle);
 
