@@ -1,18 +1,16 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Point} from '../point';
+import {Point} from './point';
+import {SliceData, SliceType} from './slice-data';
 
 @Component({
-    selector: '[app-board-slice]',
+    selector: '[board-slice-component]',
     templateUrl: './board-slice.component.html',
     styleUrls: ['./board-slice.component.css']
 })
 
 export class BoardSliceComponent implements OnInit {
 
-    @Input() center: Point;
-    @Input() radius: number[];
-    @Input() startAngle: number;
-    @Input() colorScheme: number;
+    @Input() data: SliceData;
 
     values = [];
 
@@ -25,28 +23,31 @@ export class BoardSliceComponent implements OnInit {
     ngOnInit() {
 
         this.values[0] = {
-            'width': this.width_ratio * this.radius[0],
-            'radius': (1 - this.width_ratio * 0.5) * this.radius[0],
+            'width': this.width_ratio * this.data.externalRadius,
+            'radius': (1 - this.width_ratio * 0.5) * this.data.externalRadius,
             'color': this.getColorScheme()[0]
         };
 
         this.values[1] = {
-            'width': (0.5 - 1.5 * this.width_ratio) * this.radius[0],
-            'radius': (0.75 - 0.25 * this.width_ratio) * this.radius[0],
+            'width': (0.5 - 1.5 * this.width_ratio) * this.data.externalRadius,
+            'radius': (0.75 - 0.25 * this.width_ratio) * this.data.externalRadius,
             'color': this.getColorScheme()[1]
         };
 
         this.values[2] = {
-            'width': this.width_ratio * this.radius[0],
-            'radius': 0.5 * this.radius[0],
+            'width': this.width_ratio * this.data.externalRadius,
+            'radius': 0.5 * this.data.externalRadius,
             'color': this.getColorScheme()[0]
         };
 
-        this.values[3] = {
-            'width': (0.5 - this.width_ratio * 0.5) * this.radius[0] - this.radius[1],
-            'radius': 0.5 * ((0.5 - this.width_ratio * 0.5) * this.radius[0] - this.radius[1]) + this.radius[1],
-            'color': this.getColorScheme()[1]
-        };
+        if (this.data.type === SliceType.full) {
+            this.values[3] = {
+                'width': (0.5 - this.width_ratio * 0.5) * this.data.externalRadius - this.data.internalRadius,
+                'radius': 0.5 * ((0.5 - this.width_ratio * 0.5) * this.data.externalRadius - this.data.internalRadius) + this.data.internalRadius,
+                'color': this.getColorScheme()[1]
+            };
+        }
+
     }
 
     public onClick(index: number) {
@@ -54,11 +55,11 @@ export class BoardSliceComponent implements OnInit {
     }
 
     private getColorScheme() {
-        return this.colorScheme === 0 ? ['red', 'black'] : ['green', '#e4e4e3'];
+        return this.data.colorScheme === 0 ? ['red', 'black'] : ['green', '#e4e4e3'];
     }
 
     private createArc(radius: number) {
-        return this.describeArc(this.center, radius, this.startAngle);
+        return this.describeArc(this.data.center, radius, this.data.startAngle);
     }
 
     private describeArc(center: Point, radius, startAngle) {

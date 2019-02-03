@@ -17,6 +17,7 @@ import {LoginComponent} from './views/login/login.component';
 import {CoreModule} from './core/core.module';
 import {HttpClientModule} from '@angular/common/http';
 import {coreServiceProvider} from '@app/core/core.service.provider';
+import { ReducedBoardComponent } from './views/game/components/board/reduced-board.component';
 
 @NgModule({
     declarations: [
@@ -25,7 +26,8 @@ import {coreServiceProvider} from '@app/core/core.service.provider';
         SidenavListComponent,
         LayoutComponent,
         HomeComponent,
-        LoginComponent
+        LoginComponent,
+        ReducedBoardComponent
     ],
     imports: [
         BrowserAnimationsModule,

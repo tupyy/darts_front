@@ -11,12 +11,12 @@ import {GameFinishAnnounceComponent} from './components/game-finish-announce/gam
 import {StandardGameMovesComponent} from './components/standard-game-moves/standard-game-moves.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MaterialModule} from '../../material.module';
-import { MainGameComponent } from './main-component/main-game.component';
+import {MainGameComponent} from './main-component/main-game.component';
 import {PlayComponentDirective} from './directives/play-component.directive';
 import {StorageServiceModule} from 'ngx-webstorage-service';
 import {GameService} from './services/game.service';
-import {BoardComponent} from './components/board/board.component';
-import {BoardSliceComponent} from './components/board/board-slice/board-slice.component';
+import {BoardSliceComponent} from './components/board/board-slice.component';
+import {FullBoardComponent} from './components/board/full-board.component';
 
 @NgModule({
     declarations: [
@@ -29,7 +29,7 @@ import {BoardSliceComponent} from './components/board/board-slice/board-slice.co
         GameFinishAnnounceComponent,
         StandardGameMovesComponent,
         MainGameComponent,
-        BoardComponent,
+        FullBoardComponent,
         BoardSliceComponent,
         PlayComponentDirective
     ],
