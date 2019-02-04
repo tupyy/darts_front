@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren} from '@angular/core';
 import {ShootComponent} from '../shoot-component/shoot.component';
-import {StandardMove} from '../../../../model/engine/standard-move';
-import {StandardPlayer} from '../../../../model/engine/standard-player';
+import {StandardPlayer, StandardMove} from '@app/engine/index';
+import {GameService} from '../../services/game.service';
 
 @Component({
     selector: 'app-standard-play-component',
@@ -10,31 +10,20 @@ import {StandardPlayer} from '../../../../model/engine/standard-player';
 })
 export class StandardPlayComponent implements OnInit {
 
-    @Input() currentMove: StandardMove;
-    @Input() currentPlayer: StandardPlayer;
+    currentMove: StandardMove;
+    currentPlayer: StandardPlayer;
     @Output() next = new EventEmitter();
     public canNext = false;
 
     /** Get handle on cmp tags in the template */
     @ViewChildren('shoot') shoots: QueryList<ShootComponent>;
 
-    constructor() {
+    constructor(private gameService: GameService) {
+        this.currentMove = <StandardMove> this.gameService.getCurrentMove();
+        this.currentPlayer = <StandardPlayer> this.gameService.getCurrentPlayer();
     }
 
     ngOnInit() {
-        this.currentMove.hasChanged.subscribe(val => {
-            this.shoots.toArray()[val].setValue(this.currentMove.getScore(val), true);
-        });
-    }
-
-    get playerName(): string {
-        return this.currentPlayer.name;
-    }
-
-    get playerScore(): number {
-        if (!isNaN(this.currentMove.getTotalScore())) {
-            return this.currentPlayer.getScore() - this.currentMove.getTotalScore();
-        }
     }
 
     onScoreChanged(event: number[]) {

@@ -20,6 +20,7 @@ import {FullBoardComponent} from './components/board/full-board.component';
 import {PlayerNameComponent} from './components/player-name/player-name.component';
 import {StandardPlayBoardComponent} from './components/standard-play-board/standard-play-board.component';
 import {ReducedBoardComponent} from './components/board/reduced-board.component';
+import {PlayComponentDirective} from './directives/play-component.directive';
 
 @NgModule({
     declarations: [
@@ -35,6 +36,7 @@ import {ReducedBoardComponent} from './components/board/reduced-board.component'
         FullBoardComponent,
         BoardSliceComponent,
         BoardComponentDirective,
+        PlayComponentDirective,
         PlayerNameComponent,
         StandardPlayBoardComponent,
         ReducedBoardComponent
@@ -51,6 +53,7 @@ import {ReducedBoardComponent} from './components/board/reduced-board.component'
     entryComponents: [
         GameFinishAnnounceComponent,
         StandardPlayComponent,
+        StandardPlayBoardComponent,
         FullBoardComponent,
         ReducedBoardComponent
     ],

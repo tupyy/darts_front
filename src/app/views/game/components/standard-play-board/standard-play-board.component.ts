@@ -2,6 +2,7 @@ import {Component, ComponentFactoryResolver, EventEmitter, Input, OnInit, Output
 import {StandardMove, StandardPlayer} from '@app/engine/index';
 import {FullBoardComponent, ReducedBoardComponent} from '../../components/board/index';
 import {BoardComponentDirective} from '../../directives/board-component.directive';
+import {GameService} from '../../services/game.service';
 
 @Component({
     selector: 'app-standard-play-board',
@@ -20,21 +21,13 @@ export class StandardPlayBoardComponent implements OnInit {
 
     @ViewChild(BoardComponentDirective) boardComponent: BoardComponentDirective;
 
-    constructor(private componentFactoryResolver: ComponentFactoryResolver) {
+    constructor(private componentFactoryResolver: ComponentFactoryResolver,
+                private gameService: GameService) {
     }
 
     ngOnInit() {
         this.loadBoardComponent();
-    }
-
-    get playerName(): string {
-        return this.currentPlayer.name;
-    }
-
-    get playerScore(): number {
-        if (!isNaN(this.currentMove.getTotalScore())) {
-            return this.currentPlayer.getScore() - this.currentMove.getTotalScore();
-        }
+        this.currentMove = <StandardMove> this.gameService.getCurrentMove();
     }
 
     public changeBoardStyle() {

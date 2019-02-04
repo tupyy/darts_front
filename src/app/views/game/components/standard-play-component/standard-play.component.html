@@ -1,14 +1,9 @@
 <div class="play-container">
-    <app-player-name [playerName]="playerName" [playerScore]="playerScore"></app-player-name>
     <div class="shoot-details">
         <div class="shoot-container">
             <app-shoot #shoot [shootLabel]="'Shoot 1'" [id]="0" (scoreChanged)="onScoreChanged($event)" (inputDone)="onInputDone($event)"></app-shoot>
             <app-shoot #shoot [shootLabel]="'Shoot 2'" [id]="1" (scoreChanged)="onScoreChanged($event)" (inputDone)="onInputDone($event)"></app-shoot>
             <app-shoot #shoot [shootLabel]="'Shoot 3'" [id]="2" (scoreChanged)="onScoreChanged($event)" (inputDone)="onInputDone($event)"></app-shoot>
         </div>
-    </div>
-    <div class="shoot-actions">
-        <button mat-flat-button color="warn" (click)="reset()" [disabled]="!canNext">Clear</button>
-        <button mat-flat-button color="primary" (click)="onNext()" [disabled]="!canNext">Next</button>
     </div>
 </div>

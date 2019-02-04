@@ -15,7 +15,8 @@ import {
     MatSidenavModule,
     MatSlideToggleModule,
     MatTabsModule,
-    MatChipsModule
+    MatChipsModule,
+    MatRadioModule
 } from '@angular/material';
 
 @NgModule({
@@ -32,7 +33,8 @@ import {
         MatDialogModule,
         MatSelectModule,
         MatSlideToggleModule,
-        MatChipsModule
+        MatChipsModule,
+        MatRadioModule
     ]
 })
 

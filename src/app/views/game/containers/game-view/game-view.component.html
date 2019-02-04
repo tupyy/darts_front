@@ -1,11 +1,20 @@
 <div class="game-view-container">
     <mat-tab-group>
         <mat-tab label="Move">
-            <!--<ng-template appPlayComponent></ng-template>-->
-            <app-standard-play-component [currentMove]="currentMove" [currentPlayer]="currentPlayer" (next)="onNext()"></app-standard-play-component>
-        </mat-tab>
-        <mat-tab label="Board">
-            <app-standard-play-board [currentMove]="currentMove" [currentPlayer]="currentPlayer" (next)="onNext()"></app-standard-play-board>
+            <app-player-name [playerName]="playerName" [playerScore]="playerScore"></app-player-name>
+            <div class="play-component-selector">
+                <mat-slide-toggle
+                    class="board-selector-margin"
+                    [checked]="showBoard.value"
+                    (toggleChange)="showBoard.next(!showBoard.value)">
+                    Show board
+                </mat-slide-toggle>
+            </div>
+            <ng-template app-play-component></ng-template>
+            <div class="action-buttons">
+                <button mat-flat-button color="warn" (click)="reset()" [disabled]="!canNext">Clear</button>
+                <button mat-flat-button color="primary" (click)="onNext()" [disabled]="!canNext">Next</button>
+            </div>
         </mat-tab>
         <mat-tab label="Moves"><app-game-moves [moves]="getMoves()"></app-game-moves></mat-tab>
         <mat-tab label="Ranking"><app-game-rankings [rankings]=getRankingList()></app-game-rankings></mat-tab>
