@@ -16,7 +16,7 @@ export class StandardPlayBoardComponent implements OnInit {
     public canNext = false;
     isFullBoard: Boolean = true;
 
-    private shoots = [];
+    public shoots = [];
 
     @ViewChild(BoardComponentDirective) boardComponent: BoardComponentDirective;
 

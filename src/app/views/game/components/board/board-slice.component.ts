@@ -18,7 +18,10 @@ export class BoardSliceComponent implements OnInit {
     @Output() shootScore = new EventEmitter<number>();
 
     values = [];
-    labelData = {};
+    labelData = {
+        'center': null,
+        'rotationAngle': null
+    };
 
     constructor() {
     }
@@ -58,11 +61,11 @@ export class BoardSliceComponent implements OnInit {
 
     public onClick(index: number) {
         if (index === 0) {
-            this.shootScore.emit(3 * this.label);
+            this.shootScore.emit(2 * this.label);
         } else if (index === 1 || index === 3) {
             this.shootScore.emit(this.label);
         } else if (index === 2) {
-            this.shootScore.emit(this.label * 2);
+            this.shootScore.emit(this.label * 3);
         }
     }
 
