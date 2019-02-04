@@ -30,8 +30,7 @@ export class StandardPlayComponent implements OnInit {
 
     get playerScore(): number {
         if (!isNaN(this.currentMove.getTotalScore())) {
-            const currentScore = this.currentPlayer.getScore() - this.currentMove.getTotalScore();
-            return currentScore;
+            return this.currentPlayer.getScore() - this.currentMove.getTotalScore();
         }
     }
 

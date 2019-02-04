@@ -1,16 +1,5 @@
 <div class="play-container">
-    <mat-card class="player-info">
-        <mat-card-header>
-            <div mat-card-avatar class="card-avatar">
-                <mat-icon>face</mat-icon>
-            </div>
-            <mat-card-title class="title">{{playerName|titlecase}}</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-            <span class="score-title">Score:</span>
-            <span class="current-score">{{playerScore}}</span>
-        </mat-card-content>
-    </mat-card>
+    <app-player-name [playerName]="playerName" [playerScore]="playerScore"></app-player-name>
     <div class="shoot-details">
         <div class="shoot-container">
             <app-shoot #shoot [shootLabel]="'Shoot 1'" [id]="1" (scoreChanged)="onScoreChanged($event)" (inputDone)="onInputDone($event)"></app-shoot>

@@ -17,6 +17,7 @@ import {StorageServiceModule} from 'ngx-webstorage-service';
 import {GameService} from './services/game.service';
 import {BoardSliceComponent} from './components/board/board-slice.component';
 import {FullBoardComponent} from './components/board/full-board.component';
+import {PlayerNameComponent} from './components/player-name/player-name.component';
 
 @NgModule({
     declarations: [
@@ -31,7 +32,8 @@ import {FullBoardComponent} from './components/board/full-board.component';
         MainGameComponent,
         FullBoardComponent,
         BoardSliceComponent,
-        PlayComponentDirective
+        PlayComponentDirective,
+        PlayerNameComponent
     ],
     imports: [
         CommonModule,
