@@ -3,3 +3,8 @@
           [attr.d]="createArc(value.radius)" fill="none" [attr.stroke]="value.color" [attr.stroke-width]="value.width"
           (click)="onClick(i)"
 />
+<svg:text class="shootValue" [attr.x]="labelData.center.x"
+          [attr.y]="labelData.center.y"
+          [attr.transform]="'rotate(' + labelData.rotationAngle + ',' + labelData.center.x + ',' +labelData.center.y + ')'">
+    {{label}}
+</svg:text>

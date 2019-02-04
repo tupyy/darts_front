@@ -13,8 +13,11 @@ export class BoardSliceComponent implements OnInit {
     @Input() data: SliceData;
     @Input() angle_gap = 1;
     @Input() width_ratio = 0.1;
+    @Input() label: number;
 
     values = [];
+    labelData = {};
+
     constructor() {
     }
 
@@ -45,6 +48,9 @@ export class BoardSliceComponent implements OnInit {
                 'color': this.getColorScheme()[1]
             };
         }
+
+        this.labelData['center'] = this.polarToCartesian(this.data.center, this.data.externalRadius + 5, this.data.startAngle + 7);
+        this.labelData['rotationAngle'] = this.data.startAngle + 9;
 
     }
 
