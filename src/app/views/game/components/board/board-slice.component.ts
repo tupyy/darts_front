@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Point} from './point';
 import {SliceData, SliceType} from './slice-data';
 
@@ -14,6 +14,8 @@ export class BoardSliceComponent implements OnInit {
     @Input() angle_gap = 1;
     @Input() width_ratio = 0.1;
     @Input() label: number;
+
+    @Output() shootScore = new EventEmitter<number>();
 
     values = [];
     labelData = {};
@@ -55,7 +57,13 @@ export class BoardSliceComponent implements OnInit {
     }
 
     public onClick(index: number) {
-        console.log(index);
+        if (index === 0) {
+            this.shootScore.emit(3 * this.label);
+        } else if (index === 1 || index === 3) {
+            this.shootScore.emit(this.label);
+        } else if (index === 2) {
+            this.shootScore.emit(this.label * 2);
+        }
     }
 
     private getColorScheme() {

@@ -1,5 +1,5 @@
 import {BoardComponent} from './board.component';
-import {SliceData, SliceType} from './slice-data';
+import {SliceType} from './slice-data';
 import {Point} from './point';
 import {Component, OnInit} from '@angular/core';
 
