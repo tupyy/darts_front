@@ -47,10 +47,14 @@ export class StandardPlayBoardComponent implements OnInit {
     }
 
     private onShootChanged(value: number) {
-        this.shoots.push({'name': 'me', 'value': value});
+        this.shoots.push(value);
+        for (let i = 0; i < this.shoots.length; i++) {
+            this.currentMove.setScore(i + 1, this.shoots[i]);
+        }
     }
 
     private removeShoot(index: number) {
+        this.currentMove.setScore(index + 1, 0);
         this.shoots.splice(index, 1);
     }
 

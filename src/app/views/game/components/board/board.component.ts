@@ -27,6 +27,5 @@ export class BoardComponent {
 
     public onShootChange(value: number) {
         this.scoredChanged.emit(value);
-        console.log(value);
     }
 }

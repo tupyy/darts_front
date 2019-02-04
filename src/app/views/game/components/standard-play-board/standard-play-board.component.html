@@ -6,7 +6,7 @@
                 *ngFor="let shoot of shoots;let i = index;"
                 [selectable]="selectable"
                 (removed)="removeShoot(i)">
-                {{shoot.value}}
+                {{shoot}}
                 <mat-icon matChipRemove>cancel</mat-icon>
             </mat-chip>
         </mat-chip-list>
