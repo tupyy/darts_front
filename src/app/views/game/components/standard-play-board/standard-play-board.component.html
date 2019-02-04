@@ -1,0 +1,24 @@
+<div class="board-component">
+    <app-player-name [playerName]="playerName" [playerScore]="playerScore"></app-player-name>
+    <div class="board-selector">
+        <mat-card class="result">
+            <mat-card-content>
+                <h3 class="board-selector label">Board style</h3>
+                <section class="board-selector-section">
+                    <mat-slide-toggle
+                        class="board-selector-margin"
+                        [color]="color"
+                        [checked]="isFullBoard"
+                        (toggleChange)="changeBoardStyle()">
+                        {{boardStyle}}
+                    </mat-slide-toggle>
+                </section>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div class="shoot-details">
+        <div class="shoot-container">
+            <app-full-board-component></app-full-board-component>
+        </div>
+    </div>
+</div>
