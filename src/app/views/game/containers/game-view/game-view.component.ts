@@ -5,10 +5,7 @@ import {Subscription} from 'rxjs';
 import {GameFinishAnnounceComponent} from '../../components/game-finish-announce/game-finish-announce.component';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {ActivatedRoute, Router} from '@angular/router';
-import {PlayComponentDirective} from '../../directives/play-component.directive';
-import {StandardPlayComponent} from '../../components/standard-play-component/standard-play.component';
-import {StandardMove} from '@app/engine/standard-move';
-import {StandardPlayer} from '@app/engine/standard-player';
+import {BoardComponentDirective} from '../../directives/board-component.directive';
 
 @Component({
     selector: 'app-play-view',
@@ -21,13 +18,11 @@ export class GameViewComponent implements OnInit, OnDestroy {
     gameFinishSubscription: Subscription;
 
     private dialogRef: MatDialogRef<GameFinishAnnounceComponent>;
-    @ViewChild(PlayComponentDirective) playComponent: PlayComponentDirective;
 
     constructor(private gameService: GameService,
                 public dialog: MatDialog,
                 private router: Router,
-                private activatedRoute: ActivatedRoute,
-                private componentFactoryResolver: ComponentFactoryResolver) {
+                private activatedRoute: ActivatedRoute) {
         this.gameFinishSubscription = gameService.finishAnnounce$.subscribe(val => {
             if (val) {
                 this.openDialog();
@@ -81,17 +76,5 @@ export class GameViewComponent implements OnInit, OnDestroy {
 
     onNext() {
         this.gameService.next();
-    }
-
-    private loadGameComponent() {
-        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(StandardPlayComponent);
-        const viewContainerRef = this.playComponent.viewContainerRef;
-        viewContainerRef.clear();
-        const componentRef = viewContainerRef.createComponent(componentFactory);
-        (<StandardPlayComponent>componentRef.instance).currentMove = <StandardMove>this.currentMove;
-        (<StandardPlayComponent>componentRef.instance).currentPlayer = <StandardPlayer>this.currentPlayer;
-        (<StandardPlayComponent>componentRef.instance).next.subscribe(() => {
-            console.log(this.gameService.next());
-        });
     }
 }
