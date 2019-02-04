@@ -12,13 +12,14 @@ import {StandardGameMovesComponent} from './components/standard-game-moves/stand
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MaterialModule} from '../../material.module';
 import {MainGameComponent} from './main-component/main-game.component';
-import {PlayComponentDirective} from './directives/play-component.directive';
+import {BoardComponentDirective} from './directives/board-component.directive';
 import {StorageServiceModule} from 'ngx-webstorage-service';
 import {GameService} from './services/game.service';
 import {BoardSliceComponent} from './components/board/board-slice.component';
 import {FullBoardComponent} from './components/board/full-board.component';
 import {PlayerNameComponent} from './components/player-name/player-name.component';
 import {StandardPlayBoardComponent} from './components/standard-play-board/standard-play-board.component';
+import {ReducedBoardComponent} from './components/board/reduced-board.component';
 
 @NgModule({
     declarations: [
@@ -33,9 +34,10 @@ import {StandardPlayBoardComponent} from './components/standard-play-board/stand
         MainGameComponent,
         FullBoardComponent,
         BoardSliceComponent,
-        PlayComponentDirective,
+        BoardComponentDirective,
         PlayerNameComponent,
-        StandardPlayBoardComponent
+        StandardPlayBoardComponent,
+        ReducedBoardComponent
     ],
     imports: [
         CommonModule,
@@ -48,7 +50,9 @@ import {StandardPlayBoardComponent} from './components/standard-play-board/stand
     providers: [GameService],
     entryComponents: [
         GameFinishAnnounceComponent,
-        StandardPlayComponent
+        StandardPlayComponent,
+        FullBoardComponent,
+        ReducedBoardComponent
     ],
 })
 export class GameModule {
