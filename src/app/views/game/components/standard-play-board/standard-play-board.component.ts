@@ -15,6 +15,9 @@ export class StandardPlayBoardComponent implements OnInit {
     @Output() next = new EventEmitter();
     public canNext = false;
     isFullBoard: Boolean = true;
+
+    private shoots = [];
+
     @ViewChild(BoardComponentDirective) boardComponent: BoardComponentDirective;
 
     constructor(private componentFactoryResolver: ComponentFactoryResolver) {
@@ -43,19 +46,32 @@ export class StandardPlayBoardComponent implements OnInit {
         return this.isFullBoard ? 'Full board' : 'Reduced board';
     }
 
+    private onShootChanged(value: number) {
+        this.shoots.push({'name': 'me', 'value': value});
+    }
+
+    private removeShoot(index: number) {
+        this.shoots.splice(index, 1);
+    }
+
     private loadBoardComponent() {
         if (this.isFullBoard) {
             const componentFactory = this.componentFactoryResolver.resolveComponentFactory(FullBoardComponent);
             const viewContainerRef = this.boardComponent.viewContainerRef;
             viewContainerRef.clear();
             const componentRef = viewContainerRef.createComponent(componentFactory);
+            (<FullBoardComponent>componentRef.instance).scoredChanged.subscribe((value) => {
+                this.onShootChanged(value);
+            });
         } else {
             const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ReducedBoardComponent);
             const viewContainerRef = this.boardComponent.viewContainerRef;
             viewContainerRef.clear();
             const componentRef = viewContainerRef.createComponent(componentFactory);
+            (<ReducedBoardComponent>componentRef.instance).scoredChanged.subscribe((value) => {
+                this.onShootChanged(value);
+            });
         }
-
     }
 
 

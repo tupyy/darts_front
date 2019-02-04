@@ -1,5 +1,16 @@
 <div class="board-component">
     <app-player-name [playerName]="playerName" [playerScore]="playerScore"></app-player-name>
+    <div class="shoot-values-container">
+        <mat-chip-list #chipList>
+            <mat-chip [color]="'primary'"
+                *ngFor="let shoot of shoots;let i = index;"
+                [selectable]="selectable"
+                (removed)="removeShoot(i)">
+                {{shoot.value}}
+                <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+        </mat-chip-list>
+    </div>
     <div class="board-selector">
         <mat-card class="result">
             <mat-card-content>
