@@ -11,12 +11,10 @@ import {SliceData, SliceType} from './slice-data';
 export class BoardSliceComponent implements OnInit {
 
     @Input() data: SliceData;
+    @Input() angle_gap = 1;
+    @Input() width_ratio = 0.1;
 
     values = [];
-
-    private angle_gap = 1;
-    private width_ratio = 0.1;
-
     constructor() {
     }
 

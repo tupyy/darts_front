@@ -5,6 +5,8 @@ import {SliceData} from './slice-data';
 export class BoardComponent {
     protected center = new Point(300, 300);
     protected sliceData: SliceData[] = [];
+    protected angle_gap = 0;
+    protected width_ratio = 0.1;
 
     constructor() {
         let j = 0;
