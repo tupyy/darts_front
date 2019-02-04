@@ -22,10 +22,8 @@ export class StandardPlayComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.currentMove.hasChanged().subscribe(val => {
-            if (val) {
-                this.shoots.toArray()[val].setValue(this.currentMove.getScore(val), true);
-            }
+        this.currentMove.hasChanged.subscribe(val => {
+            this.shoots.toArray()[val].setValue(this.currentMove.getScore(val), true);
         });
     }
 

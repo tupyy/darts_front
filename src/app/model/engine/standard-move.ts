@@ -1,12 +1,12 @@
 import {Move} from './move';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {EventEmitter, Output} from '@angular/core';
 
 export class StandardMove implements Move {
     id: number;
     playerId: number;
     shoots: number[];
 
-    private _hasChanged = new BehaviorSubject<number>(0);
+    @Output() hasChanged = new EventEmitter<number>();
 
     static fromJSON(moveJSON): StandardMove {
         const move = Object.create(StandardMove.prototype);
@@ -33,8 +33,8 @@ export class StandardMove implements Move {
     }
 
     setScore(shootId: number, value: number) {
-        this.shoots[shootId - 1] = value;
-        this._hasChanged.next(shootId - 1);
+        this.shoots[shootId] = value;
+        this.hasChanged.next(shootId);
     }
 
     public getTotalScore(): number {
@@ -43,10 +43,6 @@ export class StandardMove implements Move {
             sum += val;
         });
         return sum;
-    }
-
-    public hasChanged(): Observable<number> {
-        return this._hasChanged.asObservable();
     }
 
     public clone() {
