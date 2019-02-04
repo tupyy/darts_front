@@ -52,12 +52,12 @@ export class StandardPlayBoardComponent implements OnInit {
         }
         this.shoots.push(value);
         for (let i = 0; i < this.shoots.length; i++) {
-            this.currentMove.setScore(i + 1, this.shoots[i]);
+            this.currentMove.setScore(i, this.shoots[i]);
         }
     }
 
     private removeShoot(index: number) {
-        this.currentMove.setScore(index + 1, 0);
+        this.currentMove.setScore(index, 0);
         this.shoots.splice(index, 1);
     }
 
