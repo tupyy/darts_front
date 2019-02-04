@@ -11,7 +11,7 @@ export class BoardComponent {
     constructor() {
         let j = 0;
         let oddSlice = false;
-        for (let i = -9; i <= 351; i = i + 18) {
+        for (let i = -9; i < 351; i = i + 18) {
             const _sliceData = new SliceData();
             _sliceData.colorScheme = oddSlice ? 1 : 0;
             _sliceData.startAngle = i;
