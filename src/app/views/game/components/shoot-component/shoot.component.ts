@@ -24,6 +24,7 @@ export class ShootComponent implements OnInit {
 
     @ViewChild('inputShoot') inputShoot: ElementRef;
 
+    private manuallyValueSet = false;
     matcher = new MyErrorStateMatcher();
 
     constructor(private fb: FormBuilder) {
@@ -35,7 +36,10 @@ export class ShootComponent implements OnInit {
             if (val == null) {
                 val = 0;
             }
-            this.scoreChanged.emit([this.id, val]);
+            if (!this.manuallyValueSet) {
+                this.scoreChanged.emit([this.id, val]);
+            }
+
         });
     }
 
@@ -58,6 +62,14 @@ export class ShootComponent implements OnInit {
 
     isValid() {
         return !this.form.invalid;
+    }
+
+    setValue(value: number, manually = false) {
+        if (manually) {
+            this.manuallyValueSet = true;
+            this.form.get('shootControl').setValue(value);
+            this.manuallyValueSet = false;
+        }
     }
 
     getValue() {
