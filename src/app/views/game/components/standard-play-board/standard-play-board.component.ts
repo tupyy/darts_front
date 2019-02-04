@@ -47,6 +47,9 @@ export class StandardPlayBoardComponent implements OnInit {
     }
 
     private onShootChanged(value: number) {
+        if (this.shoots.length === 3) {
+            return;
+        }
         this.shoots.push(value);
         for (let i = 0; i < this.shoots.length; i++) {
             this.currentMove.setScore(i + 1, this.shoots[i]);
