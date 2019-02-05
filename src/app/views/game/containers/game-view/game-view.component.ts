@@ -1,6 +1,6 @@
-import {Component, ComponentFactoryResolver, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, ComponentFactoryResolver, ComponentRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {GameService} from '../../services/game.service';
-import {BehaviorSubject, Observable, Subscription} from 'rxjs';
+import {BehaviorSubject, Subscription} from 'rxjs';
 import {GameFinishAnnounceComponent} from '../../components/game-finish-announce/game-finish-announce.component';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -8,6 +8,7 @@ import {PlayComponentDirective} from '../../directives/play-component.directive'
 import {StandardPlayComponent} from '../../components/standard-play-component/standard-play.component';
 import {StandardPlayBoardComponent} from '../../components/standard-play-board/standard-play-board.component';
 import {StandardMove, StandardPlayer} from '@app/engine/index';
+import {StandardComponent} from '../../components/standard/standard.component';
 
 @Component({
     selector: 'app-play-view',
@@ -18,10 +19,13 @@ export class GameViewComponent implements OnInit, OnDestroy {
 
     gameFinishSubscription: Subscription;
     public showBoard = new BehaviorSubject<boolean>(false);
+    public canNext = false;
 
 
     private dialogRef: MatDialogRef<GameFinishAnnounceComponent>;
     @ViewChild(PlayComponentDirective) playDirective: PlayComponentDirective;
+    private canNextSubscription: Subscription;
+    private componentRef: ComponentRef<any>;
 
     constructor(private gameService: GameService,
                 public dialog: MatDialog,
@@ -92,7 +96,7 @@ export class GameViewComponent implements OnInit, OnDestroy {
     }
 
     onNext() {
-        this.gameService.next();
+        (<StandardComponent>this.componentRef.instance).onNext();
     }
 
     private loadPlayComponent(_showBoard: boolean) {
@@ -100,12 +104,18 @@ export class GameViewComponent implements OnInit, OnDestroy {
             const componentFactory = this.componentFactoryResolver.resolveComponentFactory(StandardPlayComponent);
             const viewContainerRef = this.playDirective.viewContainerRef;
             viewContainerRef.clear();
-            const componentRef = viewContainerRef.createComponent(componentFactory);
+            this.componentRef = viewContainerRef.createComponent(componentFactory);
         } else {
             const componentFactory = this.componentFactoryResolver.resolveComponentFactory(StandardPlayBoardComponent);
             const viewContainerRef = this.playDirective.viewContainerRef;
             viewContainerRef.clear();
-            const componentRef = viewContainerRef.createComponent(componentFactory);
+            this.componentRef = viewContainerRef.createComponent(componentFactory);
+            if (this.canNextSubscription !== undefined) {
+                this.canNextSubscription.unsubscribe();
+            }
+            this.canNextSubscription = (<StandardPlayBoardComponent>this.componentRef.instance).canNext().subscribe(val => {
+                this.canNext = val;
+            });
         }
     }
 }
