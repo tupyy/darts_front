@@ -1,26 +1,26 @@
-import {Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, QueryList, ViewChildren} from '@angular/core';
 import {ShootComponent} from '../shoot-component/shoot.component';
-import {StandardPlayer, StandardMove} from '@app/engine/index';
+import {StandardMove, StandardPlayer} from '@app/engine/index';
 import {GameService} from '../../services/game.service';
+import {StandardComponent} from '../standard/standard.component';
 
 @Component({
     selector: 'app-standard-play-component',
     templateUrl: './standard-play.component.html',
     styleUrls: ['./standard-play.component.css'],
 })
-export class StandardPlayComponent implements OnInit {
+export class StandardPlayComponent extends StandardComponent implements OnInit {
 
     currentMove: StandardMove;
     currentPlayer: StandardPlayer;
-    @Output() next = new EventEmitter();
-    public canNext = false;
 
     /** Get handle on cmp tags in the template */
     @ViewChildren('shoot') shoots: QueryList<ShootComponent>;
 
     constructor(private gameService: GameService) {
-        this.currentMove = <StandardMove> this.gameService.getCurrentMove();
-        this.currentPlayer = <StandardPlayer> this.gameService.getCurrentPlayer();
+        super();
+        this.currentMove = <StandardMove>this.gameService.getCurrentMove();
+        this.currentPlayer = <StandardPlayer>this.gameService.getCurrentPlayer();
     }
 
     ngOnInit() {
@@ -36,20 +36,22 @@ export class StandardPlayComponent implements OnInit {
                 break;
             }
         }
-        this.canNext = _canNext;
+        this.canNext$.next(_canNext);
     }
 
     onInputDone(event: number) {
         console.log(event);
         if (event === 3) {
-            this.onNext();
             this.shoots.toArray()[0].receivedFocus();
         } else {
             this.shoots.toArray()[event].receivedFocus();
         }
     }
 
-    onNext() {
+    public reset() {
+        for (const shoot of this.shoots.toArray()) {
+            shoot.reset();
+        }
         for (const shoot of this.shoots.toArray()) {
             if (!shoot.isValid()) {
                 shoot.receivedFocus();
@@ -57,17 +59,10 @@ export class StandardPlayComponent implements OnInit {
             }
         }
 
-        this.next.emit();
-        for (const shoot of this.shoots.toArray()) {
-            shoot.reset();
-        }
+        this.canNext$.next(false);
     }
 
-    reset() {
-        for (const shoot of this.shoots.toArray()) {
-            shoot.reset();
-        }
-        this.canNext = false;
+    public onNext() {
     }
 
 

@@ -3,18 +3,19 @@ import {StandardMove, StandardPlayer} from '@app/engine/index';
 import {FullBoardComponent, ReducedBoardComponent} from '../../components/board/index';
 import {BoardComponentDirective} from '../../directives/board-component.directive';
 import {GameService} from '../../services/game.service';
+import {StandardComponent} from '../standard/standard.component';
+import {error} from '@angular/compiler/src/util';
 
 @Component({
     selector: 'app-standard-play-board',
     templateUrl: './standard-play-board.component.html',
     styleUrls: ['./standard-play-board.component.css']
 })
-export class StandardPlayBoardComponent implements OnInit {
+export class StandardPlayBoardComponent extends StandardComponent implements OnInit {
 
     @Input() currentMove: StandardMove;
     @Input() currentPlayer: StandardPlayer;
     @Output() next = new EventEmitter();
-    public canNext = false;
     isFullBoard: Boolean = true;
 
     public shoots = [];
@@ -23,11 +24,12 @@ export class StandardPlayBoardComponent implements OnInit {
 
     constructor(private componentFactoryResolver: ComponentFactoryResolver,
                 private gameService: GameService) {
+        super();
     }
 
     ngOnInit() {
         this.loadBoardComponent();
-        this.currentMove = <StandardMove> this.gameService.getCurrentMove();
+        this.currentMove = <StandardMove>this.gameService.getCurrentMove();
     }
 
     public changeBoardStyle() {
@@ -39,20 +41,40 @@ export class StandardPlayBoardComponent implements OnInit {
         return this.isFullBoard ? 'Full board' : 'Reduced board';
     }
 
+    public reset() {
+        this.shoots = [];
+        this.canNext$.next(false);
+    }
+
+    public onNext() {
+        this.reset();
+        this.gameService.next();
+        this.currentMove = <StandardMove>this.gameService.getCurrentMove();
+    }
+
     private onShootChanged(value: number) {
         if (this.shoots.length === 3) {
             return;
         }
         this.shoots.push(value);
-        for (let i = 0; i < this.shoots.length; i++) {
-            this.currentMove.setScore(i, this.shoots[i]);
-        }
+        this.shoots.forEach((val, index) => {
+            this.currentMove.setScore(index, val);
+        });
+        this.canNext$.next(true);
     }
 
     private removeShoot(index: number) {
-        this.currentMove.setScore(index, 0);
         this.shoots.splice(index, 1);
+        for (let i = 0; i < 3; i++) {
+            if (i < this.shoots.length) {
+                this.currentMove.setScore(i, this.shoots[i]);
+            } else {
+                this.currentMove.setScore(i, 0);
+            }
+        }
+        this.canNext$.next(this.shoots.length > 0);
     }
+
 
     private loadBoardComponent() {
         if (this.isFullBoard) {

@@ -2,9 +2,9 @@
     <div class="shoot-values-container">
         <mat-chip-list #chipList>
             <mat-chip [color]="'primary'"
-                *ngFor="let shoot of shoots;let i = index;"
-                [selectable]="selectable"
-                (removed)="removeShoot(i)">
+                      *ngFor="let shoot of shoots;let i = index;"
+                      [selectable]="selectable"
+                      (removed)="removeShoot(i)">
                 {{shoot}}
                 <mat-icon matChipRemove>cancel</mat-icon>
             </mat-chip>
