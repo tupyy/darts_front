@@ -1,4 +1,9 @@
 .shoot-values-container {
     margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.mat-card {
     margin-bottom: 5px;
+    background-color: #f2f2f2;
 }

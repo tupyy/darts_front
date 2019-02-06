@@ -16,7 +16,7 @@
 }
 
 .players-list {
-    background-color: #eef7ff;
+    background-color: #f2f2f2;
 }
 
 .input-player {
@@ -79,7 +79,7 @@
     .players-list {
         margin-left: 5px;
         margin-right: 5px;
-        background-color: #eef7ff;
+        background-color: #f2f2f2;
     }
 
     .players-list .mat-card-title {
