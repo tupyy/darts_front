@@ -76,7 +76,7 @@ export class NewGameComponent implements OnInit {
     }
 
     start() {
-        this.coreService.createGame(this.newGameForm.get('gameTypeControl').value, this.players);
+        this.coreService.createGame(GameType.Standard, this.players);
         this.router.navigate(['../play'], {relativeTo: this.activatedRoute});
     }
 
