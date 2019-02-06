@@ -40,7 +40,7 @@ export class ShootComponent implements OnInit {
                 if (val == null) {
                     val = 0;
                 }
-                if (!this.manuallyValueSet) {
+                if (!this.manuallyValueSet && this.isValid()) {
                     this.scoreChanged.emit([this.id, val]);
                 }
             });
