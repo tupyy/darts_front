@@ -43,8 +43,8 @@ export class ShootComponent implements OnInit {
                     val = 0;
                 }
                 if (!this.manuallyValueSet && this.isValid()) {
-                    this.canDouble = val * 2 < 60;
-                    this.canTriple = val * 3 < 60;
+                    this.canDouble = val * 2 <= 60;
+                    this.canTriple = val * 3 <= 60;
                     this.scoreChanged.emit([this.id, val]);
                 }
             });
