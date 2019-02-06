@@ -4,7 +4,6 @@ import {FullBoardComponent, ReducedBoardComponent} from '../../components/board/
 import {BoardComponentDirective} from '../../directives/board-component.directive';
 import {GameService} from '../../services/game.service';
 import {StandardComponent} from '../standard/standard.component';
-import {error} from '@angular/compiler/src/util';
 
 @Component({
     selector: 'app-standard-play-board',
