@@ -16,7 +16,8 @@ import {
     MatSlideToggleModule,
     MatTabsModule,
     MatChipsModule,
-    MatRadioModule
+    MatRadioModule,
+    MatButtonToggleModule
 } from '@angular/material';
 
 @NgModule({
@@ -34,7 +35,8 @@ import {
         MatSelectModule,
         MatSlideToggleModule,
         MatChipsModule,
-        MatRadioModule
+        MatRadioModule,
+        MatButtonToggleModule
     ]
 })
 

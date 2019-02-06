@@ -2,19 +2,27 @@
     <mat-tab-group>
         <mat-tab label="Move">
             <app-player-name [playerName]="playerName" [playerScore]="playerScore"></app-player-name>
-            <div class="play-component-selector">
-                <mat-slide-toggle
-                    class="board-selector-margin"
-                    [checked]="showBoard.value"
-                    (toggleChange)="showBoard.next(!showBoard.value)">
-                    Show board
-                </mat-slide-toggle>
-            </div>
             <ng-template app-play-component></ng-template>
-            <div class="action-buttons">
-                <button mat-flat-button color="warn" (click)="reset()" [disabled]="!canNext">Clear</button>
-                <button mat-flat-button color="primary" (click)="onNext()" [disabled]="!canNext">Next</button>
+            <div class="action-buttons-container">
+                <div class="action-buttons">
+                    <button mat-flat-button color="warn" (click)="reset()" [disabled]="!canNext">Clear</button>
+                    <mat-button-toggle-group #group="matButtonToggleGroup">
+                        <mat-button-toggle value="center"
+                                           [checked]="!showBoard.value"
+                                           (click)="showBoard.next(false)">
+                            <mat-icon>input</mat-icon>
+                        </mat-button-toggle>
+                        <mat-button-toggle value="center"
+                                           [checked]="showBoard.value"
+                                           (click)="showBoard.next(true)"
+                        >
+                            <mat-icon>radio_button_checked</mat-icon>
+                        </mat-button-toggle>
+                    </mat-button-toggle-group>
+                    <button mat-flat-button color="primary" (click)="onNext()" [disabled]="!canNext">Next</button>
+                </div>
             </div>
+
         </mat-tab>
         <mat-tab label="Moves"><app-game-moves [moves]="getMoves()"></app-game-moves></mat-tab>
         <mat-tab label="Ranking"><app-game-rankings [rankings]=getRankingList()></app-game-rankings></mat-tab>
