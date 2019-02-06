@@ -29,6 +29,11 @@ export class StandardPlayBoardComponent extends StandardComponent implements OnI
     ngOnInit() {
         this.loadBoardComponent();
         this.currentMove = <StandardMove>this.gameService.getCurrentMove();
+        this.currentMove.shoots.forEach(v => {
+            if (v) {
+                this.shoots.push(v);
+            }
+        });
     }
 
     public changeBoardStyle() {
