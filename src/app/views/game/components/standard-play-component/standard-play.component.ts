@@ -19,16 +19,15 @@ export class StandardPlayComponent extends StandardComponent implements OnInit {
 
     constructor(private gameService: GameService) {
         super();
+    }
+
+    ngOnInit() {
         this.currentMove = <StandardMove>this.gameService.getCurrentMove();
         this.currentPlayer = <StandardPlayer>this.gameService.getCurrentPlayer();
     }
 
-    ngOnInit() {
-    }
-
     onScoreChanged(event: number[]) {
         this.currentMove.setScore(event[0], event[1]);
-
         let _canNext = false;
         for (const shoot of this.shoots.toArray()) {
             if (shoot.hasValue()) {
@@ -40,7 +39,6 @@ export class StandardPlayComponent extends StandardComponent implements OnInit {
     }
 
     onInputDone(event: number) {
-        console.log(event);
         if (event === 3) {
             this.shoots.toArray()[0].receivedFocus();
         } else {
@@ -58,11 +56,13 @@ export class StandardPlayComponent extends StandardComponent implements OnInit {
                 return;
             }
         }
-
         this.canNext$.next(false);
     }
 
     public onNext() {
+        this.gameService.next();
+        this.reset();
+        this.currentMove = <StandardMove>this.gameService.getCurrentMove();
     }
 
 

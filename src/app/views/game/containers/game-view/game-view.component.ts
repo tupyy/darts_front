@@ -94,19 +94,23 @@ export class GameViewComponent implements OnInit, OnDestroy {
     }
 
     private loadPlayComponent(_showBoard: boolean) {
+        if (this.canNextSubscription !== undefined) {
+            this.canNextSubscription.unsubscribe();
+        }
+
         if (!_showBoard) {
             const componentFactory = this.componentFactoryResolver.resolveComponentFactory(StandardPlayComponent);
             const viewContainerRef = this.playDirective.viewContainerRef;
             viewContainerRef.clear();
             this.componentRef = viewContainerRef.createComponent(componentFactory);
+            this.canNextSubscription = (<StandardPlayComponent>this.componentRef.instance).canNext().subscribe(val => {
+                this.canNext = val;
+            });
         } else {
             const componentFactory = this.componentFactoryResolver.resolveComponentFactory(StandardPlayBoardComponent);
             const viewContainerRef = this.playDirective.viewContainerRef;
             viewContainerRef.clear();
             this.componentRef = viewContainerRef.createComponent(componentFactory);
-            if (this.canNextSubscription !== undefined) {
-                this.canNextSubscription.unsubscribe();
-            }
             this.canNextSubscription = (<StandardPlayBoardComponent>this.componentRef.instance).canNext().subscribe(val => {
                 this.canNext = val;
             });

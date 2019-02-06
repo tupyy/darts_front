@@ -1,6 +1,7 @@
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
+import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -24,7 +25,6 @@ export class ShootComponent implements OnInit {
 
     @ViewChild('inputShoot') inputShoot: ElementRef;
 
-    private manuallyValueSet = false;
     matcher = new MyErrorStateMatcher();
 
     constructor(private fb: FormBuilder) {
@@ -32,15 +32,15 @@ export class ShootComponent implements OnInit {
             shootControl: [null, [this.scoreValidator]]
         });
 
-        this.form.get('shootControl').valueChanges.subscribe((val) => {
-            if (val == null) {
-                val = 0;
-            }
-            if (!this.manuallyValueSet) {
+        this.form.get('shootControl').valueChanges.pipe(
+            debounceTime(500),
+            distinctUntilChanged())
+            .subscribe((val) => {
+                if (val == null) {
+                    val = 0;
+                }
                 this.scoreChanged.emit([this.id, val]);
-            }
-
-        });
+            });
     }
 
     ngOnInit() {
@@ -62,14 +62,6 @@ export class ShootComponent implements OnInit {
 
     isValid() {
         return !this.form.invalid;
-    }
-
-    setValue(value: number, manually = false) {
-        if (manually) {
-            this.manuallyValueSet = true;
-            this.form.get('shootControl').setValue(value);
-            this.manuallyValueSet = false;
-        }
     }
 
     getValue() {
