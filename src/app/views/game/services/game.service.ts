@@ -1,5 +1,5 @@
 import {Injectable, OnDestroy} from '@angular/core';
-import {Game, Move, Player} from '@app/engine/index';
+import {Game, Move, Player, StandardPlayer} from '@app/engine/index';
 import {Subject, Subscription} from 'rxjs';
 import {StandardGame} from '@app/engine/standard-game';
 import {StandardMove} from '@app/engine/standard-move';
@@ -43,6 +43,10 @@ export class GameService implements OnDestroy {
 
     getCurrentPlayer(): Player {
         return this.currentPlayer;
+    }
+
+    getCurrentScore(): number {
+       return this.currentPlayer.getCurrentMoveScore();
     }
 
     next() {

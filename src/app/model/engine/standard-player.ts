@@ -4,6 +4,7 @@ export class StandardPlayer implements Player {
     id: number;
     name: string;
     private score: number;
+    private temporaryScore: number;
 
     static fromJSON(playerJSON): StandardPlayer {
         const player = Object.create(StandardPlayer.prototype);
@@ -14,17 +15,27 @@ export class StandardPlayer implements Player {
         this.id = _id;
         this.name = _name;
         this.score = 301;
+        this.temporaryScore = 301;
     }
 
-    updateScore(moveScore: number) {
-        const oldValue = this.score;
-        this.score -= moveScore;
-        if (this.score < 0) {
-            this.score = oldValue;
+    public commitScore() {
+        if (this.temporaryScore >= 0) {
+            this.score = this.temporaryScore;
+        } else {
+            this.temporaryScore = this.score;
         }
     }
 
-    getScore() {
+    public updateScore(moveScore: number) {
+        this.temporaryScore = this.score;
+        this.temporaryScore -= moveScore;
+    }
+
+    public getCurrentMoveScore() {
+        return this.temporaryScore;
+    }
+
+    public getScore() {
         return this.score;
     }
 }

@@ -16,11 +16,6 @@ export interface Game {
     // go to next move
     next(): void;
 
-    // go the the prev move
-    prev(): void;
-
-    resume(moveID: number): void;
-
     // announce when the main-component is finished
     isFinished(): Observable<boolean>;
 

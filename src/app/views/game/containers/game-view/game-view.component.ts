@@ -77,15 +77,8 @@ export class GameViewComponent implements OnInit, OnDestroy {
         return this.gameService.getCurrentPlayer().name;
     }
 
-    // TODO put this in gameservice or standard game
     get playerScore(): number {
-        if (this.gameService.getCurrentMove() instanceof StandardMove) {
-            const move = <StandardMove>this.gameService.getCurrentMove();
-            const player = <StandardPlayer>this.gameService.getCurrentPlayer();
-            if (!isNaN(move.getTotalScore())) {
-                return player.getScore() - move.getTotalScore();
-            }
-        }
+        return this.gameService.getCurrentScore();
     }
 
     getRankingList() {

@@ -1,6 +1,6 @@
 import {Player} from './player';
 import {Move} from './move';
-import {ArgumentOutOfRangeError, BehaviorSubject, Observable, Subject} from 'rxjs';
+import {ArgumentOutOfRangeError, BehaviorSubject, Observable, Subject, Subscription} from 'rxjs';
 import {Game, GameJSON} from './game';
 import {StandardMove} from './standard-move';
 import {StandardPlayer} from './standard-player';
@@ -21,11 +21,9 @@ export class StandardGame implements Game {
     private currentPlayerSource = new BehaviorSubject<StandardPlayer>(null);
 
     private finishAnnouncedSource = new Subject<boolean>();
-    private finishAnnounced$ = this.finishAnnouncedSource.asObservable();
 
     constructor(players: StandardPlayer[]) {
         this.players = players;
-
         this.id = this.generateID();
     }
 
@@ -55,10 +53,12 @@ export class StandardGame implements Game {
 
     public next(): void {
         // save the current move
+        this.currentMove.hasChanged.unsubscribe();
         this.moves.push(this.currentMove.clone());
         const currentPlayer = <StandardPlayer>this.getPlayer(this.currentMove.playerId);
         currentPlayer.updateScore(this.currentMove.getTotalScore());
 
+        currentPlayer.commitScore();
         if (currentPlayer.getScore() === 0) {
             this.finishAnnouncedSource.next(true);
         } else {
@@ -67,29 +67,9 @@ export class StandardGame implements Game {
         }
     }
 
-    public prev(): Move {
-        return null;
-    }
-
-    /**
-     * Resume the game from a move at rank moveID.
-     * TODO delete all the moves after the moveID
-     * @param moveID the rank of the move from where the game is resumed
-     */
-    resume(moveID: number): void {
-        if (moveID >= this.moves.length) {
-            throw new ArgumentOutOfRangeError();
-        }
-        for (const move of this.moves) {
-            if (moveID === moveID) {
-                this.setCurrentMove(<StandardMove>move);
-                return;
-            }
-        }
-    }
 
     public isFinished(): Observable<boolean> {
-        return this.finishAnnounced$;
+        return this.finishAnnouncedSource.asObservable();
     }
 
     /**
@@ -176,6 +156,10 @@ export class StandardGame implements Game {
 
     private setCurrentMove(move: StandardMove) {
         this.currentMove = move;
+        this.currentMove.hasChanged.subscribe(val => {
+            this.getPlayer(this.currentMove.playerId).updateScore(this.currentMove.getTotalScore());
+        });
+
         this.currentMoveSource.next(move);
         this.currentPlayerSource.next(<StandardPlayer>this.getPlayer(move.playerId));
     }
