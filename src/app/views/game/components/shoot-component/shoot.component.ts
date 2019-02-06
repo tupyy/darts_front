@@ -25,6 +25,8 @@ export class ShootComponent implements OnInit {
 
     @ViewChild('inputShoot') inputShoot: ElementRef;
 
+    private canDouble = true;
+    private canTriple = true;
     private manuallyValueSet = false;
     matcher = new MyErrorStateMatcher();
 
@@ -34,13 +36,15 @@ export class ShootComponent implements OnInit {
         });
 
         this.form.get('shootControl').valueChanges.pipe(
-            debounceTime(500),
+            debounceTime(250),
             distinctUntilChanged())
             .subscribe((val) => {
                 if (val == null) {
                     val = 0;
                 }
                 if (!this.manuallyValueSet && this.isValid()) {
+                    this.canDouble = val * 2 < 60;
+                    this.canTriple = val * 3 < 60;
                     this.scoreChanged.emit([this.id, val]);
                 }
             });
