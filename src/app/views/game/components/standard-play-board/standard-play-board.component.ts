@@ -32,6 +32,7 @@ export class StandardPlayBoardComponent extends StandardComponent implements OnI
         this.currentMove.shoots.forEach(v => {
             if (v) {
                 this.shoots.push(v);
+                this.canNext$.next(true);
             }
         });
     }

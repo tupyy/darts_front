@@ -84,7 +84,7 @@ export class ShootComponent implements OnInit {
     }
 
     hasValue() {
-        return !(this.getValue() == null);
+        return !(this.getValue() == null || this.getValue() === '');
     }
 
 

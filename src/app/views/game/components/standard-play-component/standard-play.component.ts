@@ -30,6 +30,7 @@ export class StandardPlayComponent extends StandardComponent implements OnInit, 
         this.currentMove.shoots.forEach((value, index) => {
             if (value) {
                 this.shoots.toArray()[index].setValue(value, true);
+                this.canNext$.next(true);
             }
         });
     }
@@ -58,19 +59,19 @@ export class StandardPlayComponent extends StandardComponent implements OnInit, 
         for (const shoot of this.shoots.toArray()) {
             shoot.reset();
         }
+        this.canNext$.next(false);
         for (const shoot of this.shoots.toArray()) {
             if (!shoot.isValid()) {
                 shoot.receivedFocus();
                 return;
             }
         }
-        this.canNext$.next(false);
     }
 
     public onNext() {
         this.gameService.next();
-        this.reset();
         this.currentMove = <StandardMove>this.gameService.getCurrentMove();
+        this.reset();
     }
 
 
