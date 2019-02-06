@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output, QueryList, ViewChildren} from '@angular/core';
+import {AfterContentInit, AfterViewInit, Component, EventEmitter, OnInit, Output, QueryList, ViewChildren} from '@angular/core';
 import {ShootComponent} from '../shoot-component/shoot.component';
 import {StandardMove, StandardPlayer} from '@app/engine/index';
 import {GameService} from '../../services/game.service';
@@ -9,7 +9,7 @@ import {StandardComponent} from '../standard/standard.component';
     templateUrl: './standard-play.component.html',
     styleUrls: ['./standard-play.component.css'],
 })
-export class StandardPlayComponent extends StandardComponent implements OnInit {
+export class StandardPlayComponent extends StandardComponent implements OnInit, AfterViewInit {
 
     currentMove: StandardMove;
     currentPlayer: StandardPlayer;
@@ -24,6 +24,14 @@ export class StandardPlayComponent extends StandardComponent implements OnInit {
     ngOnInit() {
         this.currentMove = <StandardMove>this.gameService.getCurrentMove();
         this.currentPlayer = <StandardPlayer>this.gameService.getCurrentPlayer();
+    }
+
+    ngAfterViewInit(): void {
+        this.currentMove.shoots.forEach((value, index) => {
+            if (value) {
+                this.shoots.toArray()[index].setValue(value, true);
+            }
+        });
     }
 
     onScoreChanged(event: number[]) {
