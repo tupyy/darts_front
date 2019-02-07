@@ -1,6 +1,6 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import {Game, Move, Player, StandardPlayer} from '@app/engine/index';
-import {Subject, Subscription} from 'rxjs';
+import {Observable, Subject, Subscription} from 'rxjs';
 import {StandardGame} from '@app/engine/standard-game';
 import {StandardMove} from '@app/engine/standard-move';
 import {CoreService} from '@app/core/core.service';
@@ -41,12 +41,16 @@ export class GameService implements OnDestroy {
         return this.currentMove;
     }
 
+    getMoveObservable(): Observable<Move> {
+        return this.currentGame.getCurrentMove();
+    }
+
     getCurrentPlayer(): Player {
         return this.currentPlayer;
     }
 
     getCurrentScore(): number {
-       return this.currentPlayer.getCurrentMoveScore();
+        return this.currentPlayer.getCurrentMoveScore();
     }
 
     next() {
@@ -70,18 +74,11 @@ export class GameService implements OnDestroy {
     // restore the game from local storage
     restore() {
         this.unsubscribe();
-        // const gameJSON = JSON.parse(this.coreService.loadGame());
-        // if (gameJSON.gameType === GameType.Standard) {
-        //     this.currentGame = StandardGame.fromJSON(gameJSON);
-        //     this.subscribeTo(this.currentGame);
-        // }
     }
 
     private subscribeTo(game: Game) {
         this.currentMove$ = game.getCurrentMove().subscribe(move => {
-            if (game instanceof StandardGame) {
-                this.currentMove = <StandardMove>move;
-            }
+            this.setCurrentMove(move);
             this.currentPlayer = game.getPlayer(this.currentMove.playerId);
         });
         this.finishSubscription = game.isFinished().subscribe(val => {
@@ -96,6 +93,12 @@ export class GameService implements OnDestroy {
         }
         if (this.finishSubscription !== undefined) {
             this.finishSubscription.unsubscribe();
+        }
+    }
+
+    private setCurrentMove(move: Move) {
+        if (move instanceof StandardMove) {
+            this.currentMove = <StandardMove>move;
         }
     }
 }
