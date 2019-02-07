@@ -1,6 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {AuthService} from '@app/core/index';
 import {Router} from '@angular/router';
+import {CoreService} from '@app/core/core.service';
 
 @Component({
     selector: 'app-header',
@@ -12,7 +13,8 @@ export class HeaderComponent implements OnInit {
     @Output() public sidenavToggle = new EventEmitter();
     userAuthenticated: boolean;
 
-    constructor(private authService: AuthService,
+    constructor(private coreService: CoreService,
+                private authService: AuthService,
                 private router: Router) {
         authService.authenticationObservable.subscribe(val => {
             this.userAuthenticated = val;
@@ -31,15 +33,10 @@ export class HeaderComponent implements OnInit {
     }
 
     canRestoreGame(): boolean {
-        return false;
+        return this.coreService.canRestoreGame();
     }
 
     onRestore() {
         this.router.navigate(['/game/play/restore']);
-    }
-
-    public onLogout() {
-        this.authService.logout();
-        this.router.navigate(['/']);
     }
 }

@@ -23,6 +23,10 @@ export class GameStorageService {
         this.currentGameSubscription = this.subscribeTo(game);
     }
 
+    public canRestore(): boolean {
+        return this.localStorage.hasGame();
+    }
+
     /**
      * Save the current game. If the user is logged in the game will be saved on server and local storage.
      * Otherwise it will stored only on the local storage
@@ -52,12 +56,11 @@ export class GameStorageService {
             if (_game) {
                 this.currentGame = _game;
                 this.moveSubscription = _game.getCurrentMove().subscribe(move => {
-                    this.saveCurrentGame();
-                    if (this.authService.isAuthenticated()) {
-                        console.log('userauthenticated');
-                    }
+                    // this.saveCurrentGame(); # disable for v1.0
                 });
             }
         });
     }
+
+
 }

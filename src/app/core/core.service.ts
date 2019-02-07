@@ -41,6 +41,10 @@ export class CoreService {
         return this.currentGame.asObservable();
     }
 
+    public canRestoreGame(): boolean {
+        return this.gameStorageService.canRestore();
+    }
+
     private getGameById(id: string): Game {
         let currentGame = null;
         this.games.forEach(game => {
