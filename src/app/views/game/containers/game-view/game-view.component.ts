@@ -19,12 +19,10 @@ export class GameViewComponent implements OnInit, OnDestroy {
 
     gameFinishSubscription: Subscription;
     public showBoard = new BehaviorSubject<boolean>(false);
-    public canNext = false;
 
 
     private dialogRef: MatDialogRef<GameFinishAnnounceComponent>;
     @ViewChild(PlayComponentDirective) playDirective: PlayComponentDirective;
-    private canNextSubscription: Subscription;
     private componentRef: ComponentRef<any>;
 
     constructor(private gameService: GameService,
@@ -90,30 +88,20 @@ export class GameViewComponent implements OnInit, OnDestroy {
     }
 
     onNext() {
-        (<StandardComponent>this.componentRef.instance).onNext();
+        this.gameService.next();
     }
 
     private loadPlayComponent(_showBoard: boolean) {
-        if (this.canNextSubscription !== undefined) {
-            this.canNextSubscription.unsubscribe();
-        }
-
         if (!_showBoard) {
             const componentFactory = this.componentFactoryResolver.resolveComponentFactory(StandardPlayComponent);
             const viewContainerRef = this.playDirective.viewContainerRef;
             viewContainerRef.clear();
             this.componentRef = viewContainerRef.createComponent(componentFactory);
-            this.canNextSubscription = (<StandardPlayComponent>this.componentRef.instance).canNext().subscribe(val => {
-                this.canNext = val;
-            });
         } else {
             const componentFactory = this.componentFactoryResolver.resolveComponentFactory(StandardPlayBoardComponent);
             const viewContainerRef = this.playDirective.viewContainerRef;
             viewContainerRef.clear();
             this.componentRef = viewContainerRef.createComponent(componentFactory);
-            this.canNextSubscription = (<StandardPlayBoardComponent>this.componentRef.instance).canNext().subscribe(val => {
-                this.canNext = val;
-            });
         }
     }
 }
