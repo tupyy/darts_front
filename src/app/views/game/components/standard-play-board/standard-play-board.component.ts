@@ -31,7 +31,9 @@ export class StandardPlayBoardComponent extends StandardComponent implements OnI
     ngOnInit() {
         this.loadBoardComponent();
         this.currentMoveSubscription = this.gameService.getMoveObservable().subscribe(move => {
-            this.reset();
+            try {
+                this.reset();
+            } catch (e) {}
             this.currentMove = <StandardMove>move;
         });
         this.currentMove.shoots.forEach(v => {
@@ -56,6 +58,9 @@ export class StandardPlayBoardComponent extends StandardComponent implements OnI
 
     public reset() {
         this.shoots = [];
+        [0, 1, 2].forEach(v => {
+            this.currentMove.setScore(v, 0);
+        });
     }
 
     private onShootChanged(value: number) {
