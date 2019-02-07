@@ -38,4 +38,13 @@ export class StandardPlayer implements Player {
     public getScore() {
         return this.score;
     }
+
+    public toJSON(): Player {
+        const targetObj = {};
+        targetObj['id'] = this.id;
+        targetObj['name'] = this.name;
+        targetObj['score'] = this.score;
+        targetObj['temporaryScore'] = this.temporaryScore;
+        return <Player>targetObj;
+    }
 }

@@ -53,4 +53,11 @@ export class StandardMove implements Move {
         });
         return clone;
     }
+
+    public toJSON(): Move {
+        const targetObj = {};
+        targetObj['player_id'] = this.playerId;
+        targetObj['shoots'] = this.shoots;
+        return <Move>targetObj;
+    }
 }
