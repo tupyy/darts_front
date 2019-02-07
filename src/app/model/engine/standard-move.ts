@@ -8,6 +8,7 @@ export class StandardMove implements Move {
 
     @Output() hasChanged = new EventEmitter<number>();
 
+
     static fromJSON(moveJSON): StandardMove {
         const move = Object.create(StandardMove.prototype);
         return Object.assign(move, moveJSON);
@@ -20,7 +21,7 @@ export class StandardMove implements Move {
         if (shoots !== undefined) {
             this.shoots = shoots;
         } else {
-            this.shoots = new Array(3);
+            this.shoots = [0, 0, 0];
         }
     }
 
