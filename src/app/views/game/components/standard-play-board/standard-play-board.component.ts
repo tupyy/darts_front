@@ -1,21 +1,23 @@
-import {Component, ComponentFactoryResolver, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, ComponentFactoryResolver, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {StandardMove, StandardPlayer} from '@app/engine/index';
 import {FullBoardComponent, ReducedBoardComponent} from '../../components/board/index';
 import {BoardComponentDirective} from '../../directives/board-component.directive';
 import {GameService} from '../../services/game.service';
 import {StandardComponent} from '../standard/standard.component';
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'app-standard-play-board',
     templateUrl: './standard-play-board.component.html',
     styleUrls: ['./standard-play-board.component.css']
 })
-export class StandardPlayBoardComponent extends StandardComponent implements OnInit {
+export class StandardPlayBoardComponent extends StandardComponent implements OnInit, OnDestroy {
 
     @Input() currentMove: StandardMove;
     @Input() currentPlayer: StandardPlayer;
     @Output() next = new EventEmitter();
     isFullBoard: Boolean = true;
+    private currentMoveSubscription: Subscription;
 
     public shoots = [];
 
@@ -28,13 +30,19 @@ export class StandardPlayBoardComponent extends StandardComponent implements OnI
 
     ngOnInit() {
         this.loadBoardComponent();
-        this.currentMove = <StandardMove>this.gameService.getCurrentMove();
+        this.currentMoveSubscription = this.gameService.getMoveObservable().subscribe(move => {
+            this.reset();
+            this.currentMove = <StandardMove>move;
+        });
         this.currentMove.shoots.forEach(v => {
             if (v) {
                 this.shoots.push(v);
-                this.canNext$.next(true);
             }
         });
+    }
+
+    ngOnDestroy(): void {
+        this.currentMoveSubscription.unsubscribe();
     }
 
     public changeBoardStyle() {
@@ -48,13 +56,6 @@ export class StandardPlayBoardComponent extends StandardComponent implements OnI
 
     public reset() {
         this.shoots = [];
-        this.canNext$.next(false);
-    }
-
-    public onNext() {
-        this.reset();
-        this.gameService.next();
-        this.currentMove = <StandardMove>this.gameService.getCurrentMove();
     }
 
     private onShootChanged(value: number) {
@@ -65,7 +66,6 @@ export class StandardPlayBoardComponent extends StandardComponent implements OnI
         this.shoots.forEach((val, index) => {
             this.currentMove.setScore(index, val);
         });
-        this.canNext$.next(true);
     }
 
     private removeShoot(index: number) {
@@ -77,7 +77,6 @@ export class StandardPlayBoardComponent extends StandardComponent implements OnI
                 this.currentMove.setScore(i, 0);
             }
         }
-        this.canNext$.next(this.shoots.length > 0);
     }
 
 
