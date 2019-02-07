@@ -4,7 +4,7 @@ import {EventEmitter, Output} from '@angular/core';
 
 
 export class BoardComponent {
-    protected center = new Point(300, 300);
+    public center = new Point(300, 300);
     public sliceData: SliceData[] = [];
     protected angle_gap = 0;
     protected width_ratio = 0.1;

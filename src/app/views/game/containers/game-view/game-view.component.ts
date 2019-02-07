@@ -91,6 +91,10 @@ export class GameViewComponent implements OnInit, OnDestroy {
         this.gameService.next();
     }
 
+    reset() {
+        this.componentRef.instance.reset();
+    }
+
     private loadPlayComponent(_showBoard: boolean) {
         if (!_showBoard) {
             const componentFactory = this.componentFactoryResolver.resolveComponentFactory(StandardPlayComponent);

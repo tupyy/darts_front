@@ -25,8 +25,8 @@ export class ShootComponent implements OnInit {
 
     @ViewChild('inputShoot') inputShoot: ElementRef;
 
-    private canDouble = true;
-    private canTriple = true;
+    public canDouble = true;
+    public canTriple = true;
     private manuallyValueSet = false;
     matcher = new MyErrorStateMatcher();
 
