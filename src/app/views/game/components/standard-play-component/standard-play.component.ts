@@ -50,10 +50,10 @@ export class StandardPlayComponent extends StandardComponent implements OnInit, 
     }
 
     onInputDone(event: number) {
-        if (event === 3) {
+        if (event === 2) {
             this.shoots.toArray()[0].receivedFocus();
         } else {
-            this.shoots.toArray()[event].receivedFocus();
+            this.shoots.toArray()[event + 1].receivedFocus();
         }
     }
 
