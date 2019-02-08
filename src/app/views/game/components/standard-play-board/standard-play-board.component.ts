@@ -31,9 +31,6 @@ export class StandardPlayBoardComponent extends StandardComponent implements OnI
     ngOnInit() {
         this.loadBoardComponent();
         this.currentMoveSubscription = this.gameService.getMoveObservable().subscribe(move => {
-            try {
-                this.reset();
-            } catch (e) {}
             this.currentMove = <StandardMove>move;
         });
         this.currentMove.shoots.forEach(v => {

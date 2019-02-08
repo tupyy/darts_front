@@ -89,6 +89,7 @@ export class GameViewComponent implements OnInit, OnDestroy {
 
     onNext() {
         this.gameService.next();
+        this.reset();
     }
 
     reset() {

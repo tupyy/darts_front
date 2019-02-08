@@ -30,9 +30,6 @@ export class StandardPlayComponent extends StandardComponent implements OnInit, 
 
     ngAfterViewInit(): void {
         this.currentMoveSubscription = this.gameService.getMoveObservable().subscribe(move => {
-            try {
-                this.reset();
-            } catch (e) {}
             this.currentMove = <StandardMove>move;
         });
 
