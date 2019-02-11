@@ -8,12 +8,6 @@ export class StandardMove implements Move {
 
     @Output() hasChanged = new EventEmitter<number>();
 
-
-    static fromJSON(moveJSON): StandardMove {
-        const move = Object.create(StandardMove.prototype);
-        return Object.assign(move, moveJSON);
-    }
-
     constructor(id: number, playerId: number, shoots?: number[]) {
         this.id = id;
         this.playerId = playerId;
@@ -25,7 +19,11 @@ export class StandardMove implements Move {
         }
     }
 
-    getScore(shootId: number) {
+    /**
+     * Get the score of a shoot
+     * @param shootId id of the shoot
+     */
+    public getScore(shootId: number) {
         try {
             return this.shoots[shootId];
         } catch (e) {
@@ -33,11 +31,19 @@ export class StandardMove implements Move {
         }
     }
 
-    setScore(shootId: number, value: number) {
+    /**
+     * Set the score of a shoot
+     * @param shootId shoot id
+     * @param value value
+     */
+    public setScore(shootId: number, value: number) {
         this.shoots[shootId] = value;
         this.hasChanged.next(shootId);
     }
 
+    /**
+     * Get total score
+     */
     public getTotalScore(): number {
         let sum = 0;
         this.shoots.forEach(val => {
@@ -59,5 +65,10 @@ export class StandardMove implements Move {
         targetObj['player_id'] = this.playerId;
         targetObj['shoots'] = this.shoots;
         return <Move>targetObj;
+    }
+
+    public fromJSON(moveJSON): Move {
+        const move = Object.create(StandardMove.prototype);
+        return Object.assign(move, moveJSON);
     }
 }
