@@ -8,7 +8,7 @@ import {GameType} from '@app/engine/game-type';
 
 export abstract class AbstractGame implements Game {
 
-    public players: StandardPlayer[];
+    public players: Player[];
     public moves: Move[] = [];
     public id: string;
 
@@ -22,7 +22,7 @@ export abstract class AbstractGame implements Game {
 
     private finishAnnouncedSource = new Subject<boolean>();
 
-    protected constructor(players: StandardPlayer[]) {
+    protected constructor(players: Player[]) {
         this.players = players;
         this.id = this.generateID();
     }

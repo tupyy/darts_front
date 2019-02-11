@@ -1,10 +1,7 @@
 import {AbstractGame} from '@app/engine/abstract-game';
-import {Game} from '@app/engine/game';
+import {Game, GameJSON, Move} from '@app/engine/game';
 import {GameType} from '@app/engine/game-type';
-import {StandardPlayer} from '@app/engine/standard-player';
-import {GameJSON} from '@app/engine/game';
 import {Player} from '@app/engine/player';
-import {Move} from '@app/engine/game';
 
 /**
  *  This class implements a standard 301 points game. The difference between classic 301 points game is that
@@ -14,7 +11,7 @@ export class StandardGame extends AbstractGame {
 
     gameType = GameType.Standard;
 
-    constructor(players: StandardPlayer[]) {
+    constructor(players: Player[]) {
         super(players);
         players.forEach(player => {
             player.setScore(301);
