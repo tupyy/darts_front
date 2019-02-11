@@ -1,3 +1,4 @@
 export enum GameType {
-    Standard,
+    Standard_301,
+    Standard_501
 }

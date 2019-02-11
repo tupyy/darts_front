@@ -9,7 +9,7 @@ import {Player} from '@app/engine/player';
  */
 export class StandardGame extends AbstractGame {
 
-    gameType = GameType.Standard;
+    gameType = GameType.Standard_301;
 
     constructor(players: Player[]) {
         super(players);
