@@ -11,22 +11,40 @@ export interface Game {
     gameType: number;
     id: string;
 
+    /**
+     * Start the game
+     */
     start();
 
-    // go to next move
+    /**
+     * Advance the game with one move.
+     */
     next(): void;
 
-    // announce when the main-component is finished
+    /**
+     * announce when the main-component is finished
+     */
     isFinished(): Observable<boolean>;
 
-    // get the current move
+    /**
+     * Get the current move observable
+     */
     getCurrentMove(): Observable<Move>;
 
+    /**
+     * Get current player observable
+     */
     getCurrentPlayer(): Observable<Player>;
 
-    // get move
+    /**
+     * Get move
+     * @param id of the move
+     */
     getMove(id: number): Move;
 
+    /**
+     * Get all the moves
+     */
     getMoves(): Move[];
 
     // get player by id
@@ -35,7 +53,16 @@ export interface Game {
     // get ranking list
     getRankings(): Player[];
 
+    /**
+     * Serialize to json
+     */
     toJSON(): Game;
+
+    /**
+     * Deserialize from json
+     * @param gameJSON
+     */
+    fromJSON(gameJSON: GameJSON): Game;
 }
 
 export interface GameJSON extends Game {
