@@ -7,14 +7,15 @@ import {Player} from '@app/engine/player';
  *  This class implements a standard 301 points game. The difference between classic 301 points game is that
  *  the game can end without a double or a bulls-eye. The first player to reach 0 wins.
  */
-export class StandardGame extends AbstractGame {
+export class Standard301Game extends AbstractGame {
 
     gameType = GameType.Standard_301;
 
     constructor(players: Player[]) {
         super(players);
         players.forEach(player => {
-            player.setScore(301);
+            player.setTemporaryScore(301);
+            player.commitScore();
         });
     }
 
@@ -39,14 +40,10 @@ export class StandardGame extends AbstractGame {
 
     updatePlayerScore(player: Player, currentMove: Move) {
         const oldScore = player.getScore();
-        currentMove.shoots.forEach(shootValue => {
-            if (player.getScore() - shootValue >= 0) {
-                player.setScore(player.getScore() - shootValue);
-            } else {
-                player.setScore(oldScore);
-                return;
-            }
-        });
+        const moveScore = currentMove.getTotalScore();
+        if (oldScore - moveScore > 0) {
+            player.setTemporaryScore(oldScore - moveScore);
+        }
     }
 
 

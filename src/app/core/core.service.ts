@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {Game} from '@app/engine/game';
-import {GameType, StandardGame, StandardPlayer} from '@app/engine/index';
+import {GameType, Standard301Game, StandardPlayer} from '@app/engine/index';
 import {GameStorageService} from '@app/core/game-storage/game-storage.service';
 import {Standard501Game} from '@app/engine/standard-501-game';
 
@@ -33,7 +33,7 @@ export class CoreService {
         let newGame: Game;
         switch (gameType) {
             case(GameType.Standard_301): {
-                newGame = new StandardGame(players);
+                newGame = new Standard301Game(players);
                 break;
             }
             case (GameType.Standard_501): {

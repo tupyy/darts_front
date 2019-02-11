@@ -50,7 +50,7 @@ export class GameService implements OnDestroy {
     }
 
     getCurrentScore(): number {
-        return this.currentPlayer.getScore();
+        return this.currentPlayer.getTemporaryScore();
     }
 
     next() {
