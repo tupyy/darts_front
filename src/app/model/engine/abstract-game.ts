@@ -156,18 +156,10 @@ export abstract class AbstractGame implements Game {
         return this.gameType;
     }
 
-    private setCurrentMove(move: StandardMove) {
-        this.currentMove = move;
-        this.currentMove.hasChanged.subscribe(val => {
-            const player = this.getPlayer(this.currentMove.playerId);
-            this.updatePlayerScore(player, this.currentMove);
-        });
-
-        this.currentMoveSource.next(move);
-        this.currentPlayerSource.next(<StandardPlayer>this.getPlayer(move.playerId));
-    }
-
-    private getNextPlayer() {
+    /**
+     * Get the next player by id order
+     */
+    protected getNextPlayer() {
         if (this.currentMove === undefined) {
             return this.getPlayer(0);
         }
@@ -177,6 +169,17 @@ export abstract class AbstractGame implements Game {
         } else {
             return this.getPlayer(id);
         }
+    }
+
+    private setCurrentMove(move: StandardMove) {
+        this.currentMove = move;
+        this.currentMove.hasChanged.subscribe(val => {
+            const player = this.getPlayer(this.currentMove.playerId);
+            this.updatePlayerScore(player, this.currentMove);
+        });
+
+        this.currentMoveSource.next(move);
+        this.currentPlayerSource.next(<StandardPlayer>this.getPlayer(move.playerId));
     }
 
     private generateID() {
