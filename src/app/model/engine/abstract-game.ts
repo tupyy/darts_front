@@ -15,9 +15,9 @@ export abstract class AbstractGame implements Game {
     //  used when stringify to json
     public abstract gameType: number;
 
-    private currentMove: StandardMove;
+    private currentMove: Move;
 
-    private currentMoveSource = new BehaviorSubject<StandardMove>(null);
+    private currentMoveSource = new BehaviorSubject<Move>(null);
     private currentPlayerSource = new BehaviorSubject<StandardPlayer>(null);
 
     private finishAnnouncedSource = new Subject<boolean>();
@@ -52,7 +52,7 @@ export abstract class AbstractGame implements Game {
 
     /**
      * Check if the game is finished
-     * @param player current player
+     * @param currentPlayer current player
      * @param currentMove current move
      */
     public abstract isGameFinished(currentPlayer: Player, currentMove: Move);
@@ -82,7 +82,7 @@ export abstract class AbstractGame implements Game {
     /**
      * Return an observable which gives the current move
      */
-    public getCurrentMove(): Observable<StandardMove> {
+    public getCurrentMove(): Observable<Move> {
         return this.currentMoveSource.asObservable();
     }
 
@@ -171,7 +171,7 @@ export abstract class AbstractGame implements Game {
         }
     }
 
-    private setCurrentMove(move: StandardMove) {
+    private setCurrentMove(move: Move) {
         this.currentMove = move;
         this.currentMove.hasChanged.subscribe(val => {
             const player = this.getPlayer(this.currentMove.playerId);
