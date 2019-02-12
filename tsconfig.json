@@ -5,7 +5,7 @@
         "paths": {
             "@app": ["app/*"],
             "@app/core/*" : ["app/core/*"],
-            "@app/engine/*" : ["app/model/*", "app/model/engine/*"],
+            "@app/model/*": ["app/model/*"],
             "@app/views/*" : ["app/views/*", "app/views/game/*"]
         },
         "outDir": "./dist/out-tsc",

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Player} from '../../../../model/engine/game';
+import {Player} from '../../../../model/game';
 
 @Component({
     selector: 'app-game-rankings',

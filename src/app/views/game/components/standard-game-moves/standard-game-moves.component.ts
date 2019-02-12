@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {StandardMove} from '../../../../model/engine/standard-move';
+import {StandardMove} from '../../../../model/standard-move';
 import {GameService} from '../../services/game.service';
 
 @Component({

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {Move} from '../../../model/engine/move';
-import {StandardMove} from '../../../model/engine/standard-move';
+import {Move} from '../../../model/move';
+import {StandardMove} from '../../../model/standard-move';
 
 @Injectable({
     providedIn: 'root'

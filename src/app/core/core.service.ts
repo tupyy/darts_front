@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {Game} from '@app/engine/game';
-import {GameType, Standard301Game, StandardPlayer} from '@app/engine/index';
+import {Game} from '@app/model/game';
+import {GameType, Standard301Game, StandardPlayer} from '@app/model/index';
 import {GameStorageService} from '@app/core/game-storage/game-storage.service';
-import {Standard501Game} from '@app/engine/standard-501-game';
+import {Standard501Game} from '@app/model/standard-501-game';
 
 @Injectable({
     providedIn: 'root'

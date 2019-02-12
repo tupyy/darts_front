@@ -1,5 +1,5 @@
 import {Component, ComponentFactoryResolver, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
-import {StandardMove, StandardPlayer} from '@app/engine/index';
+import {StandardMove, StandardPlayer} from '@app/model/index';
 import {FullBoardComponent, ReducedBoardComponent} from '../../components/board/index';
 import {BoardComponentDirective} from '../../directives/board-component.directive';
 import {GameService} from '../../services/game.service';

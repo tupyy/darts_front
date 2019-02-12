@@ -1,7 +1,7 @@
 import {Inject, Injectable} from '@angular/core';
 import {LOCAL_STORAGE, StorageService} from 'ngx-webstorage-service';
-import {Game} from '@app/engine/game';
-import {UserToken} from '@app/engine/user';
+import {Game} from '@app/model/game';
+import {UserToken} from '@app/model/user';
 
 
 const USER_TOKEN_KEY = 'user_token';

@@ -1,7 +1,7 @@
-import {AbstractGame} from '@app/engine/abstract-game';
-import {Game, GameJSON, Move} from '@app/engine/game';
-import {GameType} from '@app/engine/game-type';
-import {Player} from '@app/engine/player';
+import {AbstractGame} from './abstract-game';
+import {Game, GameJSON, Move} from './game';
+import {GameType} from './game-type';
+import {Player} from './player';
 
 /**
  *  This class implements a standard 301 points game. The difference between classic 301 points game is that

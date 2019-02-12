@@ -4,7 +4,7 @@ import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {Game, GameJSON} from './game';
 import {StandardMove} from './standard-move';
 import {StandardPlayer} from './standard-player';
-import {GameType} from '@app/engine/game-type';
+import {GameType} from './game-type';
 
 export abstract class AbstractGame implements Game {
 

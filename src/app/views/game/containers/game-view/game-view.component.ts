@@ -7,7 +7,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {PlayComponentDirective} from '../../directives/play-component.directive';
 import {StandardPlayComponent} from '../../components/standard-play-component/standard-play.component';
 import {StandardPlayBoardComponent} from '../../components/standard-play-board/standard-play-board.component';
-import {StandardMove, StandardPlayer} from '@app/engine/index';
+import {StandardMove, StandardPlayer} from '@app/model/index';
 import {StandardComponent} from '../../components/standard/standard.component';
 
 @Component({

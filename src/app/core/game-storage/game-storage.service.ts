@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpGameStorageService, LocalGameStorage} from '@app/core/game-storage';
-import {Game} from '@app/engine/game';
+import {Game} from '@app/model/game';
 import {Observable, Subscription} from 'rxjs';
 import {AuthService} from '@app/core/auth.service';
 

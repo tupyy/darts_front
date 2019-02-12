@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from 'app/core';
 // @ts-ignore
-import {GameType} from '@app/engine/game-type';
+import {GameType} from '@app/model/game-type';
 import {CoreService} from '@app/core/core.service';
 
 @Component({

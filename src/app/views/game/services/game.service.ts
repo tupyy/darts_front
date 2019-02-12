@@ -1,8 +1,8 @@
 import {Injectable, OnDestroy} from '@angular/core';
-import {Game, Move, Player, StandardPlayer} from '@app/engine/index';
+import {Game, Move, Player, StandardPlayer} from '@app/model/index';
 import {Observable, Subject, Subscription} from 'rxjs';
-import {AbstractGame} from '@app/engine/engine/abstract-game';
-import {StandardMove} from '@app/engine/standard-move';
+import {AbstractGame} from '@app/model/abstract-game';
+import {StandardMove} from '@app/model/standard-move';
 import {CoreService} from '@app/core/core.service';
 
 

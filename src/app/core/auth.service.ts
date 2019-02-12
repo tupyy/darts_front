@@ -1,7 +1,7 @@
 import {Injectable, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {BehaviorSubject} from 'rxjs';
-import {User, UserToken} from '@app/engine/user';
+import {User, UserToken} from '@app/model/user';
 import {BackendService} from './backend.service';
 import {LocalStorageService} from './local-storage.service';
 

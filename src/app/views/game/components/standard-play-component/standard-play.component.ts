@@ -1,6 +1,6 @@
 import {AfterContentInit, AfterViewInit, Component, EventEmitter, OnDestroy, OnInit, Output, QueryList, ViewChildren} from '@angular/core';
 import {ShootComponent} from '../shoot-component/shoot.component';
-import {StandardMove, StandardPlayer} from '@app/engine/index';
+import {StandardMove, StandardPlayer} from '@app/model/index';
 import {GameService} from '../../services/game.service';
 import {StandardComponent} from '../standard/standard.component';
 import {Subscription} from 'rxjs';

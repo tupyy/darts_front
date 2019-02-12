@@ -1,6 +1,6 @@
-import {Standard301Game} from '@app/engine/engine/standard-301-game';
-import {Player} from '@app/engine/player';
-import {GameType} from '@app/engine/game-type';
+import {Standard301Game} from '@app/model/standard-301-game';
+import {Player} from './player';
+import {GameType} from './game-type';
 
 export class Standard501Game extends Standard301Game {
 
