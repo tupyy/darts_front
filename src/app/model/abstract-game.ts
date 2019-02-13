@@ -64,7 +64,6 @@ export abstract class AbstractGame implements Game {
         const currentPlayer = <StandardPlayer>this.getPlayer(this.currentMove.playerId);
 
         // update score
-        this.updatePlayerScore(currentPlayer, this.currentMove);
         currentPlayer.commitScore();
         if (this.isGameFinished(currentPlayer, this.currentMove)) {
             this.finishAnnouncedSource.next(true);
