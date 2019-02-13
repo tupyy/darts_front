@@ -15,12 +15,12 @@ export abstract class AbstractGame implements Game {
     //  used when stringify to json
     public abstract gameType: number;
 
-    private currentMove: Move;
+    protected currentMove: Move;
 
     private currentMoveSource = new BehaviorSubject<Move>(null);
     private currentPlayerSource = new BehaviorSubject<StandardPlayer>(null);
 
-    private finishAnnouncedSource = new Subject<boolean>();
+    protected finishAnnouncedSource = new Subject<boolean>();
 
     protected constructor(players: Player[]) {
         this.players = players;
@@ -171,7 +171,7 @@ export abstract class AbstractGame implements Game {
         }
     }
 
-    private setCurrentMove(move: Move) {
+    protected setCurrentMove(move: Move) {
         this.currentMove = move;
         this.currentMove.hasChanged.subscribe(val => {
             const player = this.getPlayer(this.currentMove.playerId);
