@@ -21,6 +21,7 @@ export class NewGameComponent implements OnInit {
     selectedPlayers: [];
     gameTypes = GameType;
     gameTypeKeys = [];
+    selectedGameType: GameType;
 
     constructor(private coreService: CoreService,
                 private fb: FormBuilder,

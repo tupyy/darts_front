@@ -47,6 +47,10 @@
     height: 35px;
 }
 
+.game-description {
+    margin-top: 15px;
+}
+
 @media screen and (max-width: 600px) {
     .new-game-container {
         display: block;
