@@ -6,3 +6,5 @@ export * from './abstract-game';
 export * from './standard-301-game';
 export * from './standard-move';
 export * from './standard-player';
+export * from './simple-301-game';
+export * from './simple-501-game';

@@ -4,6 +4,7 @@ import {Game} from '@app/model/game';
 import {GameType, Standard301Game, StandardPlayer} from '@app/model/index';
 import {GameStorageService} from '@app/core/game-storage/game-storage.service';
 import {Standard501Game} from '@app/model/standard-501-game';
+import {Simple301Game, Simple501Game} from '@app/model/index';
 
 @Injectable({
     providedIn: 'root'
@@ -38,6 +39,14 @@ export class CoreService {
             }
             case (GameType.Standard_501): {
                 newGame = new Standard501Game(players);
+                break;
+            }
+            case (GameType.Simple_301) : {
+                newGame = new Simple301Game(players);
+                break;
+            }
+            case (GameType.Simple_501) : {
+                newGame = new Simple501Game(players);
                 break;
             }
         }
