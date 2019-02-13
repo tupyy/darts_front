@@ -41,9 +41,7 @@ export class Simple301Game extends AbstractGame {
     updatePlayerScore(player: Player, currentMove: Move) {
         const oldScore = player.getScore();
         const moveScore = currentMove.getTotalScore();
-        if (oldScore - moveScore > 0) {
-            player.setTemporaryScore(oldScore - moveScore);
-        }
+        player.setTemporaryScore(oldScore - moveScore);
     }
 
 
