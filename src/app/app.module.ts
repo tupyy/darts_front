@@ -25,7 +25,7 @@ import {coreServiceProvider} from '@app/core/core.service.provider';
         SidenavListComponent,
         LayoutComponent,
         HomeComponent,
-        LoginComponent,
+        LoginComponent
     ],
     imports: [
         BrowserAnimationsModule,

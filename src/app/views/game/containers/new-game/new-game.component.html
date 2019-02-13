@@ -1,7 +1,7 @@
 <div class="root-container new-game-container" [formGroup]="newGameForm">
     <div class="new-game-component select-game">
         <mat-form-field class="input-player-field">
-            <mat-select  placeholder="Game type" formControlName="gameTypeControl" [value]="gameTypes[0]">
+            <mat-select  placeholder="Game type" formControlName="gameTypeControl" [(ngModel)]="selectedGameType">
                 <mat-option *ngFor="let key of gameTypeKeys; let i = index" [value]="key">{{gameTypes[key]}}</mat-option>
             </mat-select>
         </mat-form-field>
@@ -31,5 +31,8 @@
     </mat-card>
     <div class="actions">
         <button mat-raised-button color="primary" [disabled]="!canStart" (click)="start()">Start</button>
+    </div>
+    <div class="game-description">
+        <app-game-type-description [gameType]="selectedGameType"></app-game-type-description>
     </div>
 </div>

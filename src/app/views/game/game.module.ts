@@ -22,6 +22,7 @@ import {StandardPlayBoardComponent} from './components/standard-play-board/stand
 import {ReducedBoardComponent} from './components/board/reduced-board.component';
 import {PlayComponentDirective} from './directives/play-component.directive';
 import {BoardBulleyeComponent} from './components/board/board-bulleye.component';
+import {GameTypeDescriptionComponent} from './components/game-type-description/game-type-description.component';
 
 @NgModule({
     declarations: [
@@ -41,7 +42,8 @@ import {BoardBulleyeComponent} from './components/board/board-bulleye.component'
         PlayComponentDirective,
         PlayerNameComponent,
         StandardPlayBoardComponent,
-        ReducedBoardComponent
+        ReducedBoardComponent,
+        GameTypeDescriptionComponent
     ],
     imports: [
         CommonModule,
