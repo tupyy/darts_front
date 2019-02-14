@@ -47,6 +47,9 @@ export class StandardPlayBoardComponent extends StandardComponent implements OnI
         this.loadBoardComponent();
     }
 
+    /**
+     * Get the name of the board styling
+     */
     get boardStyle(): string {
         return this.isFullBoard ? 'Full board' : 'Reduced board';
     }
@@ -65,18 +68,30 @@ export class StandardPlayBoardComponent extends StandardComponent implements OnI
         this.gameService.next();
     }
 
+    /**
+     * Return the current player name
+     */
     public playerName() {
         return this.currentPlayer.name;
     }
 
+    /**
+     * Return the current player score
+     */
     public playerScore() {
         return this.currentPlayer.getTemporaryScore();
     }
 
+    /**
+     * Receiver for onNewShoot event
+     */
     private onShootChanged(shoot: Shoot) {
         this.currentMove.addShoot(shoot);
     }
 
+    /**
+     * Delete a shoot from the board
+     */
     private removeShoot(id: string) {
         this.currentMove.removeShoot(id);
     }
