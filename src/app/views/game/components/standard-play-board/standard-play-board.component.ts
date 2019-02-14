@@ -44,6 +44,9 @@ export class StandardPlayBoardComponent extends StandardComponent implements OnI
         this.currentMoveSubscription.unsubscribe();
     }
 
+    /**
+     * Change board style: either full board or reduced board
+     */
     public changeBoardStyle() {
         this.isFullBoard = !this.isFullBoard;
         this.loadBoardComponent();
@@ -53,6 +56,9 @@ export class StandardPlayBoardComponent extends StandardComponent implements OnI
         return this.isFullBoard ? 'Full board' : 'Reduced board';
     }
 
+    /**
+     * Reset the current move score
+     */
     public reset() {
         this.shoots = [];
         [0, 1, 2].forEach(v => {
@@ -60,6 +66,9 @@ export class StandardPlayBoardComponent extends StandardComponent implements OnI
         });
     }
 
+    /**
+     * Proceed to the next move
+     */
     public onNext() {
         this.gameService.next();
         this.shoots = [];
@@ -94,7 +103,9 @@ export class StandardPlayBoardComponent extends StandardComponent implements OnI
         }
     }
 
-
+    /**
+     * Load the full board component or the reduced board component
+     */
     private loadBoardComponent() {
         if (this.isFullBoard) {
             const componentFactory = this.componentFactoryResolver.resolveComponentFactory(FullBoardComponent);
