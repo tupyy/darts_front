@@ -1,5 +1,5 @@
-import {Component, ComponentFactoryResolver, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
-import {StandardMove, StandardPlayer} from '@app/model/index';
+import {Component, ComponentFactoryResolver, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Move, Player, StandardMove, StandardPlayer} from '@app/model/index';
 import {FullBoardComponent, ReducedBoardComponent} from '../../components/board/index';
 import {BoardComponentDirective} from '../../directives/board-component.directive';
 import {GameService} from '../../services/game.service';
@@ -13,13 +13,12 @@ import {Subscription} from 'rxjs';
 })
 export class StandardPlayBoardComponent extends StandardComponent implements OnInit, OnDestroy {
 
-    @Input() currentMove: StandardMove;
-    @Input() currentPlayer: StandardPlayer;
-    @Output() next = new EventEmitter();
-    isFullBoard: Boolean = true;
-    private currentMoveSubscription: Subscription;
-
     public shoots = [];
+    public isFullBoard: Boolean = true;
+
+    private currentMove: Move;
+    private currentPlayer: Player;
+    private currentMoveSubscription: Subscription;
 
     @ViewChild(BoardComponentDirective) boardComponent: BoardComponentDirective;
 
@@ -32,6 +31,7 @@ export class StandardPlayBoardComponent extends StandardComponent implements OnI
         this.loadBoardComponent();
         this.currentMoveSubscription = this.gameService.getMoveObservable().subscribe(move => {
             this.currentMove = <StandardMove>move;
+            this.currentPlayer = <StandardPlayer> this.gameService.getCurrentPlayer();
         });
         this.currentMove.shoots.forEach(v => {
             if (v) {
@@ -62,6 +62,15 @@ export class StandardPlayBoardComponent extends StandardComponent implements OnI
 
     public onNext() {
         this.gameService.next();
+        this.shoots = [];
+    }
+
+    public playerName() {
+        return this.currentPlayer.name;
+    }
+
+    public playerScore() {
+        return this.currentPlayer.getTemporaryScore();
     }
 
     private onShootChanged(value: number) {

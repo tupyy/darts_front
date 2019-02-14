@@ -1,5 +1,5 @@
 <div class="board-component">
-    <app-player-name [playerName]="playerName" [playerScore]="playerScore"></app-player-name>
+    <app-player-name [playerName]="playerName()" [playerScore]="playerScore()"></app-player-name>
     <div class="shoot-values-container">
         <mat-chip-list #chipList>
             <mat-chip [color]="'primary'"
