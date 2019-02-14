@@ -60,6 +60,10 @@ export class StandardPlayBoardComponent extends StandardComponent implements OnI
         });
     }
 
+    public onNext() {
+        this.gameService.next();
+    }
+
     private onShootChanged(value: number) {
         if (this.shoots.length === 3) {
             return;
