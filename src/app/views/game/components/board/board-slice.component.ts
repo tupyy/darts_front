@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Point} from './point';
 import {SliceData, SliceType} from './slice-data';
+import {Shoot, ShootImpl, ShootType} from '@app/model/shoot';
 
 @Component({
     selector: '[board-slice-component]',
@@ -15,7 +16,7 @@ export class BoardSliceComponent implements OnInit {
     @Input() width_ratio = 0.1;
     @Input() label: number;
 
-    @Output() shootScore = new EventEmitter<number>();
+    @Output() shootScore = new EventEmitter<Shoot>();
 
     values = [];
     labelData = {
@@ -61,11 +62,11 @@ export class BoardSliceComponent implements OnInit {
 
     public onClick(index: number) {
         if (index === 0) {
-            this.shootScore.emit(2 * this.label);
+            this.shootScore.emit(new ShootImpl(2 * this.label, ShootType.DOUBLE));
         } else if (index === 1 || index === 3) {
-            this.shootScore.emit(this.label);
+            this.shootScore.emit(new ShootImpl(this.label, ShootType.NORMAL));
         } else if (index === 2) {
-            this.shootScore.emit(this.label * 3);
+            this.shootScore.emit(new ShootImpl(3 * this.label, ShootType.TRIPLE));
         }
     }
 

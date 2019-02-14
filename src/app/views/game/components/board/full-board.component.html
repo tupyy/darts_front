@@ -2,18 +2,18 @@
     <svg:g *ngFor="let data of sliceData; let i = index;"
            board-slice-component [data]="data"
            [angle_gap]="angle_gap" [width_ratio]="width_ratio" [label]="boardNumbersOrder[i]"
-           (shootScore)="onShootChange($event)"
+           (shootScore)="onNewShoot($event)"
     ></svg:g>
     <svg:g app-bullseye-component
            [center]="center"
            [radius]="60"
            [color]="'green'"
            [value]="25"
-           (shootScore)="onShootChange($event)"></svg:g>
+           (shootScore)="onNewShoot($event)"></svg:g>
     <svg:g app-bullseye-component
            [center]="center"
            [radius]="30"
            [color]="'red'"
            [value]="50"
-           (shootScore)="onShootChange($event)"></svg:g>
+           (shootScore)="onNewShoot($event)"></svg:g>
 </svg>

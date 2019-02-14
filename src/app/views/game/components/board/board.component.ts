@@ -1,6 +1,7 @@
 import {Point} from './point';
 import {SliceData} from './slice-data';
 import {EventEmitter, Output} from '@angular/core';
+import {Shoot, ShootImpl, ShootType} from '@app/model/shoot';
 
 
 export class BoardComponent {
@@ -10,7 +11,7 @@ export class BoardComponent {
     protected width_ratio = 0.1;
     protected boardNumbersOrder = [20, 1, 18, 4, 13, 6, 10, 15, 2, 17, 3, 19, 7, 16, 8, 11, 14, 9, 12, 5];
 
-    @Output() scoredChanged = new EventEmitter<number>();
+    @Output() scoredChanged = new EventEmitter<Shoot>();
 
     constructor() {
         let j = 0;
@@ -25,7 +26,7 @@ export class BoardComponent {
         }
     }
 
-    public onShootChange(value: number) {
-        this.scoredChanged.emit(value);
+    public onNewShoot(shoot: Shoot) {
+        this.scoredChanged.emit(shoot);
     }
 }
