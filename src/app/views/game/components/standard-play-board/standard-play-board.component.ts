@@ -3,7 +3,6 @@ import {Move, Player, StandardMove, StandardPlayer} from '@app/model/index';
 import {FullBoardComponent, ReducedBoardComponent} from '../../components/board/index';
 import {BoardComponentDirective} from '../../directives/board-component.directive';
 import {GameService} from '../../services/game.service';
-import {StandardComponent} from '../standard/standard.component';
 import {Subscription} from 'rxjs';
 import {Shoot} from '@app/model/shoot';
 
@@ -12,7 +11,7 @@ import {Shoot} from '@app/model/shoot';
     templateUrl: './standard-play-board.component.html',
     styleUrls: ['./standard-play-board.component.css']
 })
-export class StandardPlayBoardComponent extends StandardComponent implements OnInit, OnDestroy {
+export class StandardPlayBoardComponent implements OnInit, OnDestroy {
 
     public isFullBoard: Boolean = true;
 
@@ -24,7 +23,6 @@ export class StandardPlayBoardComponent extends StandardComponent implements OnI
 
     constructor(private componentFactoryResolver: ComponentFactoryResolver,
                 private gameService: GameService) {
-        super();
     }
 
     ngOnInit() {
