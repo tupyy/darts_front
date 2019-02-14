@@ -1,3 +1,6 @@
+/**
+ * Interface for player implementation
+ */
 export interface Player {
     id: number;
     name: string;

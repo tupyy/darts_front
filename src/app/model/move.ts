@@ -2,6 +2,9 @@
 import {EventEmitter} from '@angular/core';
 import {Shoot} from './shoot';
 
+/**
+ * It defines the interface of a "turn"
+ */
 export interface Move {
 
     /**

@@ -2,9 +2,22 @@ import {Move} from './move';
 import {EventEmitter, Output} from '@angular/core';
 import {Shoot} from './shoot';
 
+/**
+ * It represents a classic turn of a player. It holds the value of each shoot and emit a signal when the total score of the turn
+ * changes
+ */
 export class StandardMove implements Move {
+
+    /**
+     * Id of the turn. Because the turn cannot be remove,
+     * the id will be in ascend order
+     */
     id: number;
+
+    // Player id
     playerId: number;
+
+    // Holds the shoot objects
     shoots = new Array<Shoot>();
 
     @Output() hasChanged = new EventEmitter<string>();
@@ -20,7 +33,6 @@ export class StandardMove implements Move {
 
     /**
      * Get the score of a shoot
-     * @param shootId id of the shoot
      */
     public getScore(shootId: string) {
         let s = null;
@@ -35,7 +47,6 @@ export class StandardMove implements Move {
 
     /**
      * Add shoot
-     * @param shoot shoot
      */
     public addShoot(shoot: Shoot) {
         if (this.shoots.length === 3) {
@@ -45,11 +56,17 @@ export class StandardMove implements Move {
         this.hasChanged.emit();
     }
 
+    /**
+     * Remove all shoot.
+     */
     removeAll() {
         this.shoots = [];
         this.hasChanged.emit();
     }
 
+    /**
+     * Remove a shoot
+     */
     removeShoot(shootId: string) {
         this.shoots.forEach((shoot, index) => {
             if (shoot.id === shootId) {
@@ -71,6 +88,9 @@ export class StandardMove implements Move {
         return sum;
     }
 
+    /**
+     * Clone the move
+     */
     public clone() {
         const clone = new StandardMove(this.id, this.playerId);
         this.shoots.forEach((shoot) => {

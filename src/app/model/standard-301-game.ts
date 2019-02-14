@@ -29,14 +29,16 @@ export class Standard301Game extends AbstractGame {
 
     /**
      * The game is finished if the last shoot value is a double and the total score is 0
-     * @param currentPlayer current player
-     * @param currentMove current move
      */
     isGameFinished(currentPlayer: Player, currentMove: Move) {
         const lastShoot = this.getLastShootValue(currentMove);
         return currentPlayer.getTemporaryScore() === 0 && lastShoot.type === ShootType.DOUBLE;
     }
 
+    /**
+     * The current turn of the current player is finished. Proceed to the next move.
+     * It checks if the current player won the game. If not, it creates a new move and retrieve the next player.
+     */
     next() {
         // save the current move
         this.currentMove.hasChanged.unsubscribe();
@@ -62,16 +64,28 @@ export class Standard301Game extends AbstractGame {
         return undefined;
     }
 
+    /**
+     * Update the current player score
+     * @param player current player
+     */
     updatePlayerScore(player: Player, currentMove: Move) {
         const oldScore = player.getScore();
         const moveScore = currentMove.getTotalScore();
         player.setTemporaryScore(oldScore - moveScore);
     }
 
+    /**
+     * Check if the current move is not a bust.
+     * A bust is either score < 0 or score = 1. A game has to be finished with a double so 1 cannot be scored with a double.
+     */
     private isBust(currentPlayer: Player) {
         return currentPlayer.getTemporaryScore() < 0 || currentPlayer.getTemporaryScore() === 1;
     }
 
+    /**
+     * Get the last shoot of the current player.
+     * @param currentMove
+     */
     private getLastShootValue(currentMove: Move) {
         return currentMove.shoots[currentMove.shoots.length - 1];
     }

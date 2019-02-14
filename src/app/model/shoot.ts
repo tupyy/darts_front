@@ -1,3 +1,6 @@
+/**
+ * Shoot type enum. It defines if a shoot is a double, triple or bullseye shoot
+ */
 export enum ShootType {
     NORMAL = 0,
     DOUBLE,
@@ -6,12 +9,18 @@ export enum ShootType {
     BULLSEYE
 }
 
+/**
+ * Interface for shoot objects
+ */
 export interface Shoot {
     value: number;
     type: ShootType;
     id: string;
 }
 
+/**
+ * It holds the value and the type of a "shoot"
+ */
 export class ShootImpl implements Shoot {
     type: ShootType;
     value: number;

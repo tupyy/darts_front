@@ -25,9 +25,7 @@ export class Simple301Game extends AbstractGame {
     }
 
     /**
-     * The first player to reach 0 wins.
-     * @param currentPlayer
-     * @param currentMove
+     * The first player to reach 0 wins. It doesn't take into account if the last shoot is a double.
      */
     isGameFinished(currentPlayer: Player, currentMove: Move) {
         return currentPlayer.getScore() === 0;
@@ -38,6 +36,9 @@ export class Simple301Game extends AbstractGame {
         return undefined;
     }
 
+    /**
+     * Update the player temporary score when the current move score changes
+     */
     updatePlayerScore(player: Player, currentMove: Move) {
         const oldScore = player.getScore();
         const moveScore = currentMove.getTotalScore();
