@@ -1,14 +1,10 @@
-import {Component, ComponentFactoryResolver, ComponentRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {GameService} from '../../services/game.service';
-import {BehaviorSubject, Subscription} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {GameFinishAnnounceComponent} from '../../components/game-finish-announce/game-finish-announce.component';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {ActivatedRoute, Router} from '@angular/router';
-import {PlayComponentDirective} from '../../directives/play-component.directive';
-import {StandardPlayComponent} from '../../components/standard-play-component/standard-play.component';
 import {StandardPlayBoardComponent} from '../../components/standard-play-board/standard-play-board.component';
-import {StandardMove, StandardPlayer} from '@app/model/index';
-import {StandardComponent} from '../../components/standard/standard.component';
 
 @Component({
     selector: 'app-play-view',
@@ -18,18 +14,14 @@ import {StandardComponent} from '../../components/standard/standard.component';
 export class GameViewComponent implements OnInit, OnDestroy {
 
     gameFinishSubscription: Subscription;
-    public showBoard = new BehaviorSubject<boolean>(false);
-
 
     private dialogRef: MatDialogRef<GameFinishAnnounceComponent>;
-    @ViewChild(PlayComponentDirective) playDirective: PlayComponentDirective;
-    private componentRef: ComponentRef<any>;
+    @ViewChild(StandardPlayBoardComponent) boardComponent: StandardPlayBoardComponent;
 
     constructor(private gameService: GameService,
                 public dialog: MatDialog,
                 private router: Router,
-                private activatedRoute: ActivatedRoute,
-                private componentFactoryResolver: ComponentFactoryResolver) {
+                private activatedRoute: ActivatedRoute) {
 
     }
 
@@ -42,10 +34,6 @@ export class GameViewComponent implements OnInit, OnDestroy {
             if (val) {
                 this.openDialog();
             }
-        });
-
-        this.showBoard.subscribe(val => {
-            this.loadPlayComponent(this.showBoard.value);
         });
     }
 
@@ -71,42 +59,4 @@ export class GameViewComponent implements OnInit, OnDestroy {
         this.gameFinishSubscription.unsubscribe();
     }
 
-    get playerName(): string {
-        return this.gameService.getCurrentPlayer().name;
-    }
-
-    get playerScore(): number {
-        return this.gameService.getCurrentScore();
-    }
-
-    getRankingList() {
-        return this.gameService.getRankingList();
-    }
-
-    getMoves() {
-        return this.gameService.getMoves();
-    }
-
-    onNext() {
-        this.gameService.next();
-        this.reset();
-    }
-
-    reset() {
-        this.componentRef.instance.reset();
-    }
-
-    private loadPlayComponent(_showBoard: boolean) {
-        if (!_showBoard) {
-            const componentFactory = this.componentFactoryResolver.resolveComponentFactory(StandardPlayComponent);
-            const viewContainerRef = this.playDirective.viewContainerRef;
-            viewContainerRef.clear();
-            this.componentRef = viewContainerRef.createComponent(componentFactory);
-        } else {
-            const componentFactory = this.componentFactoryResolver.resolveComponentFactory(StandardPlayBoardComponent);
-            const viewContainerRef = this.playDirective.viewContainerRef;
-            viewContainerRef.clear();
-            this.componentRef = viewContainerRef.createComponent(componentFactory);
-        }
-    }
 }
