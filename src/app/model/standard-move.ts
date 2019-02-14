@@ -1,21 +1,20 @@
 import {Move} from './move';
 import {EventEmitter, Output} from '@angular/core';
+import {Shoot} from './shoot';
 
 export class StandardMove implements Move {
     id: number;
     playerId: number;
-    shoots: number[];
+    shoots = new Array<Shoot>();
 
-    @Output() hasChanged = new EventEmitter<number>();
+    @Output() hasChanged = new EventEmitter<string>();
 
-    constructor(id: number, playerId: number, shoots?: number[]) {
+    constructor(id: number, playerId: number, shoots?: Shoot[]) {
         this.id = id;
         this.playerId = playerId;
 
         if (shoots !== undefined) {
             this.shoots = shoots;
-        } else {
-            this.shoots = [0, 0, 0];
         }
     }
 
@@ -23,22 +22,42 @@ export class StandardMove implements Move {
      * Get the score of a shoot
      * @param shootId id of the shoot
      */
-    public getScore(shootId: number) {
-        try {
-            return this.shoots[shootId];
-        } catch (e) {
-            return 0;
-        }
+    public getScore(shootId: string) {
+        let s = null;
+        this.shoots.forEach(shoot => {
+            if (shoot.id === shootId) {
+                s = shoot;
+                return;
+            }
+        });
+        return s;
     }
 
     /**
-     * Set the score of a shoot
-     * @param shootId shoot id
-     * @param value value
+     * Add shoot
+     * @param shoot shoot
      */
-    public setScore(shootId: number, value: number) {
-        this.shoots[shootId] = value;
-        this.hasChanged.next(shootId);
+    public addShoot(shoot: Shoot) {
+        if (this.shoots.length === 3) {
+            return;
+        }
+        this.shoots.push(shoot);
+        this.hasChanged.emit();
+    }
+
+    removeAll() {
+        this.shoots = [];
+        this.hasChanged.emit();
+    }
+
+    removeShoot(shootId: string) {
+        this.shoots.forEach((shoot, index) => {
+            if (shoot.id === shootId) {
+                this.shoots.splice(index, 1);
+                this.hasChanged.emit();
+                return;
+            }
+        });
     }
 
     /**
@@ -46,16 +65,16 @@ export class StandardMove implements Move {
      */
     public getTotalScore(): number {
         let sum = 0;
-        this.shoots.forEach(val => {
-            sum += val;
+        this.shoots.forEach(shoot => {
+            sum += shoot.value;
         });
         return sum;
     }
 
     public clone() {
         const clone = new StandardMove(this.id, this.playerId);
-        this.shoots.forEach((val, index) => {
-            clone.shoots[index] = val;
+        this.shoots.forEach((shoot) => {
+            clone.shoots.push(shoot);
         });
         return clone;
     }
@@ -71,4 +90,6 @@ export class StandardMove implements Move {
         const move = Object.create(StandardMove.prototype);
         return Object.assign(move, moveJSON);
     }
+
+
 }
