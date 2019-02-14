@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 import {GameRoutingModule} from './game-routing.module';
-import {StandardPlayComponent} from './components/standard-play-component/standard-play.component';
 import {ShootComponent} from './components/shoot-component/shoot.component';
 import {GameRankingComponent} from './components/game-ranking/game-ranking.component';
 import {NewGameComponent} from './containers/new-game/new-game.component';
@@ -26,7 +25,6 @@ import {GameTypeDescriptionComponent} from './components/game-type-description/g
 
 @NgModule({
     declarations: [
-        StandardPlayComponent,
         ShootComponent,
         GameRankingComponent,
         NewGameComponent,
@@ -56,7 +54,6 @@ import {GameTypeDescriptionComponent} from './components/game-type-description/g
     providers: [GameService],
     entryComponents: [
         GameFinishAnnounceComponent,
-        StandardPlayComponent,
         StandardPlayBoardComponent,
         FullBoardComponent,
         ReducedBoardComponent
