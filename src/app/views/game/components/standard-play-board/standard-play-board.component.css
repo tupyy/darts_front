@@ -8,3 +8,21 @@
     padding: 8px;
     background-color: #f2f2f2;
 }
+
+.action-buttons-container {
+    position: relative;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.action-buttons button {
+    float: right;
+}
