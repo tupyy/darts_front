@@ -4,6 +4,7 @@ import {GameType} from './game-type';
 import {Player} from './player';
 import {StandardPlayer} from '@app/model/standard-player';
 import {StandardMove} from '@app/model/standard-move';
+import {ShootType} from '@app/model/shoot';
 
 /**
  *  This class implements a standard 301 points game. The difference between classic 301 points game is that
@@ -32,8 +33,8 @@ export class Standard301Game extends AbstractGame {
      * @param currentMove current move
      */
     isGameFinished(currentPlayer: Player, currentMove: Move) {
-        const lastValue = this.getLastShootValue(currentMove);
-        return currentPlayer.getTemporaryScore() === 0 && lastValue % 2 === 0 && lastValue % 3 !== 0;
+        const lastShoot = this.getLastShootValue(currentMove);
+        return currentPlayer.getTemporaryScore() === 0 && lastShoot.type === ShootType.DOUBLE;
     }
 
     next() {
@@ -72,14 +73,7 @@ export class Standard301Game extends AbstractGame {
     }
 
     private getLastShootValue(currentMove: Move) {
-        let lastValue = 0;
-        currentMove.shoots.forEach(val => {
-            if (val !== 0) {
-                lastValue = val;
-            }
-        });
-
-        return lastValue;
+        return currentMove.shoots[currentMove.shoots.length - 1];
     }
 
 

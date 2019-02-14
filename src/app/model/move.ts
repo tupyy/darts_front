@@ -1,5 +1,6 @@
 // TODO rename to "turn"
 import {EventEmitter} from '@angular/core';
+import {Shoot} from './shoot';
 
 export interface Move {
 
@@ -16,25 +17,35 @@ export interface Move {
     /**
      * The value of the three shoots
      */
-    shoots: number[];
+    shoots: Shoot[];
 
     /**
      * Event to be emitted when a shoot score is changed
      */
-    hasChanged: EventEmitter<number>;
+    hasChanged: EventEmitter<string>;
 
     /**
      * Get the score of a shoot id
      * @param shootId shoot id
      */
-    getScore(shootId: number): number;
+    getScore(shootId: string): number;
 
     /**
      * Set the score
-     * @param shootId shoot id
-     * @param value value
+     * @param shoot shoot object
      */
-    setScore(shootId: number, value: number);
+    addShoot(shoot: Shoot);
+
+    /**
+     * Remove shoot
+     * @param shootId shoot id
+     */
+    removeShoot(shootId: string);
+
+    /**
+     * Remove all shoots
+     */
+    removeAll();
 
     /**
      * Get total score
