@@ -172,7 +172,7 @@ export abstract class AbstractGame implements Game {
 
     protected setCurrentMove(move: Move) {
         this.currentMove = move;
-        this.currentMove.hasChanged.subscribe(val => {
+        this.currentMove.hasChanged.subscribe(() => {
             const player = this.getPlayer(this.currentMove.playerId);
             this.updatePlayerScore(player, this.currentMove);
         });
