@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {StandardMove} from '../../../../model/standard-move';
+import {Component, OnInit} from '@angular/core';
 import {GameService} from '../../services/game.service';
+
 
 @Component({
     selector: 'app-game-moves',
@@ -9,13 +9,15 @@ import {GameService} from '../../services/game.service';
 })
 export class StandardGameMovesComponent implements OnInit {
 
-    @Input() moves: StandardMove[];
-
     constructor(private gameService: GameService) {
     }
 
     playerName(): string {
         return this.gameService.getCurrentPlayer().name;
+    }
+
+    moves() {
+        return this.gameService.getMoves();
     }
 
     ngOnInit() {
