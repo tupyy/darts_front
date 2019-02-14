@@ -5,6 +5,7 @@ import {BoardComponentDirective} from '../../directives/board-component.directiv
 import {GameService} from '../../services/game.service';
 import {StandardComponent} from '../standard/standard.component';
 import {Subscription} from 'rxjs';
+import {Shoot} from '@app/model/shoot';
 
 @Component({
     selector: 'app-standard-play-board',
@@ -13,10 +14,9 @@ import {Subscription} from 'rxjs';
 })
 export class StandardPlayBoardComponent extends StandardComponent implements OnInit, OnDestroy {
 
-    public shoots = [];
     public isFullBoard: Boolean = true;
 
-    private currentMove: Move;
+    public currentMove: Move;
     private currentPlayer: Player;
     private currentMoveSubscription: Subscription;
 
@@ -31,12 +31,7 @@ export class StandardPlayBoardComponent extends StandardComponent implements OnI
         this.loadBoardComponent();
         this.currentMoveSubscription = this.gameService.getMoveObservable().subscribe(move => {
             this.currentMove = <StandardMove>move;
-            this.currentPlayer = <StandardPlayer> this.gameService.getCurrentPlayer();
-        });
-        this.currentMove.shoots.forEach(v => {
-            if (v) {
-                this.shoots.push(v);
-            }
+            this.currentPlayer = <StandardPlayer>this.gameService.getCurrentPlayer();
         });
     }
 
@@ -60,10 +55,7 @@ export class StandardPlayBoardComponent extends StandardComponent implements OnI
      * Reset the current move score
      */
     public reset() {
-        this.shoots = [];
-        [0, 1, 2].forEach(v => {
-            this.currentMove.setScore(v, 0);
-        });
+        this.currentMove.removeAll();
     }
 
     /**
@@ -71,7 +63,6 @@ export class StandardPlayBoardComponent extends StandardComponent implements OnI
      */
     public onNext() {
         this.gameService.next();
-        this.shoots = [];
     }
 
     public playerName() {
@@ -82,25 +73,26 @@ export class StandardPlayBoardComponent extends StandardComponent implements OnI
         return this.currentPlayer.getTemporaryScore();
     }
 
-    private onShootChanged(value: number) {
-        if (this.shoots.length === 3) {
-            return;
-        }
-        this.shoots.push(value);
-        this.shoots.forEach((val, index) => {
-            this.currentMove.setScore(index, val);
-        });
+    private onShootChanged(shoot: Shoot) {
+        this.currentMove.addShoot(shoot);
     }
 
-    private removeShoot(index: number) {
-        this.shoots.splice(index, 1);
-        for (let i = 0; i < 3; i++) {
-            if (i < this.shoots.length) {
-                this.currentMove.setScore(i, this.shoots[i]);
-            } else {
-                this.currentMove.setScore(i, 0);
+    private removeShoot(id: string) {
+        this.currentMove.removeShoot(id);
+    }
+
+    /**
+     * Return the shoot with id id
+     * @param id id of the shoot
+     */
+    private getShoot(id: string) {
+        for (const shoot of this.currentMove.shoots) {
+            if (shoot.id === id) {
+                return shoot;
             }
         }
+
+        return null;
     }
 
     /**

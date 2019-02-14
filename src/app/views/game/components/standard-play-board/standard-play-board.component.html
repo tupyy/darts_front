@@ -3,10 +3,10 @@
     <div class="shoot-values-container">
         <mat-chip-list #chipList>
             <mat-chip [color]="'primary'"
-                      *ngFor="let shoot of shoots;let i = index;"
+                      *ngFor="let shoot of currentMove.shoots;"
                       [selectable]="selectable"
-                      (removed)="removeShoot(i)">
-                {{shoot}}
+                      (removed)="removeShoot(shoot.id)">
+                {{shoot.value}}
                 <mat-icon matChipRemove>cancel</mat-icon>
             </mat-chip>
         </mat-chip-list>
