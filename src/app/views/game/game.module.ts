@@ -19,9 +19,11 @@ import {FullBoardComponent} from './components/board/full-board.component';
 import {PlayerNameComponent} from './components/player-name/player-name.component';
 import {StandardPlayBoardComponent} from './components/standard-play-board/standard-play-board.component';
 import {ReducedBoardComponent} from './components/board/reduced-board.component';
-import {PlayComponentDirective} from './directives/play-component.directive';
+import {GameDescriptionDirective} from './directives/game-description.directive';
 import {BoardBulleyeComponent} from './components/board/board-bulleye.component';
 import {GameTypeDescriptionComponent} from './components/game-type-description/game-type-description.component';
+import {Standard501DescriptionComponent} from './components/game-type-description/standard-501-description.component';
+import {Standard301DescriptionComponent} from './components/game-type-description/standard-301-description.component';
 
 @NgModule({
     declarations: [
@@ -37,11 +39,13 @@ import {GameTypeDescriptionComponent} from './components/game-type-description/g
         BoardSliceComponent,
         BoardBulleyeComponent,
         BoardComponentDirective,
-        PlayComponentDirective,
+        GameDescriptionDirective,
         PlayerNameComponent,
         StandardPlayBoardComponent,
         ReducedBoardComponent,
-        GameTypeDescriptionComponent
+        GameTypeDescriptionComponent,
+        Standard501DescriptionComponent,
+        Standard301DescriptionComponent
     ],
     imports: [
         CommonModule,
@@ -56,7 +60,9 @@ import {GameTypeDescriptionComponent} from './components/game-type-description/g
         GameFinishAnnounceComponent,
         StandardPlayBoardComponent,
         FullBoardComponent,
-        ReducedBoardComponent
+        ReducedBoardComponent,
+        Standard501DescriptionComponent,
+        Standard301DescriptionComponent
     ],
 })
 export class GameModule {
