@@ -1,10 +1,6 @@
-<mat-card class="game-type-description-container" *ngIf="showDescription; else elseBlock">
+<mat-card class="game-type-description-container">
     <mat-card-title>{{gameTypeName}}</mat-card-title>
-    <mat-card-content>{{gameTypeDescriptionContent}}</mat-card-content>
-    <ng-template #elseBlock>
-        <mat-card class="game-type-description-container">
-            <mat-card-title>Game description</mat-card-title>
-            <mat-card-content>Please select a game type to see the description</mat-card-content>
-        </mat-card>
-    </ng-template>
+    <mat-card-content>
+        <ng-template gameDescriptionComponent></ng-template>
+    </mat-card-content>
 </mat-card>
