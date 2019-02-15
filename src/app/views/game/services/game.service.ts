@@ -53,6 +53,10 @@ export class GameService implements OnDestroy {
         return this.currentPlayer.getTemporaryScore();
     }
 
+    getPlayer(playerID: number): Player {
+        return this.currentGame.getPlayer(playerID);
+    }
+
     next() {
         this.currentGame.next();
     }

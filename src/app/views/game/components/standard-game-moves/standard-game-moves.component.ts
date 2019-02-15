@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {GameService} from '../../services/game.service';
+import {Move} from '@app/model/move';
 
 
 @Component({
@@ -12,8 +13,8 @@ export class StandardGameMovesComponent implements OnInit {
     constructor(private gameService: GameService) {
     }
 
-    playerName(): string {
-        return this.gameService.getCurrentPlayer().name;
+    playerName(move: Move): string {
+        return this.gameService.getPlayer(move.playerId).name;
     }
 
     moves() {
