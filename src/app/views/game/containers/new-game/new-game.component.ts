@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from 'app/core';
 // @ts-ignore
 import {GameType} from '@app/model/game-type';
 import {CoreService} from '@app/core/core.service';
+import {Standard501DescriptionComponent} from '../../components/game-type-description/standard-501-description.component';
 
 @Component({
     selector: 'app-new-game',
@@ -24,6 +25,7 @@ export class NewGameComponent implements OnInit {
     selectedGameType: GameType;
 
     constructor(private coreService: CoreService,
+                private componentFactoryResolver: ComponentFactoryResolver,
                 private fb: FormBuilder,
                 private router: Router,
                 private authService: AuthService,
