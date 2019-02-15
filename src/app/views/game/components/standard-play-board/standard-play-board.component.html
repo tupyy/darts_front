@@ -18,20 +18,7 @@
             </mat-card-content>
         </mat-card>
     </div>
-    <!--<div class="board-selector">-->
-        <!--<mat-card class="result">-->
-            <!--<mat-card-content>-->
-                <!--<section class="board-selector-section">-->
-                    <!--<mat-slide-toggle-->
-                        <!--class="board-selector-margin"-->
-                        <!--[checked]="isFullBoard"-->
-                        <!--(toggleChange)="changeBoardStyle()">-->
-                        <!--{{boardStyle}}-->
-                    <!--</mat-slide-toggle>-->
-                <!--</section>-->
-            <!--</mat-card-content>-->
-        <!--</mat-card>-->
-    <!--</div>-->
+
     <div class="shoot-details">
         <div class="shoot-container">
             <ng-template app-board-component></ng-template>
@@ -40,19 +27,16 @@
     <div class="action-buttons-container">
         <div class="action-buttons">
             <button mat-flat-button color="warn" (click)="reset()">Clear</button>
-            <!--<mat-button-toggle-group #group="matButtonToggleGroup">-->
-            <!--<mat-button-toggle value="center"-->
-            <!--[checked]="!showBoard.value"-->
-            <!--(click)="showBoard.next(false)">-->
-            <!--<mat-icon>input</mat-icon>-->
-            <!--</mat-button-toggle>-->
-            <!--<mat-button-toggle value="center"-->
-            <!--[checked]="showBoard.value"-->
-            <!--(click)="showBoard.next(true)"-->
-            <!--&gt;-->
-            <!--<mat-icon>radio_button_checked</mat-icon>-->
-            <!--</mat-button-toggle>-->
-            <!--</mat-button-toggle-group>-->
+            <div class="board-selector">
+               <section class="board-selector-section">
+                    <mat-slide-toggle
+                        class="board-selector-margin"
+                        [checked]="isFullBoard"
+                        (toggleChange)="changeBoardStyle()">
+                        {{boardStyle}}
+                    </mat-slide-toggle>
+                </section>
+            </div>
             <button mat-flat-button color="primary" (click)="onNext()">Next</button>
         </div>
     </div>
