@@ -13,6 +13,17 @@
     position: relative;
 }
 
+.chip-shoot-content {
+    display: flex;
+    align-content: start;
+    align-items: center;
+    height: 30px;
+}
+
+.chip-list {
+    margin-left: 10px;
+}
+
 .action-buttons {
     display: flex;
     justify-content: space-between;

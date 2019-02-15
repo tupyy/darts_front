@@ -1,30 +1,37 @@
 <div class="board-component">
     <app-player-name [playerName]="playerName()" [playerScore]="playerScore()"></app-player-name>
     <div class="shoot-values-container">
-        <mat-chip-list #chipList>
-            <mat-chip [color]="'primary'"
-                      *ngFor="let shoot of currentMove.shoots;"
-                      [selectable]="selectable"
-                      (removed)="removeShoot(shoot.id)">
-                {{shoot.value}}
-                <mat-icon matChipRemove>cancel</mat-icon>
-            </mat-chip>
-        </mat-chip-list>
-    </div>
-    <div class="board-selector">
-        <mat-card class="result">
-            <mat-card-content>
-                <section class="board-selector-section">
-                    <mat-slide-toggle
-                        class="board-selector-margin"
-                        [checked]="isFullBoard"
-                        (toggleChange)="changeBoardStyle()">
-                        {{boardStyle}}
-                    </mat-slide-toggle>
-                </section>
+        <mat-card>
+            <mat-card-content class="chip-shoot-content">
+                <span class="chip-card-title">
+                    Shoots:
+                </span>
+                <mat-chip-list #chipList class="chip-list">
+                    <mat-chip [color]="'primary'"
+                              *ngFor="let shoot of currentMove.shoots;"
+                              [selectable]="true"
+                              (removed)="removeShoot(shoot.id)">
+                        {{shoot.value}}
+                        <mat-icon matChipRemove>cancel</mat-icon>
+                    </mat-chip>
+                </mat-chip-list>
             </mat-card-content>
         </mat-card>
     </div>
+    <!--<div class="board-selector">-->
+        <!--<mat-card class="result">-->
+            <!--<mat-card-content>-->
+                <!--<section class="board-selector-section">-->
+                    <!--<mat-slide-toggle-->
+                        <!--class="board-selector-margin"-->
+                        <!--[checked]="isFullBoard"-->
+                        <!--(toggleChange)="changeBoardStyle()">-->
+                        <!--{{boardStyle}}-->
+                    <!--</mat-slide-toggle>-->
+                <!--</section>-->
+            <!--</mat-card-content>-->
+        <!--</mat-card>-->
+    <!--</div>-->
     <div class="shoot-details">
         <div class="shoot-container">
             <ng-template app-board-component></ng-template>
